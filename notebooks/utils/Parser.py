@@ -1,6 +1,7 @@
 import pymupdf
 import re
 
+
 class Parser(object):
     def __init__(self):
         self.search_regex = r'(\([a-z]\)|\\n3)(.+?)\(\d{1,2}\)'
@@ -31,6 +32,7 @@ class Parser(object):
 
     def __call__(self, filepath: str) -> list[str]:
         return self.parse_questions(filepath)
+
 
 if __name__ == '__main__':
     import os
