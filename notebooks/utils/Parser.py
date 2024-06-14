@@ -1,13 +1,12 @@
 import pymupdf
 import re
 
-
 class Parser(object):
     def __init__(self):
-        self.search_regex = r'\([a-z]\)(.+?)\([0-9]+\)'
-        self.search_pattern = re.compile(self.search_regex)
+        self.search_regex = r'(\([a-z]\)|\\n3)(.+?)\(\d{1,2}\)'
+        self.search_pattern = re.compile(self.search_regex, re.DOTALL)
 
-        self.clean_regex = r'\([a-z]\)'
+        self.clean_regex = r'\([a-z]\)|\\n3'
         self.clean_pattern = re.compile(self.clean_regex)
 
         self.dot_fixer_regex = r' \.'
@@ -19,22 +18,19 @@ class Parser(object):
     def __process_questions(self, text):
         text = text.strip().replace('\\n', ' ').replace('\\t', ' ')
         text = self.clean_pattern.sub('', text)
-
         text = self.dot_fixer_pattern.sub('.', text)
-
         return ' '.join(text.split())
 
     def parse_questions(self, filepath: str) -> list[str]:
         file = pymupdf.open(filepath)
-
         file_content = ''.join(page.get_text() for page in file)
-        match = self.search_pattern.findall(self.__process_content(file_content))
-
-        return list(map(self.__process_questions, match))
+        # print(self.__process_content(file_content))
+        matches = self.search_pattern.findall(self.__process_content(file_content))
+        questions = [self.__process_questions(match[1]).lstrip('. ') for match in matches]
+        return questions
 
     def __call__(self, filepath: str) -> list[str]:
         return self.parse_questions(filepath)
-
 
 if __name__ == '__main__':
     import os
