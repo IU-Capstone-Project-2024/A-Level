@@ -38,12 +38,14 @@ class Parser(object):
 
 if __name__ == '__main__':
     import os
+    print(os.listdir('../'))
 
-    for filename in os.listdir('../data'):
+    path = '../data/pdf'
+    for filename in os.listdir(path):
         if not filename.endswith('.pdf'):
             continue
 
-        filepath = f'../data/{filename}'
+        filepath = f'{path}/{filename}'
         parser = Parser()
 
         questions = parser(filepath)
