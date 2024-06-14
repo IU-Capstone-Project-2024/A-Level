@@ -38,9 +38,9 @@ class Parser(object):
 
 if __name__ == '__main__':
     import os
-    print(os.listdir('../'))
 
     path = '../data/pdf'
+
     for filename in os.listdir(path):
         if not filename.endswith('.pdf'):
             continue
