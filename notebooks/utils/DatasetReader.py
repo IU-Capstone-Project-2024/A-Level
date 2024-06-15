@@ -7,7 +7,11 @@ class DatasetReader:
     def __init__(self):
         pass
 
-    def read_from_file(self, filename):
+    def read(self, *filenames) -> pd.DataFrame:
+        data = [self.read_from_file(filename) for filename in filenames]
+        return pd.concat(data, ignore_index=True)
+
+    def read_from_file(self, filename) -> pd.DataFrame:
         data = pd.read_csv(filename)
         data = data[data['Topic'] != 'Unit2'][['Questions', 'Topic']]
 
@@ -16,8 +20,11 @@ class DatasetReader:
         return data
 
     def read_from_dir(self, string):
-        pass
+        raise NotImplemented()
+
 
 if __name__ == '__main__':
-    data = DatasetReader().read_from_file('../../data/csv/clean_data.csv')
+    data = DatasetReader().read('../../data/csv/clean_data.csv',
+                                '../../data/parsing/save_my_exams_data.csv')
+
     print(data)
