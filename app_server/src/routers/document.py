@@ -9,7 +9,6 @@ router = APIRouter(prefix="/document", tags=["Document"])
 
 @router.post("/upload")
 async def upload(uploaded_file: UploadFile) -> Document_:
-    print(uploaded_file.file)
     return await document_service.create(uploaded_file.filename, uploaded_file.file.read())
 
 
