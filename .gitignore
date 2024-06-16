@@ -85,3 +85,6 @@ cython_debug/
 # File storage
 files/
 checkpoints/
+
+# util files for test organization
+notebooks/utils/bytes.txt
