@@ -15,7 +15,7 @@ services:
       - a_level_exam
     depends_on:
       - db
-      - model
+
 
 networks:
   a_level_exam:
