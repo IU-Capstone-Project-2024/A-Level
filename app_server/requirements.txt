@@ -9,3 +9,4 @@ pathlib
 aiohttp
 PyPDF2
 pymupdf
+pytest
