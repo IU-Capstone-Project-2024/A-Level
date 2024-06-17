@@ -83,8 +83,10 @@ cython_debug/
 
 
 # File storage
-files/
+
 checkpoints/
 
 # util files for test organization
 notebooks/utils/bytes.txt
+app_server/test/files/example.py
+app_server/test/files/test.py
