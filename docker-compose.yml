@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mongo:7.0
+    ports:
+      - 27017:27017
+    networks:
+      - a_level_exam
+  server:
+    build:
+      context: ./
+      dockerfile: ./app_server/Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - a_level_exam
+    depends_on:
+      - db
+
+
+networks:
+  a_level_exam:
+    driver: bridge

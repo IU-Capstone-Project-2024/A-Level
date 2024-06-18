@@ -1,0 +1,12 @@
+pymongo
+fastapi
+streamlit
+uvicorn
+pydantic
+beanie
+motor
+pathlib
+aiohttp
+PyPDF2
+pymupdf
+pytest
