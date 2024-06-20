@@ -9,9 +9,10 @@ import CreateQuestion from './components/CreateQuestion/CreateQuestion';
 
 function App() {
   const [tab, setTab] = useState('browse');
+
   return (
     <div className="App">
-      <Header onClick={setTab}/>
+      <Header onClick={setTab} active={tab}/>
 
       {tab === 'browse' && <BrowseFile />}
       {tab === 'uploaded' && <Uploaded />}

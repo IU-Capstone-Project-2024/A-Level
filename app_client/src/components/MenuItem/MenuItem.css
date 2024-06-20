@@ -5,3 +5,6 @@
     font-size: 1.4rem;
 }
 
+.non-active {
+    opacity: 0.6;
+}
