@@ -38,11 +38,17 @@ class DatasetReader:
 
         return data
 
-    def read_dir(self, string):
-        raise NotImplemented()
+    def read_dir(self, dir_name):
+        csv_files = []
+        for path, subdirs, files in os.walk(dir_name):
+            for file in files:
+                if file.endswith('.csv'):
+                    csv_files.append(os.path.join(path, file))
+
+        return self.read(*csv_files)
 
 
 if __name__ == '__main__':
-    data = DatasetReader(encode_labels=True).read('../../data/csv/clean_data.csv')
+    reader = DatasetReader(encode_labels=True)
+    print(reader.read_dir('../../data').describe())
 
-    print(data.describe())
