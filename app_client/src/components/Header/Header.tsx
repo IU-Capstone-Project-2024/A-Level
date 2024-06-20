@@ -1,5 +1,5 @@
-import './Header.css'
-import logo from '../../images/logo.svg'
+import './Header.css';
+import logo from '../../images/logo.svg';
 import MenuItem from '../MenuItem/MenuItem';
 
 interface ButtonProps {
