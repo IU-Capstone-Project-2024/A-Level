@@ -8,6 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body,
+#root {
+  height: 100vh;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -20,6 +25,6 @@ code {
   --color-cambridge-blue: #DAE3DB;
   --color-lavender: #E6E6FA;
   --color-light-sage: #FEFFFD;
-  --color-dark-violet: #5B4B6D;
-  --color-dark-sage: #6F7D60;
+  --color-violet-dark: #5B4B6D;
+  --color-sage-dark: #6F7D60;
 }
