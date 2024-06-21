@@ -15,7 +15,16 @@ services:
       - a_level_exam
     depends_on:
       - db
-
+  model:
+    build:
+      context: ./
+      dockerfile: ./app_model/Dockerfile
+    volumes:
+      - ./app_model/weights:/app_model/weights
+    ports:
+      - 8001:8000
+    networks:
+      - a_level_exam
 
 networks:
   a_level_exam:

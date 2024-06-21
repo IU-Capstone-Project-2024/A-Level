@@ -9,6 +9,7 @@ class DatasetReader:
     def __init__(self, encode_labels=False, test_size=None):
         self.encode_labels = encode_labels
         self.test_size = test_size
+        self.encoder = LabelEncoder() if self.encode_labels else None
 
     def read(self, *filenames) -> pd.DataFrame:
         data = [self._read_file(filename) for filename in filenames]
@@ -34,9 +35,12 @@ class DatasetReader:
 
         if self.encode_labels:
             data['Topic'] = data['Topic'].map(lambda x: '_'.join(x.split()))
-            data['Topic'] = LabelEncoder().fit_transform(data['Topic'])
+            data['Topic'] = self.encoder.fit_transform(data['Topic'])
 
         return data
+
+    def get_encodings(self):
+        return {index: label for index, label in enumerate(self.encoder.classes_)}
 
     def read_dir(self, dir_name):
         csv_files = []
@@ -51,4 +55,4 @@ class DatasetReader:
 if __name__ == '__main__':
     reader = DatasetReader(encode_labels=True)
     print(reader.read_dir('../../data').describe())
-
+    print(reader.get_encodings())
