@@ -1,0 +1,15 @@
+.menuItem {
+    border: transparent;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-family: 'Inter';
+}
+
+.non-active {
+    opacity: 0.6;
+}
+
+.active {
+    opacity: 1;
+}

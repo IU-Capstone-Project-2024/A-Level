@@ -33,3 +33,18 @@ async def read_all(offset: int=None, length: int=None) -> list[Document_]:
         logging.error(f"The following exception occured {e}\n {response}")
 
 
+
+@router.get("/{document_id}")
+async def read(document_id: PydanticObjectId) -> Document_ | None:
+    try:
+        return await document_service.read(document_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
+
+
+@router.delete("/{document_id}")
+async def delete(document_id: PydanticObjectId):
+    try:
+        return await document_service.delete(document_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
