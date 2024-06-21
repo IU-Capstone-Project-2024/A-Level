@@ -89,6 +89,10 @@ checkpoints/
 
 # util files for test organization
 notebooks/utils/bytes.txt
+
+.vscode
+.vscode/react-stateless-component.code-snippets
+
 app_server/test/files/example.py
 app_server/test/files/test.py
 app_server/rebuild.sh
