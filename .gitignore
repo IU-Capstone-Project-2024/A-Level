@@ -88,3 +88,5 @@ checkpoints/
 
 # util files for test organization
 notebooks/utils/bytes.txt
+.vscode
+.vscode/react-stateless-component.code-snippets
