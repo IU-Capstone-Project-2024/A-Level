@@ -91,3 +91,4 @@ checkpoints/
 notebooks/utils/bytes.txt
 app_server/test/files/example.py
 app_server/test/files/test.py
+app_server/rebuild.sh
