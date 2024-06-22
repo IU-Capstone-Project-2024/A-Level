@@ -45,6 +45,9 @@ class DocumentService:
     
     async def read_all(self):
         return await document_repository.read_all()
+    
+    async def update(self, document_id: PydanticObjectId, document: Document_):
+        return await document_repository.update(document_id=document_id, document_update=document)
 
     async def delete(self, document_id: PydanticObjectId):
         document = await document_repository.read(document_id)

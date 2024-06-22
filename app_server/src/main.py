@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.routers import document, task
+from src.routers import document, task, utils
 from src.storages.mongo import lifespan
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,5 +16,6 @@ app.add_middleware(
 
 app.include_router(document.router)
 app.include_router(task.router)
+app.include_router(utils.router)
 
 
