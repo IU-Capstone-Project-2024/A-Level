@@ -1,6 +1,6 @@
 from beanie import PydanticObjectId
 from pymongo.results import DeleteResult
-from src.storages.mongo.models.document import Document_, DocumentCreate
+from src.storages.mongo.models.document import Document_, DocumentCreate, DocumentUpdate
 
 
 class DocumentRepository:
@@ -10,6 +10,13 @@ class DocumentRepository:
 
     async def read(self, document_id: PydanticObjectId) -> Document_ | None:
         return await Document_.find_one({"_id": document_id})
+    
+    async def update(self, document_id: PydanticObjectId, document_update: DocumentUpdate) -> Document_ | None:
+        document = await Document_.find_one({"_id": document_id})
+        if document is None:
+            return None
+
+        return await document.set(document_update.model_dump())
     
     async def read_by_path(self, document_path: str) -> Document_ | None:
         return await Document_.find_one({"path": document_path})
