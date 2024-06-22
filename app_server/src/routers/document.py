@@ -51,5 +51,14 @@ async def delete(document_id: PydanticObjectId):
 
 
 @router.post("/{document_id}/img")
-async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
-    return img
+async def upload_img(document_id: PydanticObjectId, img: str = Form(...)) -> Document_:
+
+    try:
+        document_update = await document_service.read(document_id)
+        document_update.img = img
+        document = await document_service.update(document_id, document_update)
+        return document
+    except Exception as e:
+        with open('fuck.txt', 'a') as fuck:
+            fuck.write(e)
+    
