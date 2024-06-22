@@ -67,7 +67,9 @@
     border: 1px solid var(--color-sage);
     text-align: center;
 }
-
+.upload-input:hover {
+    background-color: var(--color-cambridge-blue);
+}
 .upload-input input[type="file"]{
    display: none;
 }
@@ -151,4 +153,9 @@
     color: var(--color-light-sage);
     background-color: var(--color-violet);
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.enabled:hover {
+    opacity: 1;
 }

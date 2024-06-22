@@ -6,6 +6,10 @@
     font-family: 'Inter';
 }
 
+.menuItem:hover{
+    opacity: 0.8;
+}
+
 .non-active {
     opacity: 0.6;
 }
