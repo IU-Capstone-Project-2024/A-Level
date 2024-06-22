@@ -2,12 +2,14 @@ import IconButton from "../IconButton/IconButton";
 import DeleteIcon from '../../images/delete.svg';
 import './DocumentHeader.css';
 
+interface DocumentHeaderProps{
+    filename: string;
+}
 
-
-export default function DocumentHeader(){
+export default function DocumentHeader({filename}: DocumentHeaderProps){
     return (
         <div className="document-header">
-            <h2 className="document-title">exam_2021.pdf</h2>
+            <h2 className="document-title">{filename}</h2>
             <div className="document-buttons">
                 <button className="detect-topics-button">Detect topics</button>
                 <IconButton icon={DeleteIcon} 
