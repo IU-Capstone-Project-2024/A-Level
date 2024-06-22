@@ -48,3 +48,8 @@ async def delete(document_id: PydanticObjectId):
         return await document_service.delete(document_id)
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
+
+
+@router.post("/{document_id}/img")
+async def upload_img(document_id: PydanticObjectId, img: UploadFile):
+    return img
