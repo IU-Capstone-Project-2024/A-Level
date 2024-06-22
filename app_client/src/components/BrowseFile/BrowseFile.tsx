@@ -55,7 +55,6 @@ export default function BrowseFile(){
                 setFile(undefined);
                 setUploadError('Only PDF files are allowed');
             }
-            console.log(file);
         }
       }
 
@@ -83,7 +82,6 @@ export default function BrowseFile(){
     
           await page.render(renderContext).promise;
           setImageSrc(canvas.toDataURL());
-          console.log(canvas.toDataURL());
         } catch (error) {
           console.error('Error rendering PDF:', error);
         }
@@ -95,10 +93,14 @@ export default function BrowseFile(){
         formData.append('uploaded_file', file as File);
         try{
             const response =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
-            console.log(response);
 
             if (response.status === 200){
-                console.log(response.data.id);
+                console.log(response.data._id);
+                const formData = new FormData();
+                formData.append('img', imageSrc as string);
+                const responseImg = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, imageSrc);
+                console.log(responseImg);
+
             } else {
                 setSubmitError('An error occurred while uploading the file');
             }
