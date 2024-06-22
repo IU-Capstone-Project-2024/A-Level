@@ -4,7 +4,7 @@
 
 | Team Member              | Telegram ID      | Email Address                      |
 |--------------------------|------------------|------------------------------------|
-| Nursultan Abdullaev      | @nursabduni      | n.abdullaev@innopolis.university   |
+| Nursultan Abdullaev      | @nursabd         | n.abdullaev@innopolis.university   |
 | Ruslan Izmailov          | @Nooth1ng        | r.izmailov@innopolis.university    |
 | Alisher Kabardiyadi      | @Eth3ri4l        | a.kabardiyadi@innopolis.university |
 | Kira Strelnikova         | @Kira354         | k.strelnikova@innopolis.university |
