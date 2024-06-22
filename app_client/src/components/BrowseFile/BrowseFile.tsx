@@ -98,7 +98,7 @@ export default function BrowseFile(){
                 console.log(response.data._id);
                 const formData = new FormData();
                 formData.append('img', imageSrc as string);
-                const responseImg = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, imageSrc);
+                const responseImg = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
                 console.log(responseImg);
 
             } else {
@@ -157,6 +157,7 @@ export default function BrowseFile(){
                 <button className={"submit-button "+ (browsed ? "enabled" : "disabled")} onClick={browsed ? onSubmitHandler : () => ''}>Submit</button>
         </div>
         
+
        
         </div>
     );

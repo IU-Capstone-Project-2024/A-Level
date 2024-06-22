@@ -1,5 +1,5 @@
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 import logging
 
 from src.storages.mongo.models.document import Document_
@@ -51,5 +51,5 @@ async def delete(document_id: PydanticObjectId):
 
 
 @router.post("/{document_id}/img")
-async def upload_img(document_id: PydanticObjectId, img: UploadFile):
+async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
     return img
