@@ -98,7 +98,7 @@ export default function BrowseFile(){
             console.log(response);
 
             if (response.status === 200){
-                console.log(response.data.id);
+                console.log(response.data._id);
             } else {
                 setSubmitError('An error occurred while uploading the file');
             }
