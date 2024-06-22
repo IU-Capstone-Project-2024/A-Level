@@ -59,6 +59,5 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)) -> Doc
         document = await document_service.update(document_id, document_update)
         return document
     except Exception as e:
-        with open('fuck.txt', 'a') as fuck:
-            fuck.write(e)
+        return None
     
