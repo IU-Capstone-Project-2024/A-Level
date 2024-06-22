@@ -32,8 +32,14 @@ async def read(task_id: PydanticObjectId) -> Task | None:
 
 
 @router.get("/")
-async def read_all() -> list[Task]:
-    return await task_repository.read_all()
+async def read_all(offset: int=None, length: int=None) -> list[Task]:
+
+    if (offset is None) ^ (length is None):
+            raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
+
+    response = await task_repository.read_all()
+
+    return response if length is None else response[offset * length: (offset + 1) * length] 
 
 
 @router.patch("/{task_id}")
@@ -57,6 +63,13 @@ async def predict(task_id: PydanticObjectId):
         return HTTPException(status_code=404, detail=f"Task {task_id} does not exists")
 
     data = {"request": task.content}
+    url = "http://model:8000/predict"
+    
     async with aiohttp.ClientSession(trust_env=True) as session:
-        async with session.post("http://model:8000/predict", json=data) as response:
-            return await response.json()
+        async with session.post(url, json=data) as response:
+            result = await response.json()
+
+            task.topic = Topic(result['topic_id'])
+            await task_repository.update(task.id, task)
+            return result
+
