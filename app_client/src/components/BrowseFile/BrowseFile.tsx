@@ -105,6 +105,7 @@ export default function BrowseFile(){
                     setSubmitError('An error occurred while uploading the file');
                 }
 
+
             } else {
                 setSubmitError('An error occurred while uploading the file');
             }
