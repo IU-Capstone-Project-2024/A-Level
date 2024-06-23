@@ -5,6 +5,7 @@ import BrowseFile from './components/BrowseFile/BrowseFile';
 import Uploaded from './components/Uploaded/Uploaded';
 import Questions from './components/Questions/Questions';
 import CreateQuestion from './components/CreateQuestion/CreateQuestion';
+import Document from './components/Document/Document';
 
 
 function App() {
@@ -18,7 +19,6 @@ function App() {
       {tab === 'uploaded' && <Uploaded />}
       {tab === 'questions' && <Questions />}
       {tab === 'create' && <CreateQuestion />}
-      
 
     </div>
   );
