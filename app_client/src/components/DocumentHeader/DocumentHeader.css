@@ -1,0 +1,37 @@
+.document-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin: 0;
+    border-bottom: 1px solid var(--color-sage);
+}
+
+.document-title {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: 'Inter';
+    color: var(--color-dark);
+}
+
+.document-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}
+
+.delete-doc-button img{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.detect-topics-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    font-family: 'Inter';
+    color: var(--color-sage-dark);
+    background-color: transparent;
+    border: 1px solid var(--color-sage);
+    border-radius: 0.5rem;
+}

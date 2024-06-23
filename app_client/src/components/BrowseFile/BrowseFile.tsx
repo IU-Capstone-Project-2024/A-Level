@@ -95,11 +95,16 @@ export default function BrowseFile(){
             const response =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
 
             if (response.status === 200){
-                console.log(response.data._id);
                 const formData = new FormData();
                 formData.append('img', imageSrc as string);
                 const responseImg = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
-                console.log(responseImg);
+                if (responseImg.status === 200){
+
+                    
+                }else{
+                    setSubmitError('An error occurred while uploading the file');
+                }
+
 
             } else {
                 setSubmitError('An error occurred while uploading the file');
