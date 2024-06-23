@@ -14,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Header onClick={setTab} active={tab}/>
+      
 
       {tab === 'browse' && <BrowseFile />}
       {tab === 'uploaded' && <Uploaded />}
