@@ -20,6 +20,12 @@ logging.getLogger('').addHandler(file_handler)
 async def upload(uploaded_file: UploadFile) -> Document_:
     return await document_service.create(uploaded_file.filename, uploaded_file.file.read())
 
+#GET 0.0.0.0:8000/document
+
+@router.get("/number")
+async def get_number_of_docs():
+    return len(await document_service.read_all())
+
 
 @router.get("/")
 async def read_all(offset: int=None, length: int=None) -> list[Document_]:

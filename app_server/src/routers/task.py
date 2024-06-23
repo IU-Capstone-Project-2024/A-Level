@@ -32,7 +32,7 @@ async def read(task_id: PydanticObjectId) -> Task | None:
 
 
 @router.get("/")
-async def read_all(offset: int=None, length: int=None) -> list[Task]:
+async def read_all(offset: int=None, length: int=None, marks: list[int]=None, topic: list[int]=None, year: list[int]=None ) -> list[Task]:
 
     if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
