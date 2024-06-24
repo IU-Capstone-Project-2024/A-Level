@@ -8,6 +8,7 @@ import axios, { AxiosResponse } from "axios";
 interface QuestionProps {
     id: string;
     index: number;
+    topics: string[] | undefined;
 }
 
 interface TaskResponse {
@@ -26,21 +27,36 @@ interface TopicResponse {
         topic_id: number;
 }
 
-interface TopicTransformResp {
-    names: string[];
-}
+function transformString(input: string) {
+    let result = input.replace(/_/g, ' ');
+    result = result.toLowerCase();
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    return result;
+  }
 
 export default function QuestionView(question: QuestionProps) {
     const [task, setTask] = useState<TaskResponse | null>(null);
+    
 
     async function getQuestion(id : string) {
-        const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
-        if(topicResponse.status === 200){
-            const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}`);
-            if(questionResponse.status === 200){
-                const taskData : TaskResponse = questionResponse.data;
-                setTask(taskData);
+        const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}`);
+        if(questionResponse.status === 200){
+            const taskData : TaskResponse = questionResponse.data;
+            if (taskData.topic == null){
+                const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
+                if(topicResponse.status === 200){
+                    taskData.topic = transformString(topicResponse.data.topic);
+                }else {
+                    taskData.topic = "Not Assigned";
+                }
+            } else {
+                if(question.topics != undefined){
+                    taskData.topic = question.topics[parseInt(taskData.topic)];
+                } else {
+                    taskData.topic = "Not Assigned";
+                }
             }
+            setTask(taskData);
         }
     }
 

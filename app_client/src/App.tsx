@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from "axios";
 import './App.css';
 import Header from './components/Header/Header';
 import BrowseFile from './components/BrowseFile/BrowseFile';
@@ -16,13 +17,37 @@ interface DocumentProps {
   tasks: string[];
   img: string | null;
 }
+interface TopicTransformResp {
+  names: string[];
+}
+
+function transformString(input: string) {
+  let result = input.replace(/_/g, ' ');
+  result = result.toLowerCase();
+  result = result.charAt(0).toUpperCase() + result.slice(1);
+  return result;
+}
 
 
 function App() {
   const [tab, setTab] = useState<tabType>('browse');
   const [document, setDocument] = useState<DocumentProps | null>(null);
   const [displayDocument, setDisplayDocument] = useState<boolean>(false);
+  const [topics, setTopics] = useState<TopicTransformResp>();
 
+
+  async function getTopics() {
+    const topicTransformResp : AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
+      if (topicTransformResp.status === 200){
+        topicTransformResp.data.names.map(name => transformString(name));
+        setTopics(topicTransformResp.data);
+      }
+  }
+
+
+  useEffect(()=> {
+    getTopics();
+  }, []);
 
   return (
     <div className="App">
@@ -34,7 +59,7 @@ function App() {
         {tab === 'create' && <CreateQuestion />}  
       </>}
 
-      {displayDocument && <Document doc={document}/>}
+      {displayDocument && <Document doc={document} topics={topics}/>}
       
     </div>
   );
