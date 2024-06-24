@@ -4,6 +4,8 @@ import logging
 
 from src.storages.mongo.models.document import Document_
 from src.services.document import document_service
+from src.storages.mongo.repositories.utils import utils_repository
+from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
 
 router = APIRouter(prefix="/document", tags=["Document"])
 
@@ -16,9 +18,29 @@ file_handler.setFormatter(formatter)
 logging.getLogger('').addHandler(file_handler)
 
 
+@router.get("/utils")
+async def check():
+    instance = await utils_repository.read_instance()
+    with open('utils-log.log', 'w') as myfile:
+        myfile.write(instance)
+    if instance is None:
+        instance = await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
+    return instance
+
 @router.post("/upload")
 async def upload(uploaded_file: UploadFile) -> Document_:
-    return await document_service.create(uploaded_file.filename, uploaded_file.file.read())
+    try:
+        result = await document_service.create(uploaded_file.filename, uploaded_file.file.read())
+        await utils_repository.update_years(f"{result.year}")
+    except Exception as e:
+        print(f"Exception: {e}")
+        with open('utils-log.log', 'w') as myfile:
+            myfile.write(type(e))    # the exception type
+
+            myfile.write(e.args)     # arguments stored in .args
+
+            myfile.write(e) 
+    return result
 
 #GET 0.0.0.0:8000/document
 

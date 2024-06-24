@@ -13,6 +13,8 @@ from src.storages.mongo.models.document import Document_, DocumentCreate
 from src.storages.mongo.models.task import TaskCreate
 from src.storages.mongo.repositories.document import document_repository
 from src.storages.mongo.repositories.task import task_repository
+from src.storages.mongo.repositories.utils import utils_repository
+from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
 
 
 class DocumentService:
@@ -31,6 +33,7 @@ class DocumentService:
         parsed_tasks = self._parse_tasks_from_document(file)
         for parsed_task in parsed_tasks:
             task = await task_repository.create(parsed_task)
+            await utils_repository.update_marks(task.marks)
             task_ids.append(task.id)
 
         document = DocumentCreate(path=str(path), filename=filename, tasks=task_ids)
