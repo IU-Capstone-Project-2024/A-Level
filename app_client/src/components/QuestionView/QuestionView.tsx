@@ -21,7 +21,6 @@ interface TaskResponse {
     page: number | null;
 }
 
-
 interface TopicResponse {
         topic: string;
         topic_id: number;
@@ -40,18 +39,6 @@ export default function QuestionView(question: QuestionProps) {
             const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}`);
             if(questionResponse.status === 200){
                 const taskData : TaskResponse = questionResponse.data;
-                const topicTransformResp: AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
-                console.log(topicTransformResp);
-                if(topicTransformResp.status === 200){
-                    if (taskData.topic == null){
-                        taskData.topic = "Not Assigned";
-                    } else {
-                        taskData.topic = topicTransformResp.data.names[parseInt(taskData.topic)];
-                    }
-                    
-                } else {
-                    taskData.topic = "Not Assigned";
-                }
                 setTask(taskData);
             }
         }
