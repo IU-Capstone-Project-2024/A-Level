@@ -22,14 +22,39 @@ interface TaskResponse {
 }
 
 
+interface TopicResponse {
+        topic: string;
+        topic_id: number;
+}
+
+interface TopicTransformResp {
+    names: string[];
+}
 
 export default function QuestionView(question: QuestionProps) {
     const [task, setTask] = useState<TaskResponse | null>(null);
 
     async function getQuestion(id : string) {
-        const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
-        const taskData : TaskResponse = questionResponse.data;
-        setTask(taskData);
+        const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
+        if(topicResponse.status === 200){
+            const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}`);
+            if(questionResponse.status === 200){
+                const taskData : TaskResponse = questionResponse.data;
+                const topicTransformResp: AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
+                console.log(topicTransformResp);
+                if(topicTransformResp.status === 200){
+                    if (taskData.topic == null){
+                        taskData.topic = "Not Assigned";
+                    } else {
+                        taskData.topic = topicTransformResp.data.names[parseInt(taskData.topic)];
+                    }
+                    
+                } else {
+                    taskData.topic = "Not Assigned";
+                }
+                setTask(taskData);
+            }
+        }
     }
 
     useEffect(()=>{

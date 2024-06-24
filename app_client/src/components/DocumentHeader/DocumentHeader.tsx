@@ -3,7 +3,7 @@ import DeleteIcon from '../../images/delete.svg';
 import './DocumentHeader.css';
 
 interface DocumentHeaderProps{
-    filename: string;
+    filename: string | undefined;
 }
 
 export default function DocumentHeader({filename}: DocumentHeaderProps){
