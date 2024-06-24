@@ -7,11 +7,9 @@ router = APIRouter(prefix="/utils", tags=["Utils"])
 @router.get("/topicEnum")
 async def send_enum() -> Dict[str, List]:
     names = [member.name for member in Topic]
-    values = [member.value for member in Topic]
-
+    
     data = {
-        "names": names,
-        "values": values
+        "names": names
     }
     
     return data

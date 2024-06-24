@@ -3,18 +3,25 @@ import axios, { AxiosResponse } from "axios";
 import CloudArrowUp from '../../images/CloudArrowUp.svg';
 import PDF from '../../images/PDF.svg';
 import done from '../../images/done.svg';
-import React, { useState} from 'react';
+import React, { SetStateAction, useState} from 'react';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
-interface DocumentResponse {
+
+
+interface DocumentProps {
     _id: string;
     path: string;
     filename: string;
     tasks: string[];
     img: string | null;
+  }
+
+interface setDocProps{
+    setDoc: React.Dispatch<React.SetStateAction<DocumentProps | null>>;
+    setDisplayDoc: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function BrowseFile(){
+export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
     const [browsed, setBrowsed] = useState(false);
     const [file, setFile] = useState<File>();
     const [uploadError, setUploadError] = useState('');
@@ -99,15 +106,15 @@ export default function BrowseFile(){
         const formData = new FormData();
         formData.append('uploaded_file', file as File);
         try{
-            const response: AxiosResponse<DocumentResponse> =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
+            const response: AxiosResponse<DocumentProps> =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
             if (response.status === 200){
                 const formData = new FormData();
                 formData.append('img', imageSrc as string);
-                const responseImg : AxiosResponse<DocumentResponse> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
+                const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
-                    const document : DocumentResponse = responseImg.data;
-
-                    
+                    const document : DocumentProps = responseImg.data;
+                    setDoc(document);
+                    setDisplayDoc(true);
                 }else{
                     setSubmitError('An error occurred while uploading the file');
                 }
@@ -168,9 +175,6 @@ export default function BrowseFile(){
                 <p className="submit-error-message">{submitError}</p>
                 <button className={"submit-button "+ (browsed ? "enabled" : "disabled")} onClick={browsed ? onSubmitHandler : () => ''}>Submit</button>
         </div>
-        
-
-       
         </div>
     );
 }

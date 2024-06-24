@@ -2,22 +2,31 @@ import DocumentHeader from "../DocumentHeader/DocumentHeader";
 import QuestionView from "../QuestionView/QuestionView";
 import "./Document.css"
 
-interface DocumentProps {
+interface DocumentResponse {
     _id: string;
     path: string;
     filename: string;
     tasks: string[];
     img: string | null;
 }
+interface TopicTransformResp {
+    names: string[];
+}
+
+
+interface DocProps {
+    doc: (DocumentResponse | null);
+    topics: TopicTransformResp | undefined;
+}
 
 
 
-export default function Document (document: DocumentProps){
+export default function Document ({doc, topics}: DocProps){
     return (
         <div className="document-view">
             <div className="document">
-                <DocumentHeader filename={document.filename}/>
-                {document.tasks.map((task, index) => <QuestionView id={task} index={index} key={task}/>)}
+                <DocumentHeader filename={doc?.filename}/>
+                {doc?.tasks.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names}/>)}
             </div>
         </div>
     );
