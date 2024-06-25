@@ -5,7 +5,8 @@ from typing import Optional
 class UtilsRepository:
     async def create_instance(self, data: UtilsCreate) -> Utils:
         instance = Utils(**data.model_dump())
-        await instance.insert()
+        # print(instance)
+        await instance.save()
         return instance
     
     async def read_instance(self) -> Optional[Utils]:

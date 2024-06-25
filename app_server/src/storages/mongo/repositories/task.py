@@ -20,7 +20,7 @@ class TaskRepository:
 
         return await task.set(task_update.model_dump())
 
-    async def delete(self, task_id: PydanticObjectId) -> Task | None:
+    async def delete(self, task_id: PydanticObjectId):
         task = await Task.find_one({"_id": task_id})
         if task is None:
             return None

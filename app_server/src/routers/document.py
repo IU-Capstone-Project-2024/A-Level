@@ -1,4 +1,5 @@
 from beanie import PydanticObjectId
+from beanie.exceptions import CollectionWasNotInitialized
 from fastapi import APIRouter, HTTPException, UploadFile, Form
 import logging
 
@@ -20,24 +21,22 @@ logging.getLogger('').addHandler(file_handler)
 
 @router.get("/utils")
 async def check():
-    instance = await utils_repository.read_instance()
-    with open('utils-log.log', 'w') as myfile:
-        myfile.write(instance)
-    if instance is None:
-        instance = await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
-    return instance
+    return await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
+
 
 @router.post("/upload")
 async def upload(uploaded_file: UploadFile) -> Document_:
     try:
+        inst = await utils_repository.read_instance()
+        if inst is None:
+            await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
         result = await document_service.create(uploaded_file.filename, uploaded_file.file.read())
-        await utils_repository.update_years(f"{result.year}")
     except Exception as e:
         print(f"Exception: {e}")
         with open('utils-log.log', 'w') as myfile:
-            myfile.write(type(e))    # the exception type
+            myfile.write(type(e))    
 
-            myfile.write(e.args)     # arguments stored in .args
+            myfile.write(e.args)     
 
             myfile.write(e) 
     return result
