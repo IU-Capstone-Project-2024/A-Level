@@ -119,6 +119,7 @@ export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
                     setSubmitError('An error occurred while uploading the file');
                 }
 
+
             } else {
                 setSubmitError('An error occurred while uploading the file');
             }
