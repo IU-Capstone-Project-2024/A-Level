@@ -21,12 +21,6 @@ interface TopicTransformResp {
   names: string[];
 }
 
-function transformString(input: string) {
-  let result = input.replace(/_/g, ' ');
-  result = result.toLowerCase();
-  result = result.charAt(0).toUpperCase() + result.slice(1);
-  return result;
-}
 
 
 function App() {
@@ -39,7 +33,6 @@ function App() {
   async function getTopics() {
     const topicTransformResp : AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
       if (topicTransformResp.status === 200){
-        topicTransformResp.data.names.map(name => transformString(name));
         setTopics(topicTransformResp.data);
       }
   }

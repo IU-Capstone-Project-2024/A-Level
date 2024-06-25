@@ -9,6 +9,7 @@ interface QuestionProps {
     id: string;
     index: number;
     topics: string[] | undefined;
+    onDelete: (id: string) => void;
 }
 
 interface TaskResponse {
@@ -51,7 +52,7 @@ export default function QuestionView(question: QuestionProps) {
                 }
             } else {
                 if(question.topics != undefined){
-                    taskData.topic = question.topics[parseInt(taskData.topic)];
+                    taskData.topic = transformString(question.topics[parseInt(taskData.topic)]);
                 } else {
                     taskData.topic = "Not Assigned";
                 }
@@ -67,7 +68,7 @@ export default function QuestionView(question: QuestionProps) {
 
     return (
         <div className='question-container'>
-            <h6 className='question-number'>Question {question.index}</h6>
+            <h6 className='question-number'>Task {question.index}</h6>
             <div className='question-content'>
                 <div className='question-text-container'>
                     <p className='question-text'>{task?.content}</p>
@@ -84,7 +85,7 @@ export default function QuestionView(question: QuestionProps) {
                             alt="Edit icon" 
                             title="Edit"/>
                         <IconButton icon={DeleteIcon} 
-                            onClick={() => alert('Delete clicked!')} 
+                            onClick={() => question.onDelete(question.id)} 
                             alt="Delete icon" 
                             title="Delete"/>
                     </div>
