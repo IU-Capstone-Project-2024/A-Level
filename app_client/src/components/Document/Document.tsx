@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
 import DocumentHeader from "../DocumentHeader/DocumentHeader";
 import QuestionView from "../QuestionView/QuestionView";
 import "./Document.css";
@@ -31,12 +31,28 @@ interface DocProps {
 export default function Document ({doc, topics, setDocument, setDisplayDoc, setTab}: DocProps){
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
     const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
+    const deleteDocModalRef = useRef<HTMLDialogElement>();
+
+
+    useEffect(()=>{
+        let handleClickOutside = (event: MouseEvent) =>{
+            if (deleteDocModalRef.current && !deleteDocModalRef.current.contains(event.target as Node)){
+                setDeleteDocumentModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+    }, [deleteDocModalRef]);
 
     async function handleDeleteTask(id: string) {
         const responseDeleteTask : AxiosResponse<null> = await axios.delete(`http://0.0.0.0:8000/task/${id}`);
         if(responseDeleteTask.status === 200){
             const responseDoc: AxiosResponse<DocumentResponse> =  await axios.get(`http://0.0.0.0:8000/document/${doc?._id}`);
-            setQuestions(responseDoc.data.tasks);
+            if(responseDoc.data.tasks.length === 0){
+                handleDeleteDocument();
+            } else{
+                setQuestions(responseDoc.data.tasks);
+            }
         }
     }
 
@@ -45,14 +61,12 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
     }
 
 
-
     async function handleDeleteDocument() {
         if(doc != null){
             const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://0.0.0.0:8000/document/${doc._id}`);
             if(responseDelete.status === 200){
                 setDocument(null);
                 setDisplayDoc(false);
-                setDeleteDocumentModal(false);
                 setTab("uploaded");
             }
         }
@@ -62,9 +76,9 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
             <div className="document-view">
                 <div className="document">
                     <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal}/>
-                    <Modal open={deleteDocumentModal}>
+                    <Modal open={deleteDocumentModal} ref={deleteDocModalRef as React.LegacyRef<HTMLDialogElement>}>
                         <h3>Delete this document?</h3>
-                        <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
+                            <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
                     </Modal>
                     {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask}/>)}
                 </div>

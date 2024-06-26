@@ -4,6 +4,7 @@ import EditIcon from '../../images/edit.svg';
 import DeleteIcon from '../../images/delete.svg';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from "axios";
+import Modal from '../Modal/Modal';
 
 interface QuestionProps {
     id: string;
@@ -37,6 +38,7 @@ function transformString(input: string) {
 
 export default function QuestionView(question: QuestionProps) {
     const [task, setTask] = useState<TaskResponse | null>(null);
+    const [deleteTaskModal, setDeleteTaskModal] = useState<boolean>(false);
     
 
     async function getQuestion(id : string) {
@@ -66,6 +68,16 @@ export default function QuestionView(question: QuestionProps) {
 
     }, []);
 
+    function openDeleteTaskModal(){
+        setDeleteTaskModal(true);
+    }
+
+    
+    async function handleDeleteTask() {
+        question.onDelete(question.id);
+        setDeleteTaskModal(false);
+    }
+
     return (
         <div className='question-container'>
             <h6 className='question-number'>Task {question.index}</h6>
@@ -85,11 +97,15 @@ export default function QuestionView(question: QuestionProps) {
                             alt="Edit icon" 
                             title="Edit"/>
                         <IconButton icon={DeleteIcon} 
-                            onClick={() => question.onDelete(question.id)} 
+                            onClick={() => openDeleteTaskModal()} 
                             alt="Delete icon" 
                             title="Delete"/>
                     </div>
                 </div>
+                <Modal open={deleteTaskModal} ref={null}>
+                <h3>Delete the task?</h3>
+                <button className="delete-button" onClick={handleDeleteTask}>Delete</button>
+                </Modal>
             </div>
         </div>
     );

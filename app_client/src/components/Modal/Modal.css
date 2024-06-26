@@ -14,7 +14,7 @@ dialog h3{
     margin: 0 0 2rem 0;
 }
 
-dialog button {
+.delete-button{
     margin: 0;
     font-size: 1.25rem;
     font-family: 'Inter';
@@ -28,12 +28,6 @@ dialog button {
     padding: 0.5rem 1rem;
 }
 
-dialog button:hover {
-    margin: 0;
-    font-size: 1.25rem;
-    font-family: 'Inter';
-    font-weight: 500;
-    background-color: var(--color-violet);
-    color: var(--color-light-sage);
+.delete-button:hover {
     opacity: 1;
 }
