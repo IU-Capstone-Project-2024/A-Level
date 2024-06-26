@@ -52,7 +52,7 @@ function App() {
         {tab === 'create' && <CreateQuestion />}  
       </>}
 
-      {displayDocument && <Document doc={document} topics={topics}/>}
+      {displayDocument && <Document doc={document} topics={topics} setDocument={setDocument} setDisplayDoc={setDisplayDocument} setTab={setTab}/>}
       
     </div>
   );

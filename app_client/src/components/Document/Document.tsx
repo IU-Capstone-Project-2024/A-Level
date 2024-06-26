@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import DocumentHeader from "../DocumentHeader/DocumentHeader";
 import QuestionView from "../QuestionView/QuestionView";
 import "./Document.css";
@@ -15,17 +15,19 @@ interface TopicTransformResp {
     names: string[];
 }
 
+type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
 
 interface DocProps {
     doc: (DocumentResponse | null);
     topics: TopicTransformResp | undefined;
+    setDocument: Dispatch<SetStateAction<DocumentResponse | null>>;
+    setDisplayDoc: Dispatch<SetStateAction<boolean>>;
+    setTab: Dispatch<SetStateAction<tabType>>;
 }
 
 
 
-export default function Document ({doc, topics}: DocProps){
-    
-
+export default function Document ({doc, topics, setDocument, setDisplayDoc, setTab}: DocProps){
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
 
     async function handleDeleteTask(id: string) {
@@ -39,10 +41,23 @@ export default function Document ({doc, topics}: DocProps){
         }
     }
 
+    async function handleDeleteDocument() {
+        console.log(doc?._id);
+        if(doc != null){
+            const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://0.0.0.0:8000/document/${doc._id}`);
+            if(responseDelete.status === 200){
+                console.log("delete successfully");
+                setDocument(null);
+                setDisplayDoc(false);
+                setTab("uploaded");
+            }
+        }
+    }
+
         return (
             <div className="document-view">
                 <div className="document">
-                    <DocumentHeader filename={doc?.filename}/>
+                    <DocumentHeader filename={doc?.filename} onDelete={handleDeleteDocument}/>
                     {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask}/>)}
                 </div>
             </div>

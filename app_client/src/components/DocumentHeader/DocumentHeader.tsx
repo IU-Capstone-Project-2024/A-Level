@@ -4,16 +4,17 @@ import './DocumentHeader.css';
 
 interface DocumentHeaderProps{
     filename: string | undefined;
+    onDelete: () => void;
 }
 
-export default function DocumentHeader({filename}: DocumentHeaderProps){
+export default function DocumentHeader({filename, onDelete}: DocumentHeaderProps){
     return (
         <div className="document-header">
             <h2 className="document-title">{filename}</h2>
             <div className="document-buttons">
                 <button className="detect-topics-button">Detect topics</button>
                 <IconButton icon={DeleteIcon} 
-                            onClick={() => alert('Delete clicked!')} 
+                            onClick={() => onDelete()} 
                             alt="Delete icon" 
                             title="Delete" 
                             className="delete-doc-button"/>
