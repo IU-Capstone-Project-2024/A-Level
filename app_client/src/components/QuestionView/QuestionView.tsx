@@ -51,7 +51,7 @@ export default function QuestionView(question: QuestionProps) {
                     taskData.topic = "Not Assigned";
                 }
             } else {
-                if(question.topics != undefined){
+                if(question.topics !== undefined){
                     taskData.topic = transformString(question.topics[parseInt(taskData.topic)]);
                 } else {
                     taskData.topic = "Not Assigned";

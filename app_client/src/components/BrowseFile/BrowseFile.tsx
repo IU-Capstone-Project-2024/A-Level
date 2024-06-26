@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import CloudArrowUp from '../../images/CloudArrowUp.svg';
 import PDF from '../../images/PDF.svg';
 import done from '../../images/done.svg';
-import React, { SetStateAction, useState} from 'react';
+import React, { useState} from 'react';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
 

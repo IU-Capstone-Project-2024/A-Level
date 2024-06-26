@@ -3,6 +3,7 @@ import DocumentHeader from "../DocumentHeader/DocumentHeader";
 import QuestionView from "../QuestionView/QuestionView";
 import "./Document.css";
 import axios, { AxiosResponse } from "axios";
+import Modal from "../Modal/Modal";
 
 interface DocumentResponse {
     _id: string;
@@ -29,26 +30,29 @@ interface DocProps {
 
 export default function Document ({doc, topics, setDocument, setDisplayDoc, setTab}: DocProps){
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
+    const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
 
     async function handleDeleteTask(id: string) {
-        console.log(questions);
-        console.log(id);
         const responseDeleteTask : AxiosResponse<null> = await axios.delete(`http://0.0.0.0:8000/task/${id}`);
         if(responseDeleteTask.status === 200){
             const responseDoc: AxiosResponse<DocumentResponse> =  await axios.get(`http://0.0.0.0:8000/document/${doc?._id}`);
-            console.log(responseDoc.data.tasks);
             setQuestions(responseDoc.data.tasks);
         }
     }
 
+    function openDeleteDocumentModal(){
+        setDeleteDocumentModal(true);
+    }
+
+
+
     async function handleDeleteDocument() {
-        console.log(doc?._id);
         if(doc != null){
             const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://0.0.0.0:8000/document/${doc._id}`);
             if(responseDelete.status === 200){
-                console.log("delete successfully");
                 setDocument(null);
                 setDisplayDoc(false);
+                setDeleteDocumentModal(false);
                 setTab("uploaded");
             }
         }
@@ -57,7 +61,11 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
         return (
             <div className="document-view">
                 <div className="document">
-                    <DocumentHeader filename={doc?.filename} onDelete={handleDeleteDocument}/>
+                    <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal}/>
+                    <Modal open={deleteDocumentModal}>
+                        <h3>Delete this document?</h3>
+                        <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
+                    </Modal>
                     {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask}/>)}
                 </div>
             </div>
