@@ -25,7 +25,7 @@ async def check():
 
 
 @router.post("/upload")
-async def upload(uploaded_file: UploadFile) -> Document_:
+async def upload(uploaded_file: UploadFile):
     try:
         inst = await utils_repository.read_instance()
         if inst is None:
@@ -62,7 +62,7 @@ async def read_all(offset: int=None, length: int=None) -> list[Document_]:
 
 
 @router.get("/{document_id}")
-async def read(document_id: PydanticObjectId) -> Document_ | None:
+async def read(document_id: PydanticObjectId):
     try:
         return await document_service.read(document_id)
     except ValueError:
