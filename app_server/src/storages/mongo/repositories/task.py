@@ -1,5 +1,6 @@
 from beanie import PydanticObjectId
 from src.storages.mongo.models.task import Task, TaskCreate, TaskUpdate
+from src.storages.mongo.repositories.document import document_repository
 
 
 class TaskRepository:
@@ -24,6 +25,11 @@ class TaskRepository:
         task = await Task.find_one({"_id": task_id})
         if task is None:
             return None
+        document = await document_repository.read(task.document_id)
+        if document is None:
+            return None
+        document.tasks = [t for t in document.tasks if t != task_id]
+        await document_repository.update(document.id, document)
 
         return await task.delete()
 

@@ -59,7 +59,9 @@ async def update(task_id: PydanticObjectId, task_update: TaskUpdate) -> Task | N
 
 @router.delete("/{task_id}")
 async def delete(task_id: PydanticObjectId):
-    return await task_repository.delete(task_id)
+    result = await task_repository.read(task_id=task_id)
+    await task_repository.delete(task_id)
+    return result
 
 
 @router.get("/{task_id}/predict")
