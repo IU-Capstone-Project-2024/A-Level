@@ -19,6 +19,10 @@ async def send_enum() -> Dict[str, List]:
 @router.get("/")
 async def send_marks() -> Optional[Utils]:
     return await utils_repository.read_instance()
+
+@router.get("/all")
+async def send() -> Optional[List]:
+    return await utils_repository.read_all()
     
 
 

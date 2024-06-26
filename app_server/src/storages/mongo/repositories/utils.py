@@ -14,6 +14,7 @@ class UtilsRepository:
 
     async def update_years(self, key: str) -> None:
         instance = await Utils.find_one({})
+        key = f'{key}'
         if instance:
             if not instance.years:
                 instance.years = {}
@@ -33,6 +34,7 @@ class UtilsRepository:
             else:
                 instance.marks[key] += 1
             await instance.save()
+        self.instance = instance
 
     async def delete_mark(self, key: str) -> None:
         instance = await Utils.find_one({})
@@ -53,5 +55,8 @@ class UtilsRepository:
                 else:
                     del instance.years[key]
             await instance.save()
+
+    async def read_all(self):
+        return await Utils.find().to_list()
 
 utils_repository = UtilsRepository()
