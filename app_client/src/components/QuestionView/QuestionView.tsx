@@ -2,7 +2,7 @@ import IconButton from '../IconButton/IconButton';
 import './QuestionView.css';
 import EditIcon from '../../images/edit.svg';
 import DeleteIcon from '../../images/delete.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios, { AxiosResponse } from "axios";
 import Modal from '../Modal/Modal';
 
@@ -39,6 +39,20 @@ function transformString(input: string) {
 export default function QuestionView(question: QuestionProps) {
     const [task, setTask] = useState<TaskResponse | null>(null);
     const [deleteTaskModal, setDeleteTaskModal] = useState<boolean>(false);
+    const deleteTaskModalRef = useRef<HTMLDialogElement>(null);
+
+
+    useEffect(()=>{
+        let handleClickOutside = (event: MouseEvent) =>{
+            console.log(deleteTaskModalRef);
+            if (deleteTaskModalRef.current && !deleteTaskModalRef.current.contains(event.target as Node)){
+                setDeleteTaskModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+    }, [deleteTaskModalRef]);
+
     
 
     async function getQuestion(id : string) {
@@ -102,9 +116,9 @@ export default function QuestionView(question: QuestionProps) {
                             title="Delete"/>
                     </div>
                 </div>
-                <Modal open={deleteTaskModal} ref={null}>
-                <h3>Delete the task?</h3>
-                <button className="delete-button" onClick={handleDeleteTask}>Delete</button>
+                <Modal open={deleteTaskModal} ref={deleteTaskModalRef}>
+                    <h3>Delete this task?</h3>
+                    <button className="delete-button" onClick={handleDeleteTask}>Delete</button>
                 </Modal>
             </div>
         </div>

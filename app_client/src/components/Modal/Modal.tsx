@@ -1,13 +1,13 @@
 import './Modal.css';
-import { ReactNode } from 'react';
+import React, { forwardRef } from 'react';
 
-interface ModalProps{
-    children: ReactNode;
-    open: boolean;
-    ref: React.LegacyRef<HTMLDialogElement>|null;
+interface ModalProps {
+  open: boolean;
+  children: React.ReactNode;
 }
 
-
-export default function Modal({children, open, ref}: ModalProps){
+const Modal = forwardRef<HTMLDialogElement, ModalProps>(({ open, children }, ref) => {
     return <dialog ref={ref} open={open}>{children}</dialog>;
-}
+});
+
+export default Modal;

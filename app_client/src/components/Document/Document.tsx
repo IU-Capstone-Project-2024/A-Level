@@ -31,11 +31,12 @@ interface DocProps {
 export default function Document ({doc, topics, setDocument, setDisplayDoc, setTab}: DocProps){
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
     const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
-    const deleteDocModalRef = useRef<HTMLDialogElement>();
+    const deleteDocModalRef = useRef<HTMLDialogElement>(null);
 
 
     useEffect(()=>{
         let handleClickOutside = (event: MouseEvent) =>{
+            console.log(deleteDocModalRef);
             if (deleteDocModalRef.current && !deleteDocModalRef.current.contains(event.target as Node)){
                 setDeleteDocumentModal(false);
             }
@@ -76,7 +77,7 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
             <div className="document-view">
                 <div className="document">
                     <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal}/>
-                    <Modal open={deleteDocumentModal} ref={deleteDocModalRef as React.LegacyRef<HTMLDialogElement>}>
+                    <Modal open={deleteDocumentModal} ref={deleteDocModalRef}>
                         <h3>Delete this document?</h3>
                             <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
                     </Modal>
