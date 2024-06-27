@@ -11,6 +11,7 @@ interface QuestionProps {
     index: number;
     topics: string[] | undefined;
     onDelete: (id: string) => void;
+    predict: boolean;
 }
 
 interface TaskResponse {
@@ -44,7 +45,6 @@ export default function QuestionView(question: QuestionProps) {
 
     useEffect(()=>{
         let handleClickOutside = (event: MouseEvent) =>{
-            console.log(deleteTaskModalRef);
             if (deleteTaskModalRef.current && !deleteTaskModalRef.current.contains(event.target as Node)){
                 setDeleteTaskModal(false);
             }
@@ -60,10 +60,14 @@ export default function QuestionView(question: QuestionProps) {
         if(questionResponse.status === 200){
             const taskData : TaskResponse = questionResponse.data;
             if (taskData.topic == null){
-                const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
-                if(topicResponse.status === 200){
-                    taskData.topic = transformString(topicResponse.data.topic);
-                }else {
+                if (question.predict){
+                    const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
+                    if(topicResponse.status === 200){
+                        taskData.topic = transformString(topicResponse.data.topic);
+                    }else {
+                        taskData.topic = "Not Assigned";
+                    }
+                } else {
                     taskData.topic = "Not Assigned";
                 }
             } else {
@@ -80,7 +84,7 @@ export default function QuestionView(question: QuestionProps) {
     useEffect(()=>{
         getQuestion(question.id);
 
-    }, []);
+    }, [question.predict]);
 
     function openDeleteTaskModal(){
         setDeleteTaskModal(true);

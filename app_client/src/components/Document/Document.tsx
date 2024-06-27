@@ -32,11 +32,11 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
     const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
     const deleteDocModalRef = useRef<HTMLDialogElement>(null);
+    const [predict, setPredict] = useState<boolean>(false);
 
 
     useEffect(()=>{
         let handleClickOutside = (event: MouseEvent) =>{
-            console.log(deleteDocModalRef);
             if (deleteDocModalRef.current && !deleteDocModalRef.current.contains(event.target as Node)){
                 setDeleteDocumentModal(false);
             }
@@ -76,12 +76,12 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
         return (
             <div className="document-view">
                 <div className="document">
-                    <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal}/>
+                    <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal} onPredict={setPredict}/>
                     <Modal open={deleteDocumentModal} ref={deleteDocModalRef}>
                         <h3>Delete this document?</h3>
                             <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
                     </Modal>
-                    {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask}/>)}
+                    {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask} predict={predict}/>)}
                 </div>
             </div>
         );
