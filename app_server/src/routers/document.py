@@ -1,5 +1,5 @@
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 import logging
 
 from src.storages.mongo.models.document import Document_
@@ -48,3 +48,16 @@ async def delete(document_id: PydanticObjectId):
         return await document_service.delete(document_id)
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
+
+
+@router.post("/{document_id}/img")
+async def upload_img(document_id: PydanticObjectId, img: str = Form(...)) -> Document_:
+
+    try:
+        document_update = await document_service.read(document_id)
+        document_update.img = img
+        document = await document_service.update(document_id, document_update)
+        return document
+    except Exception as e:
+        return None
+    
