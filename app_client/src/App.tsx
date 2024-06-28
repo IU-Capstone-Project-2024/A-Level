@@ -31,7 +31,7 @@ function App() {
 
 
   async function getTopics() {
-    const topicTransformResp : AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
+    const topicTransformResp : AxiosResponse<TopicTransformResp> = await axios.get(`http://localhost:8000/utils/topicEnum`);
       if (topicTransformResp.status === 200){
         setTopics(topicTransformResp.data);
       }
