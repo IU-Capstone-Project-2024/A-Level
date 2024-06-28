@@ -1,7 +1,9 @@
-import './Uploaded.css';
-import Grid from '../GridUploadedFile/GridUploadedFile';
+import './UploadedFilesPage.css';
+import Grid from '../../components/GridUploadedFile/GridUploadedFile';
 import { useState } from 'react';
-import Pagination from '../PaginationUploaded/PaginationUploaded';
+import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
+
+
 
 const tiles = [
     {image:"https://via.placeholder.com/100", title:"pdf1"},
@@ -42,7 +44,7 @@ const tiles = [
 const tilesCount = tiles.length;
 const maxTilesPerPage = 5;
 
-export default function Uploaded(){
+export default function UploadedFilesPage(){
     return (
         <div className="uploaded-page-content">
             <div className="center-container">
@@ -51,4 +53,4 @@ export default function Uploaded(){
             </div>
         </div>
     );
-};
+}

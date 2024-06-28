@@ -20,6 +20,7 @@ code {
 
 :root {
   --color-dark: #3B2C35;
+  --color-dark-rgb: 59, 44, 53;
   --color-violet: #967BB6;
   --color-sage: #9AAB89;
   --color-cambridge-blue: #DAE3DB;

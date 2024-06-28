@@ -1,9 +1,11 @@
-import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
-import DocumentHeader from "../DocumentHeader/DocumentHeader";
-import QuestionView from "../QuestionView/QuestionView";
-import "./Document.css";
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import './DocumentViewPage.css';
+import { useState, useRef, useEffect } from "react";
+import DocumentHeader from "../../components/DocumentHeader/DocumentHeader";
+import QuestionView from "../../components/QuestionView/QuestionView";
 import axios, { AxiosResponse } from "axios";
-import Modal from "../Modal/Modal";
+import Modal from "../../components/Modal/Modal";
+import { useTab } from '../../context/TabContext';
 
 interface DocumentResponse {
     _id: string;
@@ -16,19 +18,15 @@ interface TopicTransformResp {
     names: string[];
 }
 
-type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
-
-interface DocProps {
-    doc: (DocumentResponse | null);
-    topics: TopicTransformResp | undefined;
-    setDocument: Dispatch<SetStateAction<DocumentResponse | null>>;
-    setDisplayDoc: Dispatch<SetStateAction<boolean>>;
-    setTab: Dispatch<SetStateAction<tabType>>;
-}
 
 
+export default function DocumentViewPage(){
+    const { filename } = useParams<{ filename: string }>();
+    const location = useLocation();
+    const { doc, topics } = location.state as { doc: DocumentResponse, topics: TopicTransformResp};
+    const navigate = useNavigate();
+    const { setTab } = useTab();
 
-export default function Document ({doc, topics, setDocument, setDisplayDoc, setTab}: DocProps){
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
     const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
     const deleteDocModalRef = useRef<HTMLDialogElement>(null);
@@ -66,9 +64,8 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
         if(doc != null){
             const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://localhost:8000/document/${doc._id}`);
             if(responseDelete.status === 200){
-                setDocument(null);
-                setDisplayDoc(false);
-                setTab("uploaded");
+                setTab('uploaded');
+                navigate('/uploaded');
             }
         }
     }
@@ -76,7 +73,7 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
         return (
             <div className="document-view">
                 <div className="document">
-                    <DocumentHeader filename={doc?.filename} onDelete={openDeleteDocumentModal} onPredict={setPredict}/>
+                    <DocumentHeader filename={filename} onDelete={openDeleteDocumentModal} onPredict={setPredict}/>
                     <Modal open={deleteDocumentModal} ref={deleteDocModalRef}>
                         <h3>Delete this document?</h3>
                             <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>

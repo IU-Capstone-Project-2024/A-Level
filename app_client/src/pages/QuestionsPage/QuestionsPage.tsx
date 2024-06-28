@@ -1,13 +1,13 @@
-import './Questions.css';
+import './QuestionsPage.css';
 import axios from "axios";
-import Dropdown from '../DropdownQuestionsMenu/DropdownQuestionsMenu';
-import Table from '../QuestionsTable/QuestionsTable';
+import Dropdown from '../../components/DropdownQuestionsMenu/DropdownQuestionsMenu';
+import Table from '../../components/QuestionsTable/QuestionsTable';
 import markIcon from '../../images/markIcon.svg'
 import yearIcon from '../../images/yearIcon.svg'
 import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
 import { useState, useEffect } from 'react';
-import Pagination from '../PaginationUploaded/PaginationUploaded';
+import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 
 interface Option {
     id: number;
@@ -59,7 +59,7 @@ const data: TableData[] = [
 ];
 
 
-export default function Questions() {
+export default function QuestionsPage() {
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
     const handleOptionClick = (option: Option) => {
