@@ -9,7 +9,7 @@ import CreateQuestion from './components/CreateQuestion/CreateQuestion';
 import Document from './components/Document/Document';
 import { Outlet } from 'react-router';
 
-type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
+type tabType = 'browse' | 'uploaded' | 'questions' |'create' | 'generate'| null;
 
 interface DocumentProps {
   _id: string;
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header onClick={setTab} active={tab} setDisplayDoc={setDisplayDocument}/>
+      <Header active={tab}/>
       <Outlet />
       {/* {!displayDocument && <>
         {tab === 'browse' && <BrowseFile setDoc={setDocument} setDisplayDoc={setDisplayDocument}/>}

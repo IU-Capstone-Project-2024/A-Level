@@ -1,18 +1,17 @@
 import { SetStateAction } from 'react';
 import './MenuItem.css'
+import { Link } from 'react-router-dom';
 
 type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
 
 interface MenuItemProps {
     className: string;
     item: string;
-    onClick: (event: SetStateAction<tabType>) => void;
     arg: tabType;
-    setDisplayDoc: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MenuItem({className, item, onClick, arg, setDisplayDoc}: MenuItemProps){
+export default function MenuItem({className, item, arg}: MenuItemProps){
     return (
-        <button className={"menuItem " + className} onClick={() => {onClick(arg); setDisplayDoc(false);}}>{item}</button>
+        <Link to={"/"+arg}className={"menuItem " + className}>{item}</Link>
     );
 }

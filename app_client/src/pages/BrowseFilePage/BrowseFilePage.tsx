@@ -20,7 +20,7 @@ interface setDocProps{
 }
 
 
-export default function BrowseFilePage({setDoc, setDisplayDoc}: setDocProps){
+export default function BrowseFilePage(){
     const [browsed, setBrowsed] = useState(false);
     const [file, setFile] = useState<File>();
     const [uploadError, setUploadError] = useState('');
@@ -112,8 +112,8 @@ export default function BrowseFilePage({setDoc, setDisplayDoc}: setDocProps){
                 const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
                     const document : DocumentProps = responseImg.data;
-                    setDoc(document);
-                    setDisplayDoc(true);
+                    // setDoc(document);
+                    
                 }else{
                     setSubmitError('An error occurred while uploading the file');
                 }
