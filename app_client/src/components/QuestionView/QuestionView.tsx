@@ -56,12 +56,12 @@ export default function QuestionView(question: QuestionProps) {
     
 
     async function getQuestion(id : string) {
-        const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}`);
+        const questionResponse: AxiosResponse<TaskResponse> = await axios.get(`http://localhost:8000/task/${id}`);
         if(questionResponse.status === 200){
             const taskData : TaskResponse = questionResponse.data;
             if (taskData.topic == null){
                 if (question.predict){
-                    const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://0.0.0.0:8000/task/${id}/predict`);
+                    const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://localhost:8000/task/${id}/predict`);
                     if(topicResponse.status === 200){
                         taskData.topic = transformString(topicResponse.data.topic);
                     }else {
