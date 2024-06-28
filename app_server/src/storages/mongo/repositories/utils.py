@@ -14,17 +14,23 @@ class UtilsRepository:
 
     async def update_years(self, key: str) -> None:
         instance = await Utils.find_one({})
+        key = f'{key}'
         if instance:
             if not instance.years:
                 instance.years = {}
             if key not in instance.years or instance.years[key] is None:
+                # with('utils-log.log', 'a') as file:
+                #     file.write(f"a\n{instance} {key}\n------\n")
                 instance.years[key] = 1
             else:
+                # with('utils-log.log', 'a') as file:
+                #     file.write(f"b\n{instance} {key}\n------\n")
                 instance.years[key] += 1
             await instance.save()
 
     async def update_marks(self, key: str) -> None:
         instance = await Utils.find_one({})
+        key = f'{key}'
         if instance:
             if not instance.marks:
                 instance.marks = {}
@@ -33,25 +39,39 @@ class UtilsRepository:
             else:
                 instance.marks[key] += 1
             await instance.save()
+        # self.instance = instance
 
     async def delete_mark(self, key: str) -> None:
         instance = await Utils.find_one({})
-        if instance and instance.marks:
-            if key in instance.marks:
-                if instance.marks[key] > 1:
-                    instance.marks[key] -= 1
-                else:
-                    del instance.marks[key]
-            await instance.save()
+        key = f'{key}'
+        try:
+            if instance and instance.marks:
+                if key in instance.marks:
+                    if instance.marks[key] > 1:
+                        instance.marks[key] -= 1
+                    else:
+                        del instance.marks[key]
+                await instance.save()
+        except Exception as e:
+            with open('logfile.log', 'a') as logfile:
+                logfile.write(f"{e}")
 
     async def delete_year(self, key: str) -> None:
         instance = await Utils.find_one({})
-        if instance and instance.years:
-            if key in instance.years:
-                if instance.years[key] > 1:
-                    instance.years[key] -= 1
-                else:
-                    del instance.years[key]
-            await instance.save()
+        key = f'{key}'
+        try:
+            if instance and instance.years:
+                if key in instance.years:
+                    if instance.years[key] > 1:
+                        instance.years[key] -= 1
+                    else:
+                        del instance.years[key]
+                await instance.save()
+        except Exception as e:
+            with open('logfile.log', 'a') as logfile:
+                logfile.write(f"{e}")
+
+    async def read_all(self):
+        return await Utils.find().to_list()
 
 utils_repository = UtilsRepository()
