@@ -20,7 +20,8 @@
 
 .topic {
     margin: 0;
-    max-width: 19rem;
+    width: 18rem;
+    word-wrap: break-word;
     font-size: 1.75rem;
     font-family: 'Inter';
     font-weight: 500;
@@ -53,7 +54,7 @@
     margin: 1rem;
     font-size: 1.25rem;
     font-family: 'Inter';
-    font-weight: 500;
+    font-weight: 400;
     color: var(--color-dark);
     max-width: 23rem;
     word-wrap: break-word;
