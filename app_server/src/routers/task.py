@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException
 
 from src.storages.mongo.models.task import Task, TaskCreate, TaskUpdate, Topic
 from src.storages.mongo.repositories.task import task_repository
+from src.storages.mongo.repositories.utils import utils_repository
 
 file_handler = logging.FileHandler('task-router.log')
 file_handler.setLevel(logging.INFO)  
@@ -32,7 +33,7 @@ async def read(task_id: PydanticObjectId) -> Task | None:
 
 
 @router.get("/")
-async def read_all(offset: int=None, length: int=None) -> list[Task]:
+async def read_all(offset: int=None, length: int=None, marks: list[int]=None, topic: list[int]=None, year: list[int]=None ) -> list[Task]:
 
     if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
@@ -44,16 +45,23 @@ async def read_all(offset: int=None, length: int=None) -> list[Task]:
 
 @router.patch("/{task_id}")
 async def update(task_id: PydanticObjectId, task_update: TaskUpdate) -> Task | None:
+    task = await task_repository.read(task_id=task_id)
+    if task.year != task_update.year:
+        utils_repository.delete_year(task.year)
+        utils_repository.update_years(task_update.year)
+    
     task = await task_repository.update(task_id, task_update)
     if task is None:
         raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
-
+        
     return task
 
 
 @router.delete("/{task_id}")
-async def delete(task_id: PydanticObjectId) -> Task | None:
-    return await task_repository.delete(task_id)
+async def delete(task_id: PydanticObjectId):
+    result = await task_repository.read(task_id=task_id)
+    await task_repository.delete(task_id)
+    return result
 
 
 @router.get("/{task_id}/predict")
