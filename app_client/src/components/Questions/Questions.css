@@ -1,26 +1,18 @@
 .questions-page-content {
     font-family: Arial, sans-serif;
     padding: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80vh;
+    margin: 0 auto;
 }
 
 .dropdown-container {
     display: flex;
     justify-content: flex-start;
     gap: 20px;
-    margin-bottom: 20px;
-}
-
-
-.cancel-btn {
-    cursor: pointer;
-}
-
-
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 0.1rem solid var(--color-sage);
 }
 
 .selected-options {
@@ -48,6 +40,10 @@ hr {
     border-radius: 5px;
 }
 
+.cancel-btn {
+    cursor: pointer;
+}
+
 .clear-button {
     background-color: var(--color-violet);
     color: white;
@@ -60,4 +56,19 @@ hr {
     flex-shrink: 0;
     margin-left: auto;
     margin-bottom: auto;
+}
+
+.hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 0.15rem solid var(--color-sage);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }

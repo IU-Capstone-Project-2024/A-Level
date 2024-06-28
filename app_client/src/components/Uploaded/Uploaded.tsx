@@ -29,18 +29,26 @@ const tiles = [
     {image:"https://via.placeholder.com/100", title:"pdf1"},
     {image:"https://via.placeholder.com/100", title:"pdf1"},
     {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
+    {image:"https://via.placeholder.com/100", title:"pdf1"},
 ]
 
 const tilesCount = tiles.length;
 const maxTilesPerPage = 5;
 
-
-
 export default function Uploaded(){
     return (
-        <div>
-            <Grid tiles={tiles}/>
-            <Pagination total={Math.ceil(tilesCount/maxTilesPerPage)}/>
+        <div className="uploaded-page-content">
+            <div className="center-container">
+                <Grid tiles={tiles} />
+                <Pagination total={Math.ceil(tilesCount / maxTilesPerPage)} />
+            </div>
         </div>
     );
 };

@@ -108,7 +108,7 @@ export default function Questions() {
                     selectedOptions={selectedOptions}
                 />
             </div>
-            <hr />
+            <div className='hr'></div>
             <div className="selected-options">
                 <div className="selected-options-list">
                     {selectedOptions.map((option) => (
