@@ -34,4 +34,9 @@
     background-color: transparent;
     border: 1px solid var(--color-sage);
     border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.detect-topics-button:hover {
+    background-color: var(--color-light-sage);
 }

@@ -68,7 +68,7 @@
     text-align: center;
 }
 .upload-input:hover {
-    background-color: var(--color-cambridge-blue);
+    background-color: var(--color-lavender);
 }
 .upload-input input[type="file"]{
    display: none;
