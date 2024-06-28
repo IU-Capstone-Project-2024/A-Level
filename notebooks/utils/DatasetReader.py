@@ -42,14 +42,17 @@ class DatasetReader:
     def get_encodings(self):
         return {index: label for index, label in enumerate(self.encoder.classes_)}
 
-    def read_dir(self, dir_name):
+    def read_dirs(self, *dir_names):
         csv_files = []
-        for path, subdirs, files in os.walk(dir_name):
-            for file in files:
-                if file.endswith('.csv'):
-                    csv_files.append(os.path.join(path, file))
+        for dir_name in dir_names:
+            for path, subdirs, files in os.walk(dir_name):
+                for file in files:
+                    if file.endswith('.csv'):
+                        csv_files.append(os.path.join(path, file))
 
         return self.read(*csv_files)
+
+
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 import './Questions.css';
+import axios from "axios";
 import Dropdown from '../DropdownQuestionsMenu/DropdownQuestionsMenu';
 import Table from '../QuestionsTable/QuestionsTable';
 import markIcon from '../../images/markIcon.svg'
@@ -6,6 +7,7 @@ import yearIcon from '../../images/yearIcon.svg'
 import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
 import { useState, useEffect } from 'react';
+import Pagination from '../PaginationUploaded/PaginationUploaded';
 
 interface Option {
     id: number;
@@ -16,6 +18,11 @@ const topicOptions: Option[] = [
     { id: 0, text: 'Marketing mix and strategy and whatever it takes'},
     { id: 1, text: 'Marketing mix and strategy'},
     { id: 2, text: 'Entrepreneurs and leaders'},
+    { id:10, text: 'Marketing mix and strategy and whatever it takes'},
+    { id: 12, text: 'Marketing mix and strategy and whatever it takes'},
+    { id: 13, text: 'Marketing mix and strategy and whatever it takes'},
+    { id: 14, text: 'Marketing mix and strategy and whatever it takes'},
+    { id: 15, text: 'Marketing mix and strategy and whatever it takes'},
 ];
 
 const markOptions: Option[] = [
@@ -51,6 +58,7 @@ const data: TableData[] = [
     { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
 ];
 
+
 export default function Questions() {
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
 
@@ -73,7 +81,7 @@ export default function Questions() {
     }, [selectedOptions]);
 
     return (
-        <div className="Appx">
+        <div className="questions-page-content">
             <div className="dropdown-container">
                 <Dropdown 
                     title='Topic'
@@ -100,11 +108,8 @@ export default function Questions() {
                     selectedOptions={selectedOptions}
                 />
             </div>
-            <hr />
+            <div className='hr'></div>
             <div className="selected-options">
-                <div className="selected-options-header">
-                    <button className="clear-button" onClick={clearAllOptions}>Clear All</button>
-                </div>
                 <div className="selected-options-list">
                     {selectedOptions.map((option) => (
                         <div key={option.id} className="selected-option-tile">
@@ -114,8 +119,10 @@ export default function Questions() {
                         </div>
                     ))}
                 </div>
+                <button className="clear-button" onClick={clearAllOptions}>Clear All</button>
             </div>
             <Table data={data} />
+            <Pagination total={6} />
         </div>
     );
 }

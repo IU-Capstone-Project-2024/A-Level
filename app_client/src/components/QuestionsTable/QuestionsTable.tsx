@@ -15,7 +15,7 @@ export default function Table({ data }: TableProps) {
     };
 
     return (
-        <table>
+        <table className='table'>
             <thead>
                 <tr>
                     <th>Topic</th>
