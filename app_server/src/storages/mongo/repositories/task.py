@@ -27,8 +27,8 @@ class TaskRepository:
         if task is None:
             return None
         document = await document_repository.read(task.document_id)
-        utils_repository.delete_mark(task.marks)
-        utils_repository.delete_year(task.year)
+        await utils_repository.delete_mark(task.marks)
+        await utils_repository.delete_year(task.year)
         if document is None:
             return None
         document.tasks = [t for t in document.tasks if t != task_id]
