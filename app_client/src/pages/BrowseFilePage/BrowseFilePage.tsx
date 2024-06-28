@@ -5,6 +5,8 @@ import axios, { AxiosResponse } from 'axios';
 import PDF from '../../images/PDF.svg';
 import CloudArrowUp from '../../images/CloudArrowUp.svg';
 import done from '../../images/done.svg';
+import { useNavigate } from 'react-router';
+import { useTopics } from '../../context/TopicContext';
 
 interface DocumentProps {
     _id: string;
@@ -14,10 +16,6 @@ interface DocumentProps {
     img: string | null;
   }
 
-interface setDocProps{
-    setDoc: React.Dispatch<React.SetStateAction<DocumentProps | null>>;
-    setDisplayDoc: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 
 export default function BrowseFilePage(){
@@ -26,7 +24,8 @@ export default function BrowseFilePage(){
     const [uploadError, setUploadError] = useState('');
     const [submitError, setSubmitError] = useState('');
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    
+    const navigate = useNavigate();
+    const { topics } = useTopics();
 
 
     function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -111,8 +110,8 @@ export default function BrowseFilePage(){
                 formData.append('img', imageSrc as string);
                 const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
-                    const document : DocumentProps = responseImg.data;
-                    // setDoc(document);
+                    const doc : DocumentProps = responseImg.data;
+                    navigate(`/document/${doc.filename}`, { state: { doc, topics} });
                     
                 }else{
                     setSubmitError('An error occurred while uploading the file');
@@ -146,7 +145,7 @@ export default function BrowseFilePage(){
                 onDrop={e => onDropHandler(e)}>
                     <img className='upload-icon' src={CloudArrowUp} alt='File uploader'></img>
                     <h3 className="upload-heading">Upload your file</h3>
-                    <p className="upload-description">Click to browse or drag and drop your file</p>
+                    <p className="upload-description">Drag and drop your file</p>
                 </div>
                 <div className="inner-upload-container">
                     <div className="upload-input">

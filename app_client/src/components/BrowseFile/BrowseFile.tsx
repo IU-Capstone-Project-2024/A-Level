@@ -147,7 +147,7 @@ export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
                 onDrop={e => onDropHandler(e)}>
                     <img className='upload-icon' src={CloudArrowUp} alt='File uploader'></img>
                     <h3 className="upload-heading">Upload your file</h3>
-                    <p className="upload-description">Click to browse or drag and drop your file</p>
+                    <p className="upload-description">Drag and drop your file</p>
                 </div>
                 <div className="inner-upload-container">
                     <div className="upload-input">
