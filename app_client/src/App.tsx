@@ -7,6 +7,7 @@ import Uploaded from './components/Uploaded/Uploaded';
 import Questions from './components/Questions/Questions';
 import CreateQuestion from './components/CreateQuestion/CreateQuestion';
 import Document from './components/Document/Document';
+import { Outlet } from 'react-router';
 
 type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
 
@@ -45,7 +46,8 @@ function App() {
   return (
     <div className="App">
       <Header onClick={setTab} active={tab} setDisplayDoc={setDisplayDocument}/>
-      {!displayDocument && <>
+      <Outlet />
+      {/* {!displayDocument && <>
         {tab === 'browse' && <BrowseFile setDoc={setDocument} setDisplayDoc={setDisplayDocument}/>}
         {tab === 'uploaded' && <Uploaded />}
         {tab === 'questions' && <Questions />}
@@ -53,7 +55,7 @@ function App() {
       </>}
 
       {displayDocument && <Document doc={document} topics={topics} setDocument={setDocument} setDisplayDoc={setDisplayDocument} setTab={setTab}/>}
-      
+       */}
     </div>
   );
 }
