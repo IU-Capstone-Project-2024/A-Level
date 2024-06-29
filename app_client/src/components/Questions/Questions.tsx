@@ -58,6 +58,12 @@ const data: TableData[] = [
     { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
 ];
 
+let page = 1;
+
+function test(updatedPage:number){
+    page = updatedPage;
+    console.log(page);
+}
 
 export default function Questions() {
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
@@ -122,7 +128,7 @@ export default function Questions() {
                 <button className="clear-button" onClick={clearAllOptions}>Clear All</button>
             </div>
             <Table data={data} />
-            <Pagination total={6} />
+            <Pagination total={6} onUpdatePage={test}/>
         </div>
     );
 }

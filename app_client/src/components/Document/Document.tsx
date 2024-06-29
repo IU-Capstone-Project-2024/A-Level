@@ -46,9 +46,9 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
     }, [deleteDocModalRef]);
 
     async function handleDeleteTask(id: string) {
-        const responseDeleteTask : AxiosResponse<null> = await axios.delete(`http://0.0.0.0:8000/task/${id}`);
+        const responseDeleteTask : AxiosResponse<null> = await axios.delete(`http://localhost:8000/task/${id}`);
         if(responseDeleteTask.status === 200){
-            const responseDoc: AxiosResponse<DocumentResponse> =  await axios.get(`http://0.0.0.0:8000/document/${doc?._id}`);
+            const responseDoc: AxiosResponse<DocumentResponse> =  await axios.get(`http://localhost:8000/document/${doc?._id}`);
             if(responseDoc.data.tasks.length === 0){
                 handleDeleteDocument();
             } else{
@@ -64,7 +64,7 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
 
     async function handleDeleteDocument() {
         if(doc != null){
-            const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://0.0.0.0:8000/document/${doc._id}`);
+            const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://localhost:8000/document/${doc._id}`);
             if(responseDelete.status === 200){
                 setDocument(null);
                 setDisplayDoc(false);

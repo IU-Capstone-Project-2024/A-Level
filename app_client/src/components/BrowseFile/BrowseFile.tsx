@@ -6,15 +6,13 @@ import done from '../../images/done.svg';
 import React, { useState} from 'react';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
-
-
 interface DocumentProps {
     _id: string;
     path: string;
     filename: string;
     tasks: string[];
     img: string | null;
-  }
+}
 
 interface setDocProps{
     setDoc: React.Dispatch<React.SetStateAction<DocumentProps | null>>;
@@ -106,11 +104,11 @@ export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
         const formData = new FormData();
         formData.append('uploaded_file', file as File);
         try{
-            const response: AxiosResponse<DocumentProps> =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
+            const response: AxiosResponse<DocumentProps> =  await axios.post('http://localhost:8000/document/upload', formData);
             if (response.status === 200){
                 const formData = new FormData();
                 formData.append('img', imageSrc as string);
-                const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
+                const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://localhost:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
                     const document : DocumentProps = responseImg.data;
                     setDoc(document);
