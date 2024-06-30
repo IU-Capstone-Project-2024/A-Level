@@ -1,12 +1,12 @@
 services:
-  # client:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./app_client/Dockerfile
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - a_level_exam
+  client:
+    build:
+      context: ./
+      dockerfile: ./app_client/Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - a_level_exam
   db:
     image: mongo:7.0
     ports:
