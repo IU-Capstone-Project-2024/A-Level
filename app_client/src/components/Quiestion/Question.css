@@ -1,0 +1,103 @@
+.question-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.question-details {
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem 0;
+    justify-content: space-between;
+    width: 19rem;
+}
+
+.question-topic {
+    margin: 0;
+    padding: 0;
+}
+
+.topic {
+    margin: 0;
+    width: 18rem;
+    word-wrap: break-word;
+    font-size: 1.75rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+}
+
+.question-year {
+    font-size: 1.25rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+}
+
+.question-mark {
+    font-size: 1.25rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+}
+
+
+.question-container-text {
+    width: 25rem;
+    min-height: 16.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-cambridge-blue);
+}
+
+.question-text {
+    margin: 1rem;
+    font-size: 1.25rem;
+    font-family: 'Inter';
+    font-weight: 400;
+    color: var(--color-dark);
+    max-width: 23rem;
+    word-wrap: break-word;
+}
+
+.question-container-content {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.question-number {
+    font-size: 1rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+    margin: 0;
+}
+
+.question-container-without-border {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    width: fit-content;
+}
+
+.question-container-heading-text {
+    font-size: 2rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+    margin: 0;
+    
+}
+
+.question-container-heading {
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.choose {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

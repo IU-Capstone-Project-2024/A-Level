@@ -1,8 +1,12 @@
+import Question from '../../components/Quiestion/Question';
 import './CreateQuestionPage.css';
 
 export default function CreateQuestionPage(){
     return (
-        <div>Create question
+        <div className='create-question-content'>
+            <Question />
+
+
         </div>
     );
 };
