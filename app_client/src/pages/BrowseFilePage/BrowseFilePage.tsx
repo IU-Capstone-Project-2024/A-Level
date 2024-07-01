@@ -104,11 +104,11 @@ export default function BrowseFilePage(){
         const formData = new FormData();
         formData.append('uploaded_file', file as File);
         try{
-            const response: AxiosResponse<DocumentProps> =  await axios.post('http://0.0.0.0:8000/document/upload', formData);
+            const response: AxiosResponse<DocumentProps> =  await axios.post('http://localhost:8000/document/upload', formData);
             if (response.status === 200){
                 const formData = new FormData();
                 formData.append('img', imageSrc as string);
-                const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://0.0.0.0:8000/document/${response.data._id}/img`, formData);
+                const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://localhost:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
                     const doc : DocumentProps = responseImg.data;
                     navigate(`/document/${doc.filename}`, { state: { doc, topics} });
