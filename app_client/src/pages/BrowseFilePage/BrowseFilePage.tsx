@@ -1,10 +1,12 @@
-import './BrowseFile.css';
-import axios, { AxiosResponse } from "axios";
-import CloudArrowUp from '../../images/CloudArrowUp.svg';
+import { useState } from 'react';
+import './BrowseFilePage.css';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
+import axios, { AxiosResponse } from 'axios';
 import PDF from '../../images/PDF.svg';
+import CloudArrowUp from '../../images/CloudArrowUp.svg';
 import done from '../../images/done.svg';
-import React, { useState} from 'react';
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
+import { useNavigate } from 'react-router';
+import { useTopics } from '../../context/TopicContext';
 
 interface DocumentProps {
     _id: string;
@@ -12,20 +14,18 @@ interface DocumentProps {
     filename: string;
     tasks: string[];
     img: string | null;
-}
+  }
 
-interface setDocProps{
-    setDoc: React.Dispatch<React.SetStateAction<DocumentProps | null>>;
-    setDisplayDoc: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
+
+export default function BrowseFilePage(){
     const [browsed, setBrowsed] = useState(false);
     const [file, setFile] = useState<File>();
     const [uploadError, setUploadError] = useState('');
     const [submitError, setSubmitError] = useState('');
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    
+    const navigate = useNavigate();
+    const { topics } = useTopics();
 
 
     function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -110,9 +110,9 @@ export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
                 formData.append('img', imageSrc as string);
                 const responseImg : AxiosResponse<DocumentProps> = await axios.post(`http://localhost:8000/document/${response.data._id}/img`, formData);
                 if (responseImg.status === 200){
-                    const document : DocumentProps = responseImg.data;
-                    setDoc(document);
-                    setDisplayDoc(true);
+                    const doc : DocumentProps = responseImg.data;
+                    navigate(`/document/${doc.filename}`, { state: { doc, topics} });
+                    
                 }else{
                     setSubmitError('An error occurred while uploading the file');
                 }
@@ -176,6 +176,3 @@ export default function BrowseFile({setDoc, setDisplayDoc}: setDocProps){
         </div>
     );
 }
-
-
-

@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import './MenuItem.css'
+import { Link } from 'react-router-dom';
 
 type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
 
@@ -8,11 +9,12 @@ interface MenuItemProps {
     item: string;
     onClick: (event: SetStateAction<tabType>) => void;
     arg: tabType;
-    setDisplayDoc: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MenuItem({className, item, onClick, arg, setDisplayDoc}: MenuItemProps){
+export default function MenuItem({className, item, onClick, arg}: MenuItemProps){
     return (
-        <button className={"menuItem " + className} onClick={() => {onClick(arg); setDisplayDoc(false);}}>{item}</button>
+        <Link to={"/" + arg}>
+            <button className={"menuItem " + className} onClick={() => onClick(arg)}>{item}</button>
+        </Link>
     );
 }
