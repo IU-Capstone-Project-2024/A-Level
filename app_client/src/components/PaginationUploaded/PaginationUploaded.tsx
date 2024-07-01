@@ -1,12 +1,13 @@
 import './PaginationUploaded.css'
-import { useState } from "react";
+import {useState } from "react";
 
 interface PaginationPanelTotal {
     total:number;
     onUpdatePage: (currentPage:number)=>void;
+    page:number;
 }
-export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) {
-    const [currentPage, setCurrentPage] = useState(1);
+export default function Pagination({total, onUpdatePage, page}: PaginationPanelTotal) {
+    const [, setCurrentPage] = useState(1);
   
     const handlePageClick = (page: number) => {
         setCurrentPage(page);
@@ -14,16 +15,16 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
     };
   
     const handlePreviousClick = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-            onUpdatePage(currentPage - 1);
+        if (page > 1) {
+            setCurrentPage(page - 1);
+            onUpdatePage(page - 1);
         }
     };
   
     const handleNextClick = () => {
-        if (currentPage < total) {
-            setCurrentPage(currentPage + 1);
-            onUpdatePage(currentPage + 1);
+        if (page < total) {
+            setCurrentPage(page + 1);
+            onUpdatePage(page + 1);
         }
     };
   
@@ -35,7 +36,7 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
         pageNumbers.push(
             <button
             key={1}
-            className={`page-button ${currentPage === 1 ? 'active' : 'not-active'}`}
+            className={`page-button ${page === 1 ? 'active' : 'not-active'}`}
             onClick={() => handlePageClick(1)}
             >
             1
@@ -43,16 +44,16 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
         );
     
         //ellipsis between first page and current page
-        if (currentPage > range + 2) {
+        if (page > range + 2) {
             pageNumbers.push(<span key="start-ellipsis" className="ellipsis">...</span>);
         }
     
         //pages around the current page
-        for (let i = Math.max(2, currentPage - range); i <= Math.min(total - 1, currentPage + range); i++) {
+        for (let i = Math.max(2, page - range); i <= Math.min(total - 1, page + range); i++) {
             pageNumbers.push(
             <button
                 key={i}
-                className={`page-button ${currentPage === i ? 'active' : 'not-active'}`}
+                className={`page-button ${page === i ? 'active' : 'not-active'}`}
                 onClick={() => handlePageClick(i)}
             >
                 {i}
@@ -61,7 +62,7 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
         }
     
         //ellipsis between current page and last page
-        if (currentPage < total - range - 1) {
+        if (page < total - range - 1) {
             pageNumbers.push(<span key="end-ellipsis" className="ellipsis">...</span>);
         }
     
@@ -70,7 +71,7 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
             pageNumbers.push(
             <button
                 key={total}
-                className={`page-button ${currentPage === total ? 'active' : 'not-active'}`}
+                className={`page-button ${page === total ? 'active' : 'not-active'}`}
                 onClick={() => handlePageClick(total)}
             >
                 {total}
@@ -81,11 +82,11 @@ export default function Pagination({total, onUpdatePage}: PaginationPanelTotal) 
     };
     return (
       <div className="pagination-panel">
-        <button onClick={handlePreviousClick} disabled={currentPage === 1}>
+        <button onClick={handlePreviousClick} disabled={page === 1}>
           Prev
         </button>
         {renderPageNumbers()}
-        <button onClick={handleNextClick} disabled={currentPage === total}>
+        <button onClick={handleNextClick} disabled={page === total}>
           Next
         </button>
       </div>
