@@ -12,11 +12,13 @@ interface TileElements {
     tiles: TileData[];
 }
 
+const test = ()=>console.log("change this function to preview document");
+
 export default function Grid ({ tiles }:TileElements) {
     return (
       <div className="grid">
         {tiles.map((tile, index) => (
-          <TileUploadedFile key={index} image={tile.image} title={tile.title} id={tile.id} />
+           <TileUploadedFile key={index} image={tile.image} title={tile.title} id={tile.id} />
         ))}
       </div>
     );

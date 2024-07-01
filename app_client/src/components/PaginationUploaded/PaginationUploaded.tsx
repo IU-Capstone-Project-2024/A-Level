@@ -1,5 +1,5 @@
 import './PaginationUploaded.css'
-import { useState } from "react";
+import {useState } from "react";
 
 interface PaginationPanelTotal {
     total:number;

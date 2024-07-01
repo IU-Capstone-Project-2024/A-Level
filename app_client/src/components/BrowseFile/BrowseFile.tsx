@@ -6,15 +6,13 @@ import done from '../../images/done.svg';
 import React, { useState} from 'react';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 
-
-
 interface DocumentProps {
     _id: string;
     path: string;
     filename: string;
     tasks: string[];
     img: string | null;
-  }
+}
 
 interface setDocProps{
     setDoc: React.Dispatch<React.SetStateAction<DocumentProps | null>>;
