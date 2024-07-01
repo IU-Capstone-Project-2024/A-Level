@@ -22,6 +22,10 @@ router = APIRouter(prefix="/task", tags=["Task"])
 async def create(task: TaskCreate) -> Task:
     return await task_repository.create(task)
 
+@router.get("/number")
+async def read_number():
+    return len(await task_repository.read_all())
+
 
 @router.get("/{task_id}")
 async def read(task_id: PydanticObjectId) -> Task | None:
