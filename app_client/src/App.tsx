@@ -1,68 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from "axios";
 import './App.css';
 import Header from './components/Header/Header';
-import BrowseFile from './components/BrowseFile/BrowseFile';
-import Uploaded from './components/Uploaded/Uploaded';
-import Questions from './components/Questions/Questions';
-import CreateQuestion from './components/CreateQuestion/CreateQuestion';
-import Document from './components/Document/Document';
-
-type tabType = 'browse' | 'uploaded' | 'questions' |'create' | null;
-
-interface DocumentProps {
-  _id: string;
-  path: string;
-  filename: string;
-  tasks: string[];
-  img: string | null;
-}
-interface TopicTransformResp {
-  names: string[];
-}
-
-function transformString(input: string) {
-  let result = input.replace(/_/g, ' ');
-  result = result.toLowerCase();
-  result = result.charAt(0).toUpperCase() + result.slice(1);
-  return result;
-}
+import { Outlet } from 'react-router';
+import { useTab } from './context/TabContext';
 
 
-function App() {
-  const [tab, setTab] = useState<tabType>('browse');
-  const [document, setDocument] = useState<DocumentProps | null>(null);
-  const [displayDocument, setDisplayDocument] = useState<boolean>(false);
-  const [topics, setTopics] = useState<TopicTransformResp>();
-
-
-  async function getTopics() {
-    const topicTransformResp : AxiosResponse<TopicTransformResp> = await axios.get(`http://0.0.0.0:8000/utils/topicEnum`);
-      if (topicTransformResp.status === 200){
-        topicTransformResp.data.names.map(name => transformString(name));
-        setTopics(topicTransformResp.data);
-      }
-  }
-
-
-  useEffect(()=> {
-    getTopics();
-  }, []);
-
+export default function App() {
+  const { tab, setTab } = useTab();
   return (
     <div className="App">
-      <Header onClick={setTab} active={tab} setDisplayDoc={setDisplayDocument}/>
-      {!displayDocument && <>
-        {tab === 'browse' && <BrowseFile setDoc={setDocument} setDisplayDoc={setDisplayDocument}/>}
-        {tab === 'uploaded' && <Uploaded />}
-        {tab === 'questions' && <Questions />}
-        {tab === 'create' && <CreateQuestion />}  
-      </>}
-
-      {displayDocument && <Document doc={document} topics={topics}/>}
+      <Header onClick={setTab} active={tab}/>
+      <Outlet />
       
     </div>
   );
 }
-
-export default App;

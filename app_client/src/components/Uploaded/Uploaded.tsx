@@ -1,46 +1,57 @@
 import './Uploaded.css';
 import Grid from '../GridUploadedFile/GridUploadedFile';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 import Pagination from '../PaginationUploaded/PaginationUploaded';
 
-const tiles = [
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-    {image:"https://via.placeholder.com/100", title:"pdf1"},
-]
+const maxTilesPerPage = 2;
 
-const tilesCount = tiles.length;
-const maxTilesPerPage = 5;
+export default function Uploaded() {
+    const [docs, setDocs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [totalDocs, setTotalDocs] = useState(1);
 
+    async function getDocs(page: number, length: number) {
+        const res = await axios.get('http://localhost:8000/document', {
+            params: {
+                offset: page - 1,
+                length: length
+            }
+        });
+        return res.data;
+    }
 
+    useEffect(() => {
+        async function fetchDocs() {
+            setLoading(true);
+            const fetchedDocs = await getDocs(page, maxTilesPerPage);
+            const totalDoc = await axios.get('http://localhost:8000/document/number');
+            setTotalDocs(totalDoc.data);
+            setDocs(fetchedDocs);
+            setLoading(false);
+            console.log(page);
+        }
+        fetchDocs();
+    }, [page]);
 
-export default function Uploaded(){
+    function test(updatedPage: number) {
+        setPage(updatedPage);
+        console.log(updatedPage);
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    const tiles = docs.map(({ filename, img, _id }) => ({ image: img, title: filename, id: _id }));
+
     return (
-        <div>
-            <Grid tiles={tiles}/>
-            <Pagination total={Math.ceil(tilesCount/maxTilesPerPage)}/>
+        <div className="uploaded-page-content">
+            <div className="center-container">
+                <Grid tiles={tiles} />
+                <Pagination total={Math.ceil(totalDocs / maxTilesPerPage)} onUpdatePage={test} page={page}/>
+            </div>
         </div>
     );
-};
+}
