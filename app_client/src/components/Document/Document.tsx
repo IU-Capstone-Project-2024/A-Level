@@ -81,7 +81,7 @@ export default function Document ({doc, topics, setDocument, setDisplayDoc, setT
                         <h3>Delete this document?</h3>
                             <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
                     </Modal>
-                    {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask} predict={predict}/>)}
+                    {/* {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask} predict={predict}/>)} */}
                 </div>
             </div>
         );

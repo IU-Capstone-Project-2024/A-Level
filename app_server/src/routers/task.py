@@ -1,7 +1,7 @@
 import logging
 import aiohttp
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Form
 
 from src.storages.mongo.models.task import Task, TaskCreate, TaskUpdate, Topic
 from src.storages.mongo.repositories.task import task_repository
@@ -103,4 +103,11 @@ async def predict(task_id: PydanticObjectId):
             task.topic = Topic(result['topic_id'])
             await task_repository.update(task.id, task)
             return result
-
+            
+@router.post("/unsavedPredict")
+async def unsaved_predict(content: str = Form(...)):
+    data = {"request": content}
+    url = "http://model:8000/predict"
+    async with aiohttp.ClientSession(trust_env=True) as session:
+        async with session.post(url, json=data) as response:
+            return await response.json()

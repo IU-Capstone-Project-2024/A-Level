@@ -13,3 +13,17 @@
     gap: 0.5rem;
     width: fit-content;
 }
+
+.question-container-heading-text {
+    font-size: 2rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+    margin: 0;
+    
+}
+
+.question-container-heading {
+    margin: 0;
+    padding: 1rem 0;
+}
