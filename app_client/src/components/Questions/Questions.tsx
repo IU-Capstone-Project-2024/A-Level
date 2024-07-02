@@ -9,6 +9,9 @@ import cancelIcon from '../../images/cancelOptionIcon.svg'
 import { useState, useEffect } from 'react';
 import Pagination from '../PaginationUploaded/PaginationUploaded';
 
+const maxQuestionsPerPage = 5;
+const totalQuestions = 12;
+
 interface Option {
     id: number;
     text: string;
@@ -41,23 +44,30 @@ const yearOptions: Option[] = [
 interface TableData {
     topic: string;
     question: string;
+    id: number;
 }
 
 const data: TableData[] = [
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.' },
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 0},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 1},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 2},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 3},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 4},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 5},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 6},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 7},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 8},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 9},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 10},
+    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 11},
 ];
 
+let page = 1;
+
+function test(updatedPage:number){
+    page = updatedPage;
+    console.log(page);
+}
 
 export default function Questions() {
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
@@ -122,7 +132,7 @@ export default function Questions() {
                 <button className="clear-button" onClick={clearAllOptions}>Clear All</button>
             </div>
             <Table data={data} />
-            <Pagination total={6} />
+            <Pagination total={Math.ceil(totalQuestions/maxQuestionsPerPage)} onUpdatePage={test} page={page}/>
         </div>
     );
 }
