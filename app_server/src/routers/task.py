@@ -23,9 +23,19 @@ async def create(task: TaskCreate) -> Task:
     return await task_repository.create(task)
 
 @router.get("/number")
-async def read_number():
-    return len(await task_repository.read_all())
+async def read_number(marks: str=None, topic: str=None, year: str=None ):
+    response = await task_repository.read_all()
+    if marks:
+        marks = marks.strip('[]').split(',')
+        response = [x for x in response if f'{x.marks}' in marks]
+    if topic:
+        topic = topic.strip('[]').split(',')
+        response = [x for x in response if f'{x.topic}' in topic]
+    if year:
+        year = year.strip('[]').split(',')
+        response = [x for x in response if f'{x.year}' in year]
 
+    return len(response)
 
 @router.get("/{task_id}")
 async def read(task_id: PydanticObjectId) -> Task | None:
@@ -37,13 +47,22 @@ async def read(task_id: PydanticObjectId) -> Task | None:
 
 
 @router.get("/")
-async def read_all(offset: int=None, length: int=None, marks: list[int]=None, topic: list[int]=None, year: list[int]=None ) -> list[Task]:
+async def read_all(offset: int=None, length: int=None, marks: str=None, topic: str=None, year: str=None ) -> list[Task]:
 
     if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
 
     response = await task_repository.read_all()
-
+    if marks:
+        marks = marks.strip('[]').split(',')
+        response = [x for x in response if f'{x.marks}' in marks]
+    if topic:
+        topic = topic.strip('[]').split(',')
+        response = [x for x in response if f'{x.topic}' in topic]
+    if year:
+        year = year.strip('[]').split(',')
+        response = [x for x in response if f'{x.year}' in year]
+        
     return response if length is None else response[offset * length: (offset + 1) * length] 
 
 
