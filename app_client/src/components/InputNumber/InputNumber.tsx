@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './InputNumber.css';
 import Plus from '../../images/plus.svg';
 import Minus from '../../images/minus.svg';
@@ -6,23 +6,26 @@ import Minus from '../../images/minus.svg';
 interface InputNumberProps {
     valueNumber: number | undefined;
     setNumberValue: (value: number | undefined) => void;
+    error: string;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+    
 }
 
-const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue }) => {
-  const [error, setError] = useState<string>("");
-
-
+const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue, error, setError}) => {
   const increment = () => {
     if(valueNumber !== undefined){
       if (valueNumber < 20) {
         setNumberValue(valueNumber + 1);
         setError("");
-        if (valueNumber < 1){
+        if (valueNumber + 1 < 1){
           setError("The minimum mark is 1.");
         }
       } else {
         setError("The maximum mark is 20.");
       }
+    } else {
+      setNumberValue(1);
+      setError("");
     }
     
   };
@@ -38,6 +41,9 @@ const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue }
       } else {
         setError("The minimum mark is 1.");
       }
+    } else {
+      setNumberValue(20);
+      setError("");
     }
   };
 

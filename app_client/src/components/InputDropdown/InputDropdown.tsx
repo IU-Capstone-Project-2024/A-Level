@@ -4,29 +4,29 @@ import DropdownArrow from '../../images/down-violet.svg';
 import DropdownArrowOpen from '../../images/up-violet.svg';
 
 interface Option {
-  value: string;
+  value: number;
   label: string;
 }
 
 interface InputDropdownProps {
   options: Option[];
-  onSelect: (value: string) => void;
+  onSelect: (value: number, label: string) => void;
+  error: string;
+  selectedTopicLabel: string;
 }
 
-const InputDropdown: React.FC<InputDropdownProps> = ({ options, onSelect }) => {
-  const [selected, setSelected] = useState<string>('');
+const InputDropdown: React.FC<InputDropdownProps> = ({ options, onSelect, error, selectedTopicLabel}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleSelect = (value: string) => {
-    setSelected(value);
-    onSelect(value);
+  const handleSelect = (option: Option) => {
+    onSelect(option.value, option.label);
     setIsOpen(false);
-  };
+};
 
   return (
     <div className="dropdown">
       <div className="dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {selected || 'Select an option'}
+        {selectedTopicLabel}
         {isOpen ? <img src={DropdownArrowOpen} alt="open"></img> :<img src={DropdownArrow} alt="open"></img>}
       </div>
       {isOpen && (
@@ -35,13 +35,14 @@ const InputDropdown: React.FC<InputDropdownProps> = ({ options, onSelect }) => {
             <li
               key={option.value}
               className="dropdown-item"
-              onClick={() => handleSelect(option.label)}
+              onClick={() => handleSelect(option)}
             >
               {option.label}
             </li>
           ))}
         </ul>
       )}
+      <span className="input-dropdown-error">{error}</span>
     </div>
   );
 };

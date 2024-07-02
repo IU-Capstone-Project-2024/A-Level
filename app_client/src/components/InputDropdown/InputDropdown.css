@@ -4,6 +4,8 @@
     font-family: "Inter";
     color: var(--color-dark);
     box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 2rem;
   }
   
   .dropdown-header {
@@ -41,3 +43,14 @@
   .dropdown-item:hover {
     background-color: var(--color-cambridge-blue);
   }
+
+  .input-dropdown-error {
+    font-size: 0.875rem;
+    font-family: "Inter";
+    color: var(--color-error);
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -11,13 +11,14 @@ interface QuestionProps {
     index: number;
     topics: string[] | undefined;
     onDelete: (id: string) => void;
+    onEdit: (task: TaskResponse | null) => void;
     predict: boolean;
 }
 
 interface TaskResponse {
     _id: string;
     content: string;
-    topic: string | null;
+    topic: number | null;
     verified: boolean | null;
     marks: number | null;
     year: number | null;
@@ -63,18 +64,16 @@ export default function QuestionView(question: QuestionProps) {
                 if (question.predict){
                     const topicResponse: AxiosResponse<TopicResponse> = await axios.get(`http://localhost:8000/task/${id}/predict`);
                     if(topicResponse.status === 200){
-                        taskData.topic = transformString(topicResponse.data.topic);
+                        taskData.topic = topicResponse.data.topic_id;
                     }else {
-                        taskData.topic = "Not Assigned";
+                        taskData.topic = -1;
                     }
                 } else {
-                    taskData.topic = "Not Assigned";
+                    taskData.topic = -1;
                 }
             } else {
-                if(question.topics !== undefined){
-                    taskData.topic = transformString(question.topics[parseInt(taskData.topic)]);
-                } else {
-                    taskData.topic = "Not Assigned";
+                if(question.topics === undefined){
+                    taskData.topic = -1;
                 }
             }
             setTask(taskData);
@@ -84,7 +83,7 @@ export default function QuestionView(question: QuestionProps) {
     useEffect(()=>{
         getQuestion(question.id);
 
-    }, [question.predict]);
+    }, [question.predict, task, question.id]);
 
     function openDeleteTaskModal(){
         setDeleteTaskModal(true);
@@ -105,13 +104,13 @@ export default function QuestionView(question: QuestionProps) {
                 </div>
                 <div className='question-details'>
                     <div className='question-topic'>
-                        <h2 className='topic'>{task?.topic}</h2>
+                        <h2 className='topic'>{task !== null && task.topic !== null && question.topics !== undefined  && question.topics[(task.topic)] !== undefined? transformString(question.topics[(task.topic)]) : "Not Assigned"}</h2>
                     </div>
                     <span className='question-mark'>Mark: {task?.marks}</span>
                     <span className='question-year'>Year: {task?.year}</span>
                     <div className='question-buttons'>
                         <IconButton icon={EditIcon} 
-                            onClick={() => alert('Edit clicked!')} 
+                            onClick={() => question.onEdit(task)} 
                             alt="Edit icon" 
                             title="Edit"/>
                         <IconButton icon={DeleteIcon} 

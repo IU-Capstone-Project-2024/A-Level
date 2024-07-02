@@ -1,0 +1,7 @@
+.modal-portal {
+    background-color: var(--color-light-sage);
+    border: 1px solid var(--color-sage);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 1000;
+}
