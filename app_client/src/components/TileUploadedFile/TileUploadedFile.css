@@ -14,11 +14,16 @@
 .tile-inner {
   padding: 0rem;
   margin: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
   
 .tile-image {
-  width: 7.5rem;
-  height: 6rem;
+  width: 10rem;
+  height: 8rem;
   object-fit: cover;
 }
 
