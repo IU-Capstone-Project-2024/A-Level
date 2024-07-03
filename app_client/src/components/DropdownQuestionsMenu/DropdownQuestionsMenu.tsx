@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from "react";
 
 interface Option {
     id: number;
+    type_id: number;
+    backend_id: number;
     text: string;
 }
 
 interface DropdownProps {
     title: string;
     icon: string;
-
     options: Option[];
     onOptionClick: (option: Option) => void;
     onOptionUnclick: (option: Option) => void;

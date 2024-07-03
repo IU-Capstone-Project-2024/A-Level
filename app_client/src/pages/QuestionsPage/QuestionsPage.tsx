@@ -8,70 +8,126 @@ import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
 import { useState, useEffect } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
+import { useLocation } from 'react-router-dom';
+import { useTopics } from '../../context/TopicContext';
+import { text } from 'stream/consumers';
 
 const maxQuestionsPerPage = 5;
-const totalQuestions = 12;
 
 interface Option {
     id: number;
+    type_id: number;
+    backend_id: number;
     text: string;
 }
 
-const topicOptions: Option[] = [
-    { id: 0, text: 'Marketing mix and strategy and whatever it takes'},
-    { id: 1, text: 'Marketing mix and strategy'},
-    { id: 2, text: 'Entrepreneurs and leaders'},
-    { id:10, text: 'Marketing mix and strategy and whatever it takes'},
-    { id: 12, text: 'Marketing mix and strategy and whatever it takes'},
-    { id: 13, text: 'Marketing mix and strategy and whatever it takes'},
-    { id: 14, text: 'Marketing mix and strategy and whatever it takes'},
-    { id: 15, text: 'Marketing mix and strategy and whatever it takes'},
-];
-
-const markOptions: Option[] = [
-    { id: 3, text: '1 points'},
-    { id: 4, text: '2 points'},
-    { id: 5, text: '3 points'},
-    { id: 6, text: '4 points'},
-];
-
-const yearOptions: Option[] = [
-    { id: 7, text: '2021'},
-    { id: 8, text: '2022'},
-    { id: 9, text: '2023'},
-];
-
-interface TableData {
-    topic: string;
-    question: string;
-    id: number;
-}
-
-const data: TableData[] = [
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 0},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 1},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 2},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 3},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 4},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 5},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 6},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 7},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 8},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 9},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 10},
-    { topic: 'Marketing mix and strategy', question: 'Define the term ‘brand’.', id: 11},
-];
-
-let page = 1;
-
-function test(updatedPage:number){
-    page = updatedPage;
-    console.log(page);
-}
 
 export default function Questions() {
+    const [ques, setQues] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [totalQues, setTotalQues] = useState(1);
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+    const {topics} = useTopics();
+    const [yearsOptions, setYearsOptions] = useState<Option[]>([]);
+    const [marksOptions, setMarksOptions] = useState<Option[]>([]);
+    const [topicsOptions, setTopicsOptions] = useState<Option[]>([]);
+    const [yearsFilter, setYearsFilter] = useState<number[]>([]);
+    const [marksFilter, setMarksFilter] = useState<number[]>([]);
+    const [topicFilter, setTopicsFilter] = useState<number[]>([]);
 
+    async function getQues(page: number, length: number) {
+        const res = await axios.get('http://localhost:8000/task', {
+            params: {
+                offset: page - 1,
+                length: length
+            }
+        });
+        return res.data;
+    }
+
+    async function getUtils() {
+        const res = await axios.get('http://localhost:8000/utils');
+        return res.data;
+    }
+
+    function transformString(input: string | undefined) {
+        if(input == null) 
+            return 'Unknown';
+        let result = input.replace(/_/g, ' ');
+        result = result.toLowerCase();
+        result = result.charAt(0).toUpperCase() + result.slice(1);
+        return result;
+    }
+
+    useEffect(() => {
+        async function fetchQues() {
+            setLoading(true);
+            const fetchedQues = await getQues(page, maxQuestionsPerPage);
+            const totalQues = await axios.get('http://localhost:8000/task/number');
+            setTotalQues(totalQues.data);
+            setQues(fetchedQues);
+            setLoading(false);
+        }
+        async function fetchUtils() {
+            const utils = await getUtils();
+            const yearsKeys = Object.keys(utils.years);
+            const yearsOptions:Option[] = yearsKeys.map((val, index) => ({
+                text: val,
+                type_id: 2,
+                backend_id: index,
+                id: index,
+            }));
+            setYearsOptions(yearsOptions);
+
+            const marksKeys = Object.keys(utils.marks);
+            const marksOptions:Option[] = marksKeys.map((val, index) => ({
+                text: val,
+                type_id: 1,
+                backend_id: index,
+                id: index + yearsOptions.length
+            }));
+            setMarksOptions(marksOptions);
+
+            let topicsKeys: string[] = [];
+            if(topics !== undefined)
+                topicsKeys = topics.names;
+
+            const topicsOptions:Option[] = topicsKeys.map((val, index)=>({
+                text: val,
+                type_id: 0,
+                backend_id: index,
+                id: index + yearsOptions.length + marksOptions.length, 
+            }));
+            setTopicsOptions(topicsOptions);
+        }
+
+        //update filters
+        let yearsFil: number[] = [];
+        let marksFil: number[] = [];
+        let topicsFil: number[] = [];
+        for(let i=0; i<selectedOptions.length; i++) {
+            if(selectedOptions[i].type_id === 0)
+                topicsFil = [...topicsFil, selectedOptions[i].backend_id];
+            else if(selectedOptions[i].type_id === 1)
+                marksFil = [...marksFil, selectedOptions[i].backend_id];
+            else if(selectedOptions[i].type_id === 2)
+                yearsFil = [...yearsFil, selectedOptions[i].backend_id];
+        }
+        setTopicsFilter(topicsFil);
+        setMarksFilter(marksFil);
+        setYearsFilter(yearsFil);
+        
+        fetchQues();
+        fetchUtils();
+        console.log('topics:', topicFilter, 'marks:', marksFilter, 'years:', yearsFilter);
+    }, [page, selectedOptions, selectedOptions]);
+
+
+    function test(updatedPage:number){
+        setPage(updatedPage);
+    }
+    
     const handleOptionClick = (option: Option) => {
         setSelectedOptions((prevSelectedOptions) => [...prevSelectedOptions, option]);
     };
@@ -86,9 +142,15 @@ export default function Questions() {
         setSelectedOptions([]);
     };
 
-    useEffect(() => {
-        console.log("Current filters are:", selectedOptions.map(option => option.text).join(", "));
-    }, [selectedOptions]);
+    
+
+    const data = ques.map(({content, topic, _id}) => ({
+        question: content, topic: transformString(topics?.names[topic]), id: _id
+    }));
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="questions-page-content">
@@ -96,7 +158,7 @@ export default function Questions() {
                 <Dropdown 
                     title='Topic'
                     icon={topicIcon}
-                    options={topicOptions} 
+                    options={topicsOptions} 
                     onOptionClick={handleOptionClick} 
                     onOptionUnclick={handleOptionUnclick} 
                     selectedOptions={selectedOptions}
@@ -104,7 +166,7 @@ export default function Questions() {
                 <Dropdown 
                     title='Mark'
                     icon={markIcon}
-                    options={markOptions} 
+                    options={marksOptions} 
                     onOptionClick={handleOptionClick} 
                     onOptionUnclick={handleOptionUnclick} 
                     selectedOptions={selectedOptions}
@@ -112,7 +174,7 @@ export default function Questions() {
                 <Dropdown 
                     title='Year'
                     icon={yearIcon}
-                    options={yearOptions} 
+                    options={yearsOptions} 
                     onOptionClick={handleOptionClick} 
                     onOptionUnclick={handleOptionUnclick} 
                     selectedOptions={selectedOptions}
@@ -132,7 +194,7 @@ export default function Questions() {
                 <button className="clear-button" onClick={clearAllOptions}>Clear All</button>
             </div>
             <Table data={data} />
-            <Pagination total={Math.ceil(totalQuestions/maxQuestionsPerPage)} onUpdatePage={test} page={page}/>
+            <Pagination total={Math.ceil(totalQues/maxQuestionsPerPage)} onUpdatePage={test} page={page}/>
         </div>
     );
 }
