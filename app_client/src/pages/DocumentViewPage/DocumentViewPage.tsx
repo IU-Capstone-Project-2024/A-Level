@@ -6,6 +6,9 @@ import QuestionView from "../../components/QuestionView/QuestionView";
 import axios, { AxiosResponse } from "axios";
 import Modal from "../../components/Modal/Modal";
 import { useTab } from '../../context/TabContext';
+import ModalPortal from '../../components/ModalPortal/ModalPortal';
+import SetQuestion from '../../components/SetQuestion/SetQuestion';
+
 
 interface DocumentResponse {
     _id: string;
@@ -18,7 +21,16 @@ interface TopicTransformResp {
     names: string[];
 }
 
-
+interface TaskResponse {
+    _id: string | null;
+    content: string;
+    topic: number | null;
+    verified: boolean | null;
+    marks: number | null;
+    year: number | null;
+    document_id: string | null;
+    page: number | null;
+}
 
 export default function DocumentViewPage(){
     const { filename } = useParams<{ filename: string }>();
@@ -27,10 +39,15 @@ export default function DocumentViewPage(){
     const navigate = useNavigate();
     const { setTab } = useTab();
 
+
     const [questions, setQuestions] = useState<string[] | undefined>(doc?.tasks);
     const [deleteDocumentModal, setDeleteDocumentModal] = useState<boolean>(false);
     const deleteDocModalRef = useRef<HTMLDialogElement>(null);
     const [predict, setPredict] = useState<boolean>(false);
+
+    const [editModal, setEditModal] = useState<boolean>(false);
+    const editModalRef = useRef<HTMLDialogElement>(null);
+    const [editTask, setEditTask] = useState<TaskResponse | null>(null);
 
 
     useEffect(()=>{
@@ -42,6 +59,16 @@ export default function DocumentViewPage(){
 
         document.addEventListener("mousedown", handleClickOutside);
     }, [deleteDocModalRef]);
+
+    useEffect(()=>{
+        let handleClickOutside = (event: MouseEvent) =>{
+            if (editModalRef.current && !editModalRef.current.contains(event.target as Node)){
+                setEditModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+    }, [editModalRef]);
 
     async function handleDeleteTask(id: string) {
         const responseDeleteTask : AxiosResponse<null> = await axios.delete(`http://localhost:8000/task/${id}`);
@@ -64,22 +91,39 @@ export default function DocumentViewPage(){
         if(doc != null){
             const responseDelete : AxiosResponse<DocumentResponse> = await axios.delete(`http://localhost:8000/document/${doc._id}`);
             if(responseDelete.status === 200){
-                setTab('uploaded');
                 navigate('/uploaded');
+                setTab('uploaded');
             }
+        }
+    }
+
+    async function handleEdit() {
+        setEditModal(false);
+        const responseDoc: AxiosResponse<DocumentResponse> =  await axios.get(`http://localhost:8000/document/${doc?._id}`);
+        if(responseDoc.status === 200){
+            setQuestions(responseDoc.data.tasks);
+        }else {
+            console.log('error');
         }
     }
 
         return (
             <div className="document-view">
+                <ModalPortal open={editModal} ref={editModalRef}>
+                    <div className="question-container-heading">
+                        <h2 className="question-container-heading-text">Edit question</h2>
+                    </div>
+                    <SetQuestion task={editTask} afterSave={handleEdit}/>
+                </ModalPortal>
                 <div className="document">
                     <DocumentHeader filename={filename} onDelete={openDeleteDocumentModal} onPredict={setPredict}/>
                     <Modal open={deleteDocumentModal} ref={deleteDocModalRef}>
                         <h3>Delete this document?</h3>
                             <button className="delete-button" onClick={handleDeleteDocument}>Delete</button>
                     </Modal>
-                    {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask} predict={predict}/>)}
+                    {questions?.map((task, index) => <QuestionView id={task} index={index + 1} key={task} topics={topics?.names} onDelete={handleDeleteTask} onEdit={(task) => {setEditModal(true); setEditTask(task);}} predict={predict}/>)}
                 </div>
             </div>
         );
     }
+
