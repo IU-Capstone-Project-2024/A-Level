@@ -1,45 +1,54 @@
 // src/context/TopicsContext.tsx
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
-import axios, { AxiosResponse } from "axios";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useContext,
+} from 'react';
+import axios, { AxiosResponse } from 'axios';
 
 interface TopicTransformResp {
-    names: string[];
+  names: string[];
 }
 
 interface TopicsContextType {
-    topics: TopicTransformResp | undefined;
-    fetchTopics: () => void;
+  topics: TopicTransformResp | undefined;
+  fetchTopics: () => void;
 }
 
 const TopicsContext = createContext<TopicsContextType | undefined>(undefined);
 
 const TopicsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [topics, setTopics] = useState<TopicTransformResp | undefined>(undefined);
+  const [topics, setTopics] = useState<TopicTransformResp | undefined>(
+    undefined,
+  );
 
-    const fetchTopics = async () => {
-        const topicTransformResp: AxiosResponse<TopicTransformResp> = await axios.get("http://localhost:8000/utils/topicEnum");
-        if (topicTransformResp.status === 200) {
-            setTopics(topicTransformResp.data);
-        }
-    };
+  const fetchTopics = async () => {
+    const topicTransformResp: AxiosResponse<TopicTransformResp> =
+      await axios.get('http://localhost:8000/utils/topicEnum');
+    if (topicTransformResp.status === 200) {
+      setTopics(topicTransformResp.data);
+    }
+  };
 
-    useEffect(() => {
-        fetchTopics();
-    }, []);
+  useEffect(() => {
+    fetchTopics();
+  }, []);
 
-    return (
-        <TopicsContext.Provider value={{ topics, fetchTopics }}>
-            {children}
-        </TopicsContext.Provider>
-    );
+  return (
+    <TopicsContext.Provider value={{ topics, fetchTopics }}>
+      {children}
+    </TopicsContext.Provider>
+  );
 };
 
 const useTopics = (): TopicsContextType => {
-    const context = useContext(TopicsContext);
-    if (!context) {
-        throw new Error("useTopics must be used within a TopicsProvider");
-    }
-    return context;
+  const context = useContext(TopicsContext);
+  if (!context) {
+    throw new Error('useTopics must be used within a TopicsProvider');
+  }
+  return context;
 };
 
 export { TopicsProvider, useTopics };

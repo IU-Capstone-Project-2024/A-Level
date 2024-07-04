@@ -9,10 +9,20 @@ interface IconButtonProps {
   className?: string;
 }
 
-export default function IconButton({ icon, onClick, alt, title, className }: IconButtonProps) {
+export default function IconButton({
+  icon,
+  onClick,
+  alt,
+  title,
+  className,
+}: IconButtonProps) {
   return (
-    <button onClick={onClick} className={`icon-button ${className}`} title={title}>
+    <button
+      onClick={onClick}
+      className={`icon-button ${className}`}
+      title={title}
+    >
       <img src={icon} alt={alt} />
     </button>
   );
-};
+}

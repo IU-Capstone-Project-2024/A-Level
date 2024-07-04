@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTopics } from '../../context/TopicContext';
 
 interface TileProps {
-    image: string;
-    title: string;
-    id: number;
+  image: string;
+  title: string;
+  id: number;
 }
 
 interface DocumentProps {
@@ -17,29 +17,29 @@ interface DocumentProps {
   img: string | null;
 }
 
-
-
-export default function TileUploadedFile ({ image, title, id }:TileProps) {
+export default function TileUploadedFile({ image, title, id }: TileProps) {
   const navigate = useNavigate();
   const { topics } = useTopics();
 
-  async function switchToDoc(id:number) {
+  async function switchToDoc(id: number) {
     //change the function here when a tile will be clicked
-    const responseDoc: AxiosResponse<DocumentProps> = await axios.get(`http://localhost:8000/document/${id}`);
-    if (responseDoc.status === 200){
-        const doc : DocumentProps = responseDoc.data;
-        navigate(`/document/${doc.filename}`, { state: { doc, topics} });
-    }else{
-        console.log('An error occurred while uploading the file');
+    const responseDoc: AxiosResponse<DocumentProps> = await axios.get(
+      `http://localhost:8000/document/${id}`,
+    );
+    if (responseDoc.status === 200) {
+      const doc: DocumentProps = responseDoc.data;
+      navigate(`/document/${doc.filename}`, { state: { doc, topics } });
+    } else {
+      console.log('An error occurred while uploading the file');
     }
   }
 
-    return (
-      <div className="tile-outer" onClick={()=>switchToDoc(id)}>
-        <div className='tile-inner'>
-            <img src={image} alt={title} className="tile-image" />
-            <div className="tile-title">{title}</div>
-        </div>
+  return (
+    <div className="tile-outer" onClick={() => switchToDoc(id)}>
+      <div className="tile-inner">
+        <img src={image} alt={title} className="tile-image" />
+        <div className="tile-title">{title}</div>
       </div>
-    );
-};
+    </div>
+  );
+}
