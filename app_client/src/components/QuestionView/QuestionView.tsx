@@ -13,6 +13,7 @@ interface QuestionProps {
   onDelete: (id: string) => void;
   onEdit: (task: TaskResponse | null) => void;
   predict: boolean;
+  edited: boolean;
 }
 
 interface TaskResponse {
@@ -56,37 +57,37 @@ export default function QuestionView(question: QuestionProps) {
     document.addEventListener('mousedown', handleClickOutside);
   }, [deleteTaskModalRef]);
 
-  useEffect(() => {
-    async function getQuestion(id: string) {
-      const questionResponse: AxiosResponse<TaskResponse> = await axios.get(
-        `http://localhost:8000/task/${id}`,
-      );
-      if (questionResponse.status === 200) {
-        const taskData: TaskResponse = questionResponse.data;
-        if (taskData.topic == null) {
-          if (question.predict) {
-            const topicResponse: AxiosResponse<TopicResponse> = await axios.get(
-              `http://localhost:8000/task/${id}/predict`,
-            );
-            if (topicResponse.status === 200) {
-              taskData.topic = topicResponse.data.topic_id;
-            } else {
-              taskData.topic = -1;
-            }
+  async function getQuestion(id: string) {
+    const questionResponse: AxiosResponse<TaskResponse> = await axios.get(
+      `http://localhost:8000/task/${id}`,
+    );
+    if (questionResponse.status === 200) {
+      const taskData: TaskResponse = questionResponse.data;
+      if (taskData.topic == null) {
+        if (question.predict) {
+          const topicResponse: AxiosResponse<TopicResponse> = await axios.get(
+            `http://localhost:8000/task/${id}/predict`,
+          );
+          if (topicResponse.status === 200) {
+            taskData.topic = topicResponse.data.topic_id;
           } else {
             taskData.topic = -1;
           }
         } else {
-          if (question.topics === undefined) {
-            taskData.topic = -1;
-          }
+          taskData.topic = -1;
         }
-        setTask(taskData);
+      } else {
+        if (question.topics === undefined) {
+          taskData.topic = -1;
+        }
       }
+      setTask(taskData);
     }
+  }
 
+  useEffect(() => {
     getQuestion(question.id);
-  }, [question.predict, task, question.id, question.topics]);
+  }, [question.predict, question.id, question.edited]);
 
   function openDeleteTaskModal() {
     setDeleteTaskModal(true);

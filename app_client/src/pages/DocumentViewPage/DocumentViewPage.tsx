@@ -50,6 +50,7 @@ export default function DocumentViewPage() {
   const [editModal, setEditModal] = useState<boolean>(false);
   const editModalRef = useRef<HTMLDialogElement>(null);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
+  const [edited, setEdited] = useState<boolean>(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -78,7 +79,7 @@ export default function DocumentViewPage() {
   }, [editModalRef]);
 
   async function handleDeleteTask(id: string) {
-    const responseDeleteTask: AxiosResponse<null> = await axios.delete(
+    const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
       `http://localhost:8000/task/${id}`,
     );
     if (responseDeleteTask.status === 200) {
@@ -115,6 +116,7 @@ export default function DocumentViewPage() {
     );
     if (responseDoc.status === 200) {
       setQuestions(responseDoc.data.tasks);
+      setEdited(!edited);
     } else {
       console.log('error');
     }
@@ -152,6 +154,7 @@ export default function DocumentViewPage() {
               setEditTask(task);
             }}
             predict={predict}
+            edited={edited}
           />
         ))}
       </div>
