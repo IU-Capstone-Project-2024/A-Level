@@ -2,13 +2,7 @@ import selectedOptionIcon from '../../images/selectedOption.svg'
 import dropArrowIcon from '../../images/dropArrowIcon.svg'
 import './DropdownQuestionsMenu.css';
 import { useEffect, useRef, useState } from "react";
-
-interface Option {
-    id: number;
-    type_id: number;
-    backend_id: number;
-    text: string;
-}
+import { Option } from '../../components/Option';
 
 interface DropdownProps {
     title: string;

@@ -6,21 +6,15 @@ import markIcon from '../../images/markIcon.svg'
 import yearIcon from '../../images/yearIcon.svg'
 import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 import { useLocation } from 'react-router-dom';
 import { useTopics } from '../../context/TopicContext';
 import { text } from 'stream/consumers';
+import { Option } from '../../components/Option';
+
 
 const maxQuestionsPerPage = 5;
-
-interface Option {
-    id: number;
-    type_id: number;
-    backend_id: number;
-    text: string;
-}
-
 
 export default function Questions() {
     const [ques, setQues] = useState([]);
@@ -36,13 +30,27 @@ export default function Questions() {
     const [marksFilter, setMarksFilter] = useState<number[]>([]);
     const [topicFilter, setTopicsFilter] = useState<number[]>([]);
 
-    async function getQues(page: number, length: number) {
-        const res = await axios.get('http://localhost:8000/task', {
-            params: {
-                offset: page - 1,
-                length: length
-            }
-        });
+    async function getQues(page: number, length: number, marks: number[], years: number[], topics: number[]) {
+        const par1 = 'http://localhost:8000/task?';
+        const par2 = 'offset=' + (page - 1);
+        const par3 = '&length=' + length;
+        const par4 = '&marks=' + marks.join(',');
+        const par5 = '&year=' + years.join(','); 
+        const par6 = '&topic=' + topics.join(',');
+        const req = par1 + par2 + par3 + par4 + par5 + par6;
+        const res = await axios.get(req);
+        return res.data;
+    }
+
+    async function getQuesTotal(page: number, length: number, marks: number[], years: number[], topics: number[]) {
+        const par1 = 'http://localhost:8000/task/number?';
+        const par2 = 'offset=' + (page - 1);
+        const par3 = '&length=' + length;
+        const par4 = '&marks=' + marks.join(',');
+        const par5 = '&year=' + years.join(','); 
+        const par6 = '&topic=' + topics.join(',');
+        const req = par1 + par2 + par3 + par4 + par5 + par6;
+        const res = await axios.get(req);
         return res.data;
     }
 
@@ -60,12 +68,16 @@ export default function Questions() {
         return result;
     }
 
+    const [_,force] =useReducer((x)=>x,0)
+
+    
+
     useEffect(() => {
         async function fetchQues() {
             setLoading(true);
-            const fetchedQues = await getQues(page, maxQuestionsPerPage);
-            const totalQues = await axios.get('http://localhost:8000/task/number');
-            setTotalQues(totalQues.data);
+            const fetchedQues = await getQues(page, maxQuestionsPerPage, marksFilter, yearsFilter, topicFilter);
+            const totalQues = await getQuesTotal(page, maxQuestionsPerPage, marksFilter, yearsFilter, topicFilter);
+            setTotalQues(totalQues);
             setQues(fetchedQues);
             setLoading(false);
         }
@@ -110,9 +122,9 @@ export default function Questions() {
             if(selectedOptions[i].type_id === 0)
                 topicsFil = [...topicsFil, selectedOptions[i].backend_id];
             else if(selectedOptions[i].type_id === 1)
-                marksFil = [...marksFil, selectedOptions[i].backend_id];
+                marksFil = [...marksFil, Number(selectedOptions[i].text)];
             else if(selectedOptions[i].type_id === 2)
-                yearsFil = [...yearsFil, selectedOptions[i].backend_id];
+                yearsFil = [...yearsFil, Number(selectedOptions[i].text)];
         }
         setTopicsFilter(topicsFil);
         setMarksFilter(marksFil);
@@ -120,8 +132,13 @@ export default function Questions() {
         
         fetchQues();
         fetchUtils();
-        console.log('topics:', topicFilter, 'marks:', marksFilter, 'years:', yearsFilter);
-    }, [page, selectedOptions, selectedOptions]);
+        for(let i=0; i<selectedOptions.length; i++) {
+            console.log(selectedOptions[i].text);
+        }
+        console.log('topics:', topicsFil, 'marks:', marksFil, 'years:', yearsFil);
+    }, [page, selectedOptions]);
+
+
 
 
     function test(updatedPage:number){
