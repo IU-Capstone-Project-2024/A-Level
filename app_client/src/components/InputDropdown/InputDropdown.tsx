@@ -29,8 +29,8 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   };
 
   return (
-    <div className="dropdown">
-      <div className="dropdown-header" onClick={() => setIsOpen(!isOpen)}>
+    <div className="input-dropdown">
+      <div className="input-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
         {selectedTopicLabel}
         {isOpen ? (
           <img src={DropdownArrowOpen} alt="open"></img>
@@ -39,11 +39,11 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
         )}
       </div>
       {isOpen && (
-        <ul className="dropdown-list">
+        <ul className="input-dropdown-list">
           {options.map((option) => (
             <li
               key={option.value}
-              className="dropdown-item"
+              className="input-dropdown-item"
               onClick={() => handleSelect(option)}
             >
               {option.label}
