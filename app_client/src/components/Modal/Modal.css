@@ -1,33 +1,32 @@
 dialog {
-    background-color: var(--color-light-sage);
-    border: 1px solid var(--color-sage);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    
+  background-color: var(--color-light-sage);
+  border: 1px solid var(--color-sage);
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
 
-dialog h3{
-    font-size: 1.25rem;
-    font-family: 'Inter';
-    font-weight: 400;
-    color: var(--color-dark);
-    margin: 0 0 2rem 0;
+dialog h3 {
+  font-size: 1.25rem;
+  font-family: 'Inter';
+  font-weight: 400;
+  color: var(--color-dark);
+  margin: 0 0 2rem 0;
 }
 
-.delete-button{
-    margin: 0;
-    font-size: 1.25rem;
-    font-family: 'Inter';
-    font-weight: 500;
-    background-color: var(--color-violet);
-    color: var(--color-light-sage);
-    opacity: 0.8;
-    cursor: pointer;
-    border: transparent;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+.delete-button {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  background-color: var(--color-violet);
+  color: var(--color-light-sage);
+  opacity: 0.8;
+  cursor: pointer;
+  border: transparent;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .delete-button:hover {
-    opacity: 1;
+  opacity: 1;
 }

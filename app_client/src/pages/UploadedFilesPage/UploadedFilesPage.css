@@ -1,25 +1,25 @@
 .uploaded-page-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-    min-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 80%;
 }
 
 .center-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex-grow: 1;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
 .grid-container {
-    width: 100%;
+  width: 100%;
 }
 
 .pagination {
-    margin-top: 20px;
+  margin-top: 20px;
 }
