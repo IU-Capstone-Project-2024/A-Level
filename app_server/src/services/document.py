@@ -41,8 +41,10 @@ class DocumentService:
         parsed_tasks = self._parse_tasks_from_document(file)
         for parsed_task in parsed_tasks:
             task = await task_repository.create(parsed_task)
-            await utils_repository.update_marks(task.marks if task.marks is not None else -1)
-            await utils_repository.update_years(task.year if task.year is not None else -1)
+            if task.marks is not None:
+                await utils_repository.update_marks(task.marks)
+            if task.year is not None:
+                await utils_repository.update_years(task.year)
             task_ids.append(task.id)
             
         extracts = self._parse_passages_from_document(file)
