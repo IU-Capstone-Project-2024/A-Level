@@ -1,14 +1,9 @@
 import selectedOptionIcon from '../../images/selectedOption.svg';
 import dropArrowIcon from '../../images/dropArrowIcon.svg';
 import './DropdownQuestionsMenu.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
+import { Option } from '../../components/Option';
 
-interface Option {
-  id: number;
-  type_id: number;
-  backend_id: number;
-  text: string;
-}
 
 interface DropdownProps {
   title: string;
@@ -63,33 +58,31 @@ export default function Dropdown({
   useEffect(() => {
     setSelectedOptionIds(selectedOptions.map((option) => option.id));
   }, [selectedOptions]);
-
-  return (
-    <div className="dropdown" ref={dropdownRef}>
-      <button
-        className="dropbtn"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
-        <img src={icon} alt="icon" className="dropDownIcon"></img>
-        {title}
-        <img src={dropArrowIcon} className="arrow-down" alt="arrow-icon"></img>
-      </button>
-      {isDropdownOpen && (
-        <div className="dropdown-content">
-          {options.map((option) => (
-            <div
-              key={option.id}
-              className={`option ${selectedOptionIds.includes(option.id) ? 'selected' : ''}`}
-              onClick={() => handleOptionClick(option)}
-            >
-              <img
-                src={selectedOptionIcon}
-                alt=""
-                className={`option-img ${selectedOptionIds.includes(option.id) ? 'visible' : 'hidden'}`}
-              />
-              <span>{option.text}</span>
-            </div>
-          ))}
+    return (
+        <div className="dropdown-filter" ref={dropdownRef}>
+            <button className="dropbtn" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+               <img src={icon} alt='icon' className='dropDownIcon'></img>
+               {title}
+               <img src={dropArrowIcon} className="arrow-down" alt='arrow-icon'></img>
+            </button>
+            {isDropdownOpen && (
+                <div className="dropdown-content">
+                    {options.map((option) => (
+                        <div
+                            key={option.id}
+                            className={`option ${selectedOptionIds.includes(option.id) ? 'selected' : ''}`}
+                            onClick={() => handleOptionClick(option)}
+                        >
+                            <img
+                                src={selectedOptionIcon}
+                                alt=""
+                                className={`option-img ${selectedOptionIds.includes(option.id) ? 'visible' : 'hidden'}`}
+                            />
+                            <span>{option.text}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
       )}
     </div>
