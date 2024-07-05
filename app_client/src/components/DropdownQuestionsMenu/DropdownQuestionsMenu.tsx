@@ -49,7 +49,7 @@ export default function Dropdown({ title, icon, options, onOptionClick, onOption
     }, [selectedOptions]);
 
     return (
-        <div className="dropdown" ref={dropdownRef}>
+        <div className="dropdown-filter" ref={dropdownRef}>
             <button className="dropbtn" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                <img src={icon} alt='icon' className='dropDownIcon'></img>
                {title}

@@ -29,6 +29,13 @@ export default function Questions() {
     const [yearsFilter, setYearsFilter] = useState<number[]>([]);
     const [marksFilter, setMarksFilter] = useState<number[]>([]);
     const [topicFilter, setTopicsFilter] = useState<number[]>([]);
+    const [testing, setTesting] = useState(false);
+
+    const [_,force] =useReducer((x)=>x,0)
+
+    useEffect(()=>{
+        force();
+    }, [testing]);
 
     async function getQues(page: number, length: number, marks: number[], years: number[], topics: number[]) {
         const par1 = 'http://localhost:8000/task?';
@@ -68,10 +75,62 @@ export default function Questions() {
         return result;
     }
 
-    const [_,force] =useReducer((x)=>x,0)
+    
 
     
 
+    useEffect(() => {
+        async function fetchUtils() {
+            const utils = await getUtils();
+            const yearsKeys = Object.keys(utils.years);
+            const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
+                text: val,
+                type_id: 2,
+                backend_id: index,
+                id: index,
+            }));
+            setYearsOptions(yearsOptions);
+    
+            const marksKeys = Object.keys(utils.marks);
+            const marksOptions: Option[] = marksKeys.map((val, index) => ({
+                text: val,
+                type_id: 1,
+                backend_id: index,
+                id: index + yearsOptions.length,
+            }));
+            setMarksOptions(marksOptions);
+    
+            let topicsKeys: string[] = [];
+            if (topics !== undefined) topicsKeys = topics.names;
+    
+            const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
+                text: val,
+                type_id: 0,
+                backend_id: index,
+                id: index + yearsOptions.length + marksOptions.length,
+            }));
+            setTopicsOptions(topicsOptions);
+        }
+    
+        // update filters
+        let yearsFil: number[] = [];
+        let marksFil: number[] = [];
+        let topicsFil: number[] = [];
+        for (let i = 0; i < selectedOptions.length; i++) {
+            if (selectedOptions[i].type_id === 0)
+                topicsFil = [...topicsFil, selectedOptions[i].backend_id];
+            else if (selectedOptions[i].type_id === 1)
+                marksFil = [...marksFil, Number(selectedOptions[i].text)];
+            else if (selectedOptions[i].type_id === 2)
+                yearsFil = [...yearsFil, Number(selectedOptions[i].text)];
+        }
+        setTopicsFilter(topicsFil);
+        setMarksFilter(marksFil);
+        setYearsFilter(yearsFil);
+    
+        fetchUtils();
+    }, [page, selectedOptions]);
+    
     useEffect(() => {
         async function fetchQues() {
             setLoading(true);
@@ -81,62 +140,16 @@ export default function Questions() {
             setQues(fetchedQues);
             setLoading(false);
         }
-        async function fetchUtils() {
-            const utils = await getUtils();
-            const yearsKeys = Object.keys(utils.years);
-            const yearsOptions:Option[] = yearsKeys.map((val, index) => ({
-                text: val,
-                type_id: 2,
-                backend_id: index,
-                id: index,
-            }));
-            setYearsOptions(yearsOptions);
-
-            const marksKeys = Object.keys(utils.marks);
-            const marksOptions:Option[] = marksKeys.map((val, index) => ({
-                text: val,
-                type_id: 1,
-                backend_id: index,
-                id: index + yearsOptions.length
-            }));
-            setMarksOptions(marksOptions);
-
-            let topicsKeys: string[] = [];
-            if(topics !== undefined)
-                topicsKeys = topics.names;
-
-            const topicsOptions:Option[] = topicsKeys.map((val, index)=>({
-                text: val,
-                type_id: 0,
-                backend_id: index,
-                id: index + yearsOptions.length + marksOptions.length, 
-            }));
-            setTopicsOptions(topicsOptions);
-        }
-
-        //update filters
-        let yearsFil: number[] = [];
-        let marksFil: number[] = [];
-        let topicsFil: number[] = [];
-        for(let i=0; i<selectedOptions.length; i++) {
-            if(selectedOptions[i].type_id === 0)
-                topicsFil = [...topicsFil, selectedOptions[i].backend_id];
-            else if(selectedOptions[i].type_id === 1)
-                marksFil = [...marksFil, Number(selectedOptions[i].text)];
-            else if(selectedOptions[i].type_id === 2)
-                yearsFil = [...yearsFil, Number(selectedOptions[i].text)];
-        }
-        setTopicsFilter(topicsFil);
-        setMarksFilter(marksFil);
-        setYearsFilter(yearsFil);
-        
         fetchQues();
-        fetchUtils();
-        for(let i=0; i<selectedOptions.length; i++) {
+    }, [marksFilter, yearsFilter, topicFilter]);
+    
+    useEffect(() => {
+        for (let i = 0; i < selectedOptions.length; i++) {
             console.log(selectedOptions[i].text);
         }
-        console.log('topics:', topicsFil, 'marks:', marksFil, 'years:', yearsFil);
-    }, [page, selectedOptions]);
+        console.log('topics:', topicFilter, 'marks:', marksFilter, 'years:', yearsFilter);
+    }, [topicFilter, marksFilter, yearsFilter]);
+    
 
 
 
