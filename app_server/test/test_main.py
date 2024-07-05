@@ -65,8 +65,58 @@ def test_get_all():
     result_text = result.stdout.split('\n')
     status = result_text[0].split(' ')[1]
     response = extract_list_from_text(result.stdout)
-    print(response[0]['_id'])
+    # print(response[0]['_id'])
     assert status == '200'
+
+
+def test_get_number_of_docs():
+    command = 'curl -X GET http://0.0.0.0:8000/document/number -i'
+
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    
+
+    result_text = result.stdout.split('\n')
+    status = result_text[0].split(' ')[1]
+    assert status == '200'
+
+    number_of_docs = result_text[-1].strip()
+
+    command = 'curl -X GET http://0.0.0.0:8000/document/ -i'
+
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    
+
+    result_text = result.stdout.split('\n')
+    status = result_text[0].split(' ')[1]
+    assert status == '200'
+
+    assert number_of_docs == f'{len(extract_list_from_text(result.stdout))}'
+
+
+def test_get_one_document():
+    command = 'curl -X GET http://localhost:8000/document/ -i'
+
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+
+    result_text = result.stdout.split('\n')
+    status = result_text[0].split(' ')[1]
+    assert status == '200'
+    response = extract_list_from_text(result.stdout)
+
+    chosen_id = response[0]['_id']
+    command = f'curl -X GET http://localhost:8000/document/{chosen_id} -i'
+
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    status = result_text[0].split(' ')[1]
+    assert status == '200'
+    chosen_response = extract_dict_from_text(result.stdout)
+
+    for key, value in chosen_response.items():
+        assert response[0][key] == value
+
+
+
+
 
 def test_remove_document():
 
@@ -140,6 +190,25 @@ def test_get_tasks():
         for dct in response:
             for index, key in enumerate(dct.keys()):
                 assert key == props_list[index]
+
+
+def test_get_tasks_with_filters():
+
+    command = 'curl -X POST -F "uploaded_file=@/$(pwd)/test/files/test1.pdf" http://0.0.0.0:8000/document/upload -i'
+    subprocess.run(command, shell=True, capture_output=True, text=True)
+
+    command = 'curl -X GET "http://localhost:8000/task/?marks=2,4,6&year=2019" -i'
+
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    result_text = result.stdout.split('\n')
+    status = result_text[0].split(' ')[1]
+    response = extract_list_from_text(result.stdout)
+    assert status == '200'
+    props_list = ['_id', 'content', 'topic', 'verified', 'marks', 'year', 'document_id', 'page']
+    if len(response) > 0:
+        for dct in response:
+            assert dct['marks'] in [2,4,6]
+            assert dct['year'] == 2019
 
 
     

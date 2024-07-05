@@ -98,3 +98,4 @@ app_server/test/files/test.py
 app_server/rebuild.sh
 app_server/src/helper.py
 get-pip.py
+app_server/test/parser.py
