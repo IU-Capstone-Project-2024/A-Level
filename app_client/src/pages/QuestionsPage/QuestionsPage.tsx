@@ -6,10 +6,9 @@ import markIcon from '../../images/markIcon.svg'
 import yearIcon from '../../images/yearIcon.svg'
 import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 import { useTopics } from '../../context/TopicContext';
-import { text } from 'stream/consumers';
 import { Option } from '../../components/Option';
 
 

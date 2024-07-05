@@ -8,17 +8,16 @@ import { TopicsProvider } from './context/TopicContext';
 import { TabProvider } from './context/TabContext';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
-  
   <React.StrictMode>
     <TopicsProvider>
       <TabProvider>
         <RouterProvider router={router} />
       </TabProvider>
     </TopicsProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();

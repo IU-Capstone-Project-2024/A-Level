@@ -19,14 +19,14 @@ code {
 }
 
 :root {
-  --color-dark: #3B2C35;
+  --color-dark: #3b2c35;
   --color-dark-rgb: 59, 44, 53;
-  --color-violet: #967BB6;
-  --color-sage: #9AAB89;
-  --color-cambridge-blue: #DAE3DB;
-  --color-lavender: #E6E6FA;
-  --color-light-sage: #FEFFFD;
-  --color-violet-dark: #5B4B6D;
-  --color-sage-dark: #6F7D60;
-  --color-error: #EE5656;
+  --color-violet: #967bb6;
+  --color-sage: #9aab89;
+  --color-cambridge-blue: #dae3db;
+  --color-lavender: #e6e6fa;
+  --color-light-sage: #fefffd;
+  --color-violet-dark: #5b4b6d;
+  --color-sage-dark: #6f7d60;
+  --color-error: #ee5656;
 }

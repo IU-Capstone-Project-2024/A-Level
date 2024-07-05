@@ -4,46 +4,49 @@ import Plus from '../../images/plus.svg';
 import Minus from '../../images/minus.svg';
 
 interface InputNumberProps {
-    valueNumber: number | undefined;
-    setNumberValue: (value: number | undefined) => void;
-    error: string;
-    setError: React.Dispatch<React.SetStateAction<string>>;
-    
+  valueNumber: number | undefined;
+  setNumberValue: (value: number | undefined) => void;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue, error, setError}) => {
+const InputNumber: React.FC<InputNumberProps> = ({
+  valueNumber,
+  setNumberValue,
+  error,
+  setError,
+}) => {
   const increment = () => {
-    if(valueNumber !== undefined){
+    if (valueNumber !== undefined) {
       if (valueNumber < 20) {
         setNumberValue(valueNumber + 1);
-        setError("");
-        if (valueNumber + 1 < 1){
-          setError("The minimum mark is 1.");
+        setError('');
+        if (valueNumber + 1 < 1) {
+          setError('The minimum mark is 1.');
         }
       } else {
-        setError("The maximum mark is 20.");
+        setError('The maximum mark is 20.');
       }
     } else {
       setNumberValue(1);
-      setError("");
+      setError('');
     }
-    
   };
 
   const decrement = () => {
-    if (valueNumber !== undefined){
+    if (valueNumber !== undefined) {
       if (valueNumber > 1) {
         setNumberValue(valueNumber - 1);
-        setError("");
-        if(valueNumber-1 >20){
-          setError("The maximum mark is 20.");
+        setError('');
+        if (valueNumber - 1 > 20) {
+          setError('The maximum mark is 20.');
         }
       } else {
-        setError("The minimum mark is 1.");
+        setError('The minimum mark is 1.');
       }
     } else {
       setNumberValue(20);
-      setError("");
+      setError('');
     }
   };
 
@@ -51,12 +54,12 @@ const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue, 
     const newValue = parseInt(e.target.value);
     if (!isNaN(newValue)) {
       setNumberValue(newValue);
-      if (newValue < 1){
-        setError("The minimum mark is 1.");
-      } else if (newValue > 20){
-        setError("The maximum mark is 20.");
+      if (newValue < 1) {
+        setError('The minimum mark is 1.');
+      } else if (newValue > 20) {
+        setError('The maximum mark is 20.');
       } else {
-        setError("");
+        setError('');
       }
     } else {
       setNumberValue(undefined);
@@ -75,18 +78,10 @@ const InputNumber: React.FC<InputNumberProps> = ({ valueNumber, setNumberValue, 
           max={20}
         />
         <div className="buttons-plus-minus">
-          <button
-            type="button"
-            className="increment"
-            onClick={increment}
-          >
+          <button type="button" className="increment" onClick={increment}>
             <img src={Plus} alt="Plus" />
           </button>
-          <button
-            type="button"
-            className="decrement"
-            onClick={decrement}
-          >
+          <button type="button" className="decrement" onClick={decrement}>
             <img src={Minus} alt="Minus" />
           </button>
         </div>

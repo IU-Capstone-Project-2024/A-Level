@@ -1,52 +1,53 @@
+
 .dropdown-filter {
     position: relative;
     display: inline-block;
+
 }
 
 .dropbtn {
-    color: var(--color-violet-dark);
-    background-color: var(--color-light-sage);
-    padding: 16px;
-    font-size: 16px;
-    border: 2px solid var(--color-sage);
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 130px;
-    height: 40px;
+  color: var(--color-violet-dark);
+  background-color: var(--color-light-sage);
+  padding: 16px;
+  font-size: 16px;
+  border: 2px solid var(--color-sage);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 130px;
+  height: 40px;
 }
 
-
 .dropdown-content {
-    display: block;
-    position: absolute;
-    background-color: var(--color-light-sage);
-    min-width: 12rem;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: block;
+  position: absolute;
+  background-color: var(--color-light-sage);
+  min-width: 12rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .option {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .option-img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    visibility: hidden;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  visibility: hidden;
 }
 
 .visible {
-    visibility: visible;
+  visibility: visible;
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .selected {
