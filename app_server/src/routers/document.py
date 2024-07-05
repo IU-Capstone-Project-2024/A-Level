@@ -19,10 +19,6 @@ file_handler.setFormatter(formatter)
 logging.getLogger('').addHandler(file_handler)
 
 
-@router.get("/utils")
-async def check():
-    return await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
-
 
 @router.post("/upload")
 async def upload(uploaded_file: UploadFile):

@@ -2,6 +2,7 @@ import hashlib
 import io
 import re
 from pathlib import Path
+import string
 
 import PyPDF2
 import pymupdf
@@ -18,6 +19,13 @@ from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
 
 
 class DocumentService:
+    def __init__(self):
+        self.clean_regex = r'\([a-z]\)|\\n3'
+        self.clean_pattern = re.compile(self.clean_regex)
+
+        self.dot_fixer_regex = r' \.'
+        self.dot_fixer_pattern = re.compile(self.dot_fixer_regex)
+
     async def create(self, filename: str, file: bytes) -> Document_:
         checksum = hashlib.sha256(file).hexdigest()
         path = Path("files") / checksum
@@ -33,11 +41,12 @@ class DocumentService:
         parsed_tasks = self._parse_tasks_from_document(file)
         for parsed_task in parsed_tasks:
             task = await task_repository.create(parsed_task)
-            await utils_repository.update_marks(task.marks)
-            await utils_repository.update_years(task.year)
+            await utils_repository.update_marks(task.marks if task.marks is not None else -1)
+            await utils_repository.update_years(task.year if task.year is not None else -1)
             task_ids.append(task.id)
-
-        document = DocumentCreate(path=str(path), filename=filename, tasks=task_ids)
+            
+        extracts = self._parse_passages_from_document(file)
+        document = DocumentCreate(path=str(path), filename=filename, tasks=task_ids, extracts=extracts)
         result = await document_repository.create(document)
         for t in task_ids:
             task = await task_repository.read(t)
@@ -77,26 +86,19 @@ class DocumentService:
         text = self.clean_pattern.sub('', text)
         text = self.dot_fixer_pattern.sub('.', text)
         return ' '.join(text.split())
-
+    
     def _parse_tasks_from_document(self, file: bytes) -> list[TaskCreate]:
 
         file_handler = logging.FileHandler('app.log')
-        file_handler.setLevel(logging.DEBUG)  # Optionally set the level for the file handler
+        file_handler.setLevel(logging.DEBUG) 
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(formatter)
 
-        # Add the FileHandler to the root logger
         logging.getLogger('').addHandler(file_handler)
 
         try:
             date_pattern = r"(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s\d{1,2}\s(January|February|March|April|May|June|July|August|September|October|November|December)\s(\d{4})"
             question_pattern = re.compile(r'(\([a-z]\)|\\n3)(.+?)\((\d{1,2})\)', re.DOTALL)
-
-            self.clean_regex = r'\([a-z]\)|\\n3'
-            self.clean_pattern = re.compile(self.clean_regex)
-
-            self.dot_fixer_regex = r' \.'
-            self.dot_fixer_pattern = re.compile(self.dot_fixer_regex)
 
 
             pdf_reader = PyPDF2.PdfReader(io.BytesIO(file))
@@ -143,7 +145,36 @@ class DocumentService:
     
             logging.error(f'An error occurred: {e}')
     
+    def _parse_passages_from_document(self, file: bytes):
+        try:
+            
+            pdffile = pymupdf.open(stream=file, filetype="pdf")
+            result = dict()
+            break_flag = False
+            for letter in string.ascii_uppercase:
+                pattern = re.compile(
+                    r"\\nExtract\s(" + re.escape(str(letter)) + r")\s*[\\t]*\\n(.+?)(\\n\(Source|Extract|\\n\s\\n\s\\n)",
+                    re.DOTALL
+                )
+                text = ''.join(page.get_text() for page in pdffile)
+
+                match = pattern.search(self.__process_content(text))
+                
+                if match is None:
+                    if break_flag:
+                        break
+                    break_flag = True
+                else:
+                    break_flag = False
+                    result[match.group(1)] = self.__process_questions(match.group(2))
+
+            return result
+        except Exception as e:
+            with open('app.log', 'a') as logfile:
+                logfile.write(f'The following exception occured when parsing passages {e}')
+    
 
 
 
 document_service = DocumentService()
+
