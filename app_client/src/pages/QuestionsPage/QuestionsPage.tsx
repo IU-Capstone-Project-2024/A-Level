@@ -8,13 +8,12 @@ import topicIcon from '../../images/topicIcon.svg'
 import cancelIcon from '../../images/cancelOptionIcon.svg'
 import { useState, useEffect, useReducer } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
-import { useLocation } from 'react-router-dom';
 import { useTopics } from '../../context/TopicContext';
 import { text } from 'stream/consumers';
 import { Option } from '../../components/Option';
 
 
-const maxQuestionsPerPage = 5;
+const maxQuestionsPerPage = 6;
 
 export default function Questions() {
     const [ques, setQues] = useState([]);
@@ -29,13 +28,6 @@ export default function Questions() {
     const [yearsFilter, setYearsFilter] = useState<number[]>([]);
     const [marksFilter, setMarksFilter] = useState<number[]>([]);
     const [topicFilter, setTopicsFilter] = useState<number[]>([]);
-    const [testing, setTesting] = useState(false);
-
-    const [_,force] =useReducer((x)=>x,0)
-
-    useEffect(()=>{
-        force();
-    }, [testing]);
 
     async function getQues(page: number, length: number, marks: number[], years: number[], topics: number[]) {
         const par1 = 'http://localhost:8000/task?';
@@ -74,10 +66,6 @@ export default function Questions() {
         result = result.charAt(0).toUpperCase() + result.slice(1);
         return result;
     }
-
-    
-
-    
 
     useEffect(() => {
         async function fetchUtils() {
@@ -151,9 +139,6 @@ export default function Questions() {
     }, [topicFilter, marksFilter, yearsFilter]);
     
 
-
-
-
     function test(updatedPage:number){
         setPage(updatedPage);
     }
@@ -172,7 +157,6 @@ export default function Questions() {
         setSelectedOptions([]);
     };
 
-    
 
     const data = ques.map(({content, topic, _id}) => ({
         question: content, topic: transformString(topics?.names[topic]), id: _id
