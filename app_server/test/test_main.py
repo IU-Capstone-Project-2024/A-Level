@@ -1,12 +1,12 @@
 import subprocess
 import pytest
-import re
+import regex
 import ast
 from src.storages.mongo.models.task import Topic
 
 
 def extract_dict_from_text(text):
-    dict_pattern = re.compile(r"\{.*?\}", re.DOTALL)
+    dict_pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}', regex.DOTALL)
 
     match = dict_pattern.search(text)
     if match:
@@ -25,7 +25,7 @@ def extract_dict_from_text(text):
     return None
 
 def extract_list_from_text(text):
-    list_pattern = re.compile(r"\[.*\]", re.DOTALL)
+    list_pattern = regex.compile(r"\[.*\]", regex.DOTALL)
 
     match = list_pattern.search(text)
     if match:
@@ -51,6 +51,7 @@ def test_upload_file():
     status = result_text[0].split(' ')[1]
     # print(result.stdout)
     response = extract_dict_from_text(result.stdout)
+    # print(response)
     assert status == '200'
     assert len(response['tasks']) == 13
     # print('hi')
