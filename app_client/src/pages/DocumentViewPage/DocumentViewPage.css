@@ -1,7 +1,9 @@
 .document-view {
   display: flex;
   justify-content: center;
-  margin-bottom: 4rem;
+  min-height: 80vh;
+  padding: 4rem 0;
+  box-sizing: border-box;
 }
 
 .document {
