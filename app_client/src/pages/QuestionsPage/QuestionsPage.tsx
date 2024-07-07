@@ -69,7 +69,7 @@ export default function Questions() {
   }
 
   function transformString(input: string | undefined) {
-    if (input == null) return 'Unknown';
+    if (input == null) return 'Not Assigned';
     let result = input.replace(/_/g, ' ');
     result = result.toLowerCase();
     result = result.charAt(0).toUpperCase() + result.slice(1);
