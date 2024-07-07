@@ -6,6 +6,7 @@ import DocumentViewPage from '../pages/DocumentViewPage/DocumentViewPage';
 import CreateQuestionPage from '../pages/CreateQuestionPage/CreateQuestionPage';
 import QuestionsPage from '../pages/QuestionsPage/QuestionsPage';
 import SavedCreatedQuestionPage from '../pages/SavedCreatedQuestionPage/SavedCreatedQuestionPage';
+import QuestionViewPage from '../pages/QuestionViewPage/QuestionViewPage';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       { path: 'create', element: <CreateQuestionPage /> },
       { path: 'questions', element: <QuestionsPage /> },
       { path: 'saved', element: <SavedCreatedQuestionPage /> },
+      { path: 'question/:taskID', element: <QuestionViewPage /> },
     ],
   },
 ]);

@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router';
 import './QuestionsTable.css';
 
 interface TableData {
   topic: string;
   question: string;
+  id: string;
 }
 
 interface TableProps {
@@ -10,8 +12,9 @@ interface TableProps {
 }
 
 export default function Table({ data }: TableProps) {
+  const navigate = useNavigate();
   const handleQuestionClick = (row: TableData) => {
-    console.log(`${row.topic} ${row.question} is clicked`);
+    navigate(`/question/${row.id}`);
   };
 
   return (

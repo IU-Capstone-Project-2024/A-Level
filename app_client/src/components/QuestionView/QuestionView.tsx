@@ -10,7 +10,7 @@ interface QuestionProps {
   id: string;
   index: number;
   topics: string[] | undefined;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, document_id: string | null | undefined) => void;
   onEdit: (task: TaskResponse | null) => void;
   predict: boolean;
   edited: boolean;
@@ -94,13 +94,15 @@ export default function QuestionView(question: QuestionProps) {
   }
 
   async function handleDeleteTask() {
-    question.onDelete(question.id);
+    question.onDelete(question.id, task?.document_id);
     setDeleteTaskModal(false);
   }
 
   return (
     <div className="question-container">
-      <h6 className="question-number">Task {question.index}</h6>
+      {question.index !== -1 && (
+        <h6 className="question-number">Task {question.index}</h6>
+      )}
       <div className="question-content">
         <div className="question-text-container">
           <p className="question-text">{task?.content}</p>
