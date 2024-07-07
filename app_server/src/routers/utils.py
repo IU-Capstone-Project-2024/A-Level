@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Response
 from src.storages.mongo.models.task import Topic
 from typing import Dict, List, Optional
 from src.storages.mongo.repositories.utils import utils_repository
@@ -26,7 +26,12 @@ async def send_marks() -> Optional[Utils]:
 async def send() -> Optional[List]:
     return await utils_repository.read_all()
 
-@router.get("/exam")
+@router.post("/exam")
 async def create_exam_variant():
-    return await utilsService.create_exam_variant()
+    try:
+        response = await utilsService.create_exam_variant()
+        return response
+    except Exception as e:
+        with open('utils.log', 'a') as logfile:
+            logfile.write(f'{e}')
 
