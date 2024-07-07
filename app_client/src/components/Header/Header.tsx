@@ -2,6 +2,7 @@ import './Header.css';
 import logo from '../../images/logo.svg';
 import MenuItem from '../MenuItem/MenuItem';
 import { SetStateAction } from 'react';
+import { Link } from 'react-router-dom';
 
 type tabType = 'browse' | 'uploaded' | 'questions' | 'create' | null;
 
@@ -13,7 +14,9 @@ interface ButtonProps {
 export default function Header({ active, onClick }: ButtonProps) {
   return (
     <header className="header">
-      <img src={logo} alt="logo - A for A" />
+      <Link to="/">
+        <img src={logo} alt="logo - A for A" />
+      </Link>
       <nav className="navigation">
         <MenuItem
           className={active === 'browse' ? 'active' : 'non-active'}

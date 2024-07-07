@@ -1,8 +1,10 @@
 .create-question-content {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  min-height: 80vh;
+  padding: 4rem 0;
+  box-sizing: border-box;
 }
 
 .question-container-heading-text {
