@@ -1,15 +1,30 @@
 .document-view {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem; 
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 4rem 0;
+  box-sizing: border-box;
 }
 
 .document {
-    background-color: var(--color-cambridge-blue);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: fit-content;
+  background-color: var(--color-cambridge-blue);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.question-container-heading-text {
+  font-size: 2rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.question-container-heading {
+  margin: 0;
+  padding: 1rem 0;
 }

@@ -1,13 +1,13 @@
 .header {
-    height: 18%;
-    display: flex;
-    padding: 0 4rem;
-    align-items: center;
-    justify-content: space-between;
+  height: 18%;
+  display: flex;
+  padding: 0 4rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navigation {
-    display: flex;
-    gap: 2rem;
-    padding: 0 2rem;
+  display: flex;
+  gap: 2rem;
+  padding: 0 2rem;
 }

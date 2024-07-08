@@ -1,74 +1,74 @@
 .questions-page-content {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 80vh;
-    margin: 0 auto;
+  font-family: Inter;
+  padding: 20px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80vh;
+  margin: 0 auto;
 }
 
 .dropdown-container {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .selected-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .selected-options-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .selected-option-tile {
-    display: flex;
-    justify-content: space-between;
-    color: var(--color-violet-dark);
-    background-color: var(--color-light-sage);
-    align-items: center;
-    padding: 7px 15px;
-    font-size: 16px;
-    border: 2px solid var(--color-sage);
-    border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-violet-dark);
+  background-color: var(--color-light-sage);
+  align-items: center;
+  padding: 7px 15px;
+  font-size: 16px;
+  border: 2px solid var(--color-sage);
+  border-radius: 5px;
 }
 
 .cancel-btn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .clear-button {
-    background-color: var(--color-violet);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100px;
-    height: 30px;
-    flex-shrink: 0;
-    margin-left: auto;
-    margin-bottom: auto;
+  background-color: var(--color-violet);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-bottom: auto;
 }
 
 .hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 0;
-    border-top: 0.15rem solid var(--color-sage);
-    border-radius: 5px;
-    width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-top: 0.15rem solid var(--color-sage);
+  border-radius: 5px;
+  width: 100%;
 }
 
 .content-container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

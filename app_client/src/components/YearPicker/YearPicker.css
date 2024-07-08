@@ -1,0 +1,129 @@
+.year-picker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-end;
+  padding: 0;
+  margin: 0;
+}
+
+.year-picker {
+  display: inline-block;
+  position: relative;
+  width: 19rem;
+  margin: 0;
+}
+
+.year-picker-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 19rem;
+}
+
+.dropdown-toggle {
+  width: 19rem;
+  background-color: var(--color-light-sage);
+  border: 1px solid var(--color-sage);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter';
+  color: var(--color-dark);
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.arrow {
+  margin: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.year-picker-dropdown-content {
+  margin-top: 0.5rem;
+  position: absolute;
+  background-color: var(--color-light-sage);
+  border: 1px solid var(--color-sage);
+  border-radius: 0.5rem;
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.year-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Inter';
+  color: var(--color-dark);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+}
+
+.nav-button img {
+  width: 100%;
+  height: 100%;
+}
+
+.year-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.year {
+  font-family: 'Inter';
+  color: var(--color-dark);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.375rem 1rem;
+  text-align: center;
+  background-color: var(--color-light-sage);
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  width: 4.5rem;
+  box-sizing: border-box;
+}
+
+.year.selected {
+  background-color: var(--color-cambridge-blue);
+  color: var(--color-dark);
+  border: 1px solid transparent;
+  width: 4.5rem;
+  box-sizing: border-box;
+}
+
+.year:hover {
+  background-color: var(--color-cambridge-blue);
+  opacity: 0.8;
+}
+
+.year-picker-error {
+  font-size: 0.875rem;
+  font-family: 'Inter';
+  color: var(--color-error);
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

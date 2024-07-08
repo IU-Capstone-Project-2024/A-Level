@@ -6,8 +6,14 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal = forwardRef<HTMLDialogElement, ModalProps>(({ open, children }, ref) => {
-    return <dialog ref={ref} open={open}>{children}</dialog>;
-});
+const Modal = forwardRef<HTMLDialogElement, ModalProps>(
+  ({ open, children }, ref) => {
+    return (
+      <dialog ref={ref} open={open}>
+        {children}
+      </dialog>
+    );
+  },
+);
 
 export default Modal;
