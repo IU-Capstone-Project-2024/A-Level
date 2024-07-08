@@ -19,7 +19,11 @@ jobs:
         with:
           compose-file: "./docker-compose.yml"
 
+        
+
       - name: Execute tests in the running services
         run: |
           cd app_server
+          apt install python3-pip
+          pip install requirements.txt
           pytest
