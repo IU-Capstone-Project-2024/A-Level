@@ -23,7 +23,5 @@ jobs:
 
       - name: Execute tests in the running services
         run: |
-          cd app_server
-          sudo apt install python3-pip
-          pip install -r requirements.txt
-          pytest
+          docker exec a-level-server-1 pytest
+          # TODO: frontend testing
