@@ -62,7 +62,7 @@ class UtilsService:
             section_C = random.choice([question for question in questions if question.marks == THIRD_COMPONENT_NUMBER_OF_POINTS])
             if not(section_A and section_C):
                 return None
-            unique_document_ids = list({task.document_id for task in section_A + section_B + [section_C]})
+            unique_document_ids = list({task.document_id for task in section_A + section_B + [section_C] if task.document_id is not None})
             extracts = []
             for idx in unique_document_ids:
                 document = await document_service.read(idx)
