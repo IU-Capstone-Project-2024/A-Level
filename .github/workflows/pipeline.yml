@@ -25,5 +25,5 @@ jobs:
         run: |
           cd app_server
           sudo apt install python3-pip
-          pip install requirements.txt
+          pip install -r requirements.txt
           pytest
