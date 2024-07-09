@@ -13,7 +13,7 @@ interface ButtonProps {
 
 export default function Header({ active, onClick }: ButtonProps) {
   return (
-    <header className="header">
+    <header className="header" id="top">
       <Link to="/">
         <img src={logo} alt="logo - A for A" />
       </Link>
