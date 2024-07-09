@@ -1,0 +1,133 @@
+.main {
+    overflow: scroll;
+}
+
+
+#welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2rem 0;
+}
+
+.main-title {
+    font-family: 'Inter';
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-dark);
+}
+
+.section-title{
+    font-family: 'Inter';
+    font-size: 2rem;
+    font-weight: 500;
+    max-width: 55rem;
+    text-align: center;
+    margin: 3rem 0 0;
+    color: var(--color-dark);
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16.375rem;
+    margin: 3rem 0 0;
+    padding: 0;
+}
+
+.action-button{
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  border-color: transparent;
+  font-size: 1.5rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-light-sage);
+  background-color: var(--color-violet);
+  cursor: pointer;
+}
+
+.action-button:hover {
+    opacity: 0.8;
+}
+
+#why-A4A {
+    background-color: var(--color-lavender);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0 4rem 0;
+    margin: 0;
+    gap: 3rem;
+    align-items: center;
+}
+
+.reasons-cards {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+    gap: 1rem;
+    margin: 0;
+}
+
+#problem-we-solve {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0 4rem 0;
+    margin: 0;
+    gap: 3rem;
+    align-items: center;
+}
+
+.section-title-span {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.sage{
+    color: var(--color-sage);
+}
+
+.problem-content {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 0;
+    margin: 0;
+    gap: 2rem;
+}
+
+.problem-paragraph {
+    width: 43.125rem;
+    font-size: 1.5rem;
+    font-family: 'Inter';
+    font-weight: 500;
+    color: var(--color-dark);
+    line-height: 140%;
+}
+
+#how-it-works {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 3rem;
+}
+
+.steps {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+#last-action {
+    background-color: var(--color-cambridge-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4.5rem;
+    padding: 5rem;
+}

@@ -7,12 +7,14 @@ import CreateQuestionPage from '../pages/CreateQuestionPage/CreateQuestionPage';
 import QuestionsPage from '../pages/QuestionsPage/QuestionsPage';
 import SavedCreatedQuestionPage from '../pages/SavedCreatedQuestionPage/SavedCreatedQuestionPage';
 import QuestionViewPage from '../pages/QuestionViewPage/QuestionViewPage';
+import HomePage from '../pages/HomePage/HomePage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      { path: '/', element: <HomePage /> },
       { path: 'browse', element: <BrowseFilePage /> },
       { path: 'uploaded', element: <UploadedFilesPage /> },
       { path: 'document/:filename', element: <DocumentViewPage /> },

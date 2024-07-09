@@ -128,7 +128,7 @@ export default function BrowseFilePage() {
   }
 
   return (
-    <div>
+    <div className="browsing-main">
       <div className="browsing-page">
         {!browsed && (
           <div className="upload-container">
