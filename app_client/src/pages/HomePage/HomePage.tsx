@@ -52,8 +52,7 @@ export default function HomePage() {
       </section>
       <section id="problem-we-solve">
         <span className="section-title-span">
-          <h2 className="section-title">The Problem We</h2>
-          <h2 className="section-title sage">Solve</h2>
+          <h2 className="section-title">The Problem We Solve</h2>
         </span>
         <div className="problem-content">
           <img src={Illustration2} />
