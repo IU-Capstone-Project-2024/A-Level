@@ -1,0 +1,40 @@
+.value-container {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    gap: 2rem;
+    align-items: center;
+    margin: 0;
+}
+
+.value-title {
+    width: 12.375rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: var(--color-violet);
+    border-radius: 0.5rem;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 0;
+}
+
+.value-title-text {
+    color: var(--color-light-sage);
+    font-family: 'Inter';
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+}
+
+.value-description {
+    color: var(--color-dark);
+    font-family: 'Inter';
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 43.875rem;
+    padding: 0;
+    margin: 0;
+}
