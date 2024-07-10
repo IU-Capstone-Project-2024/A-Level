@@ -1,3 +1,9 @@
+#question-view-page-container {
+  min-height: 80vh;
+  padding: 0;
+  margin: 0;
+}
+
 .question-view {
     display: flex;
     justify-content: center;
