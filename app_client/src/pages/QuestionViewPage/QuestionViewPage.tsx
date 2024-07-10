@@ -86,31 +86,33 @@ export default function QuestionViewPage() {
   }
 
   return (
-    <div className="question-view">
-      <ModalPortal open={editModal} ref={editModalRef}>
-        <div className="question-container-heading">
-          <h2 className="question-container-heading-text">Edit question</h2>
+    <section id="question-view-page-container">
+      <div className="question-view">
+        <ModalPortal open={editModal} ref={editModalRef}>
+          <div className="question-container-heading">
+            <h2 className="question-container-heading-text">Edit question</h2>
+          </div>
+          <SetQuestion task={editTask} afterSave={handleEdit} />
+        </ModalPortal>
+        <div className="question">
+          <div className="question-container-heading">
+            <h2 className="question-container-heading-text">Question</h2>
+          </div>
+          <QuestionView
+            id={taskID!}
+            index={-1}
+            key={taskID}
+            topics={topics?.names}
+            onDelete={handleDeleteTask}
+            onEdit={(task) => {
+              setEditModal(true);
+              setEditTask(task);
+            }}
+            predict={predict}
+            edited={edited}
+          />
         </div>
-        <SetQuestion task={editTask} afterSave={handleEdit} />
-      </ModalPortal>
-      <div className="question">
-        <div className="question-container-heading">
-          <h2 className="question-container-heading-text">Question</h2>
-        </div>
-        <QuestionView
-          id={taskID!}
-          index={-1}
-          key={taskID}
-          topics={topics?.names}
-          onDelete={handleDeleteTask}
-          onEdit={(task) => {
-            setEditModal(true);
-            setEditTask(task);
-          }}
-          predict={predict}
-          edited={edited}
-        />
       </div>
-    </div>
+    </section>
   );
 }
