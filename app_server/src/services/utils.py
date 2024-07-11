@@ -37,7 +37,7 @@ class UtilsService:
                     result.append(arr[i - 1])
                     j -= arr[i - 1].marks
                     k -= 1
-            return result[::-1] 
+            return sorted(result, key=lambda x:x.marks) 
         except Exception as e:
             with open('create_exam_variant.log', 'a') as logfile:
                 logfile.write(f'{arr}')
