@@ -22,7 +22,9 @@ const ModalPortal = forwardRef<HTMLDialogElement, ModalProps>(
     }, [open, ref]);
 
     return createPortal(
-      <dialog ref={ref || innerRef}>{children}</dialog>,
+      <dialog className="portal-dialog" ref={ref || innerRef}>
+        <div className="portal-div">{children}</div>
+      </dialog>,
       document.getElementById('modal-portal') as Element,
     );
   },

@@ -4,7 +4,13 @@ import MenuItem from '../MenuItem/MenuItem';
 import { SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
-type tabType = 'browse' | 'uploaded' | 'questions' | 'create' | null;
+type tabType =
+  | 'browse'
+  | 'uploaded'
+  | 'questions'
+  | 'create'
+  | 'generate'
+  | null;
 
 interface ButtonProps {
   active: string | null;
@@ -42,7 +48,12 @@ export default function Header({ active, onClick }: ButtonProps) {
           onClick={onClick}
           arg="create"
         />
-        {/* <MenuItem className={active === 'generate' ? 'active' : 'non-active'} item='Generate exam variant' onClick={onClick} arg={null}/> */}
+        <MenuItem
+          className={active === 'generate' ? 'active' : 'non-active'}
+          item="Generate exam variant"
+          onClick={onClick}
+          arg="generate"
+        />
       </nav>
     </header>
   );

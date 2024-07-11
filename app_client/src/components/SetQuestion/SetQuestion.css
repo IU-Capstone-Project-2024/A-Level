@@ -142,3 +142,7 @@
   align-items: center;
   justify-content: flex-start;
 }
+
+.question-container-content{
+  overflow: visible;
+}

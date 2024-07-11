@@ -2,9 +2,12 @@ import IconButton from '../IconButton/IconButton';
 import './QuestionView.css';
 import EditIcon from '../../images/edit.svg';
 import DeleteIcon from '../../images/delete.svg';
+import LinkIcon from '../../images/iconamoon_link.svg';
 import { useEffect, useState, useRef } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Modal from '../Modal/Modal';
+
+type QuestionViewState = 'modify' | 'extracts' | 'simple';
 
 interface QuestionProps {
   id: string;
@@ -14,6 +17,7 @@ interface QuestionProps {
   onEdit: (task: TaskResponse | null) => void;
   predict: boolean;
   edited: boolean;
+  state: QuestionViewState;
 }
 
 interface TaskResponse {
@@ -121,18 +125,30 @@ export default function QuestionView(question: QuestionProps) {
           <span className="question-mark">Mark: {task?.marks}</span>
           <span className="question-year">Year: {task?.year}</span>
           <div className="question-buttons">
-            <IconButton
-              icon={EditIcon}
-              onClick={() => question.onEdit(task)}
-              alt="Edit icon"
-              title="Edit"
-            />
-            <IconButton
-              icon={DeleteIcon}
-              onClick={() => openDeleteTaskModal()}
-              alt="Delete icon"
-              title="Delete"
-            />
+            {question.state === 'modify' && (
+              <>
+                <IconButton
+                  icon={EditIcon}
+                  onClick={() => question.onEdit(task)}
+                  alt="Edit icon"
+                  title="Edit"
+                />
+                <IconButton
+                  icon={DeleteIcon}
+                  onClick={() => openDeleteTaskModal()}
+                  alt="Delete icon"
+                  title="Delete"
+                />
+              </>
+            )}
+            {question.state === 'extracts' && (
+              <IconButton
+                icon={LinkIcon}
+                onClick={() => {}}
+                alt="Extracts view icon"
+                title="View Extracts"
+              />
+            )}
           </div>
         </div>
         <Modal open={deleteTaskModal} ref={deleteTaskModalRef}>

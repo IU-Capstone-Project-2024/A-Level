@@ -1,7 +1,20 @@
-.modal-portal {
+.portal-dialog {
   background-color: var(--color-light-sage);
   border: 1px solid var(--color-sage);
   border-radius: 0.5rem;
   padding: 1rem;
-  z-index: 1000;
+  overflow: visible;
+}
+
+.portal-dialog h3 {
+  font-size: 1.25rem;
+  font-family: 'Inter';
+  font-weight: 400;
+  color: var(--color-dark);
+  margin: 0 0 2rem 0;
+}
+
+.modal-back {
+  height: 100%;
+  width: 100%;
 }

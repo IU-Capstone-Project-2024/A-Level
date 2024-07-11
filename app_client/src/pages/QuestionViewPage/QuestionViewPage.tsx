@@ -110,6 +110,7 @@ export default function QuestionViewPage() {
             }}
             predict={predict}
             edited={edited}
+            state="modify"
           />
         </div>
       </div>

@@ -9,6 +9,7 @@ import SavedCreatedQuestionPage from '../pages/SavedCreatedQuestionPage/SavedCre
 import QuestionViewPage from '../pages/QuestionViewPage/QuestionViewPage';
 import HomePage from '../pages/HomePage/HomePage';
 import AboutPage from '../pages/AboutPage/AboutPage';
+import GenerateExamVariantPage from '../pages/GenerateExamVariantPage/GenerateExamVariantPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: 'questions', element: <QuestionsPage /> },
       { path: 'saved', element: <SavedCreatedQuestionPage /> },
       { path: 'question/:taskID', element: <QuestionViewPage /> },
+      { path: 'generate', element: <GenerateExamVariantPage /> },
     ],
   },
 ]);

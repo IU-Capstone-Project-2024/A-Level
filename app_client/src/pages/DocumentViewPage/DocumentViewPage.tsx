@@ -155,6 +155,7 @@ export default function DocumentViewPage() {
             }}
             predict={predict}
             edited={edited}
+            state="modify"
           />
         ))}
       </div>
