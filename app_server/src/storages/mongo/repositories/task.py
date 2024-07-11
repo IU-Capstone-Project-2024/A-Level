@@ -26,13 +26,13 @@ class TaskRepository:
         task = await Task.find_one({"_id": task_id})
         if task is None:
             return None
-        document = await document_repository.read(task.document_id)
+        
+        document = (await document_repository.read(task.document_id)) if task.document_id is not None else None
         await utils_repository.delete_mark(task.marks)
         await utils_repository.delete_year(task.year)
-        if document is None:
-            return None
-        document.tasks = [t for t in document.tasks if t != task_id]
-        await document_repository.update(document.id, document)
+        if document is not None:
+            document.tasks = [t for t in document.tasks if t != task_id]
+            await document_repository.update(document.id, document)
 
         return await task.delete()
 

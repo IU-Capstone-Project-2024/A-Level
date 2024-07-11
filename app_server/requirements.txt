@@ -10,3 +10,4 @@ aiohttp
 PyPDF2
 pymupdf
 pytest
+regex

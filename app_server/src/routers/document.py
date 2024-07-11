@@ -3,10 +3,11 @@ from beanie.exceptions import CollectionWasNotInitialized
 from fastapi import APIRouter, HTTPException, UploadFile, Form
 import logging
 
-from src.storages.mongo.models.document import Document_
+from src.storages.mongo.models.document import Document_, Extract
 from src.services.document import document_service
 from src.storages.mongo.repositories.utils import utils_repository
 from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
+from src.storages.mongo.repositories.extract import extract_repository
 
 router = APIRouter(prefix="/document", tags=["Document"])
 
@@ -42,6 +43,10 @@ async def upload(uploaded_file: UploadFile):
 @router.get("/number")
 async def get_number_of_docs():
     return len(await document_service.read_all())
+
+@router.get('/extracts')
+async def get_extracts():
+    return await extract_repository.read_all()
 
 
 @router.get("/")
@@ -84,3 +89,6 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)) -> Doc
     except Exception as e:
         return None
     
+@router.get("/{document_id}/extracts")
+async def get_documents_extracts(document_id: PydanticObjectId) -> list[Extract]:
+    return await extract_repository.read(document_id)
