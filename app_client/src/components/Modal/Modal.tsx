@@ -9,7 +9,7 @@ interface ModalProps {
 const Modal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ open, children }, ref) => {
     return (
-      <dialog ref={ref} open={open}>
+      <dialog className="modal-dialog" ref={ref} open={open}>
         {children}
       </dialog>
     );

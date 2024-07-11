@@ -153,15 +153,16 @@
 .disabled {
   color: var(--color-violet);
   background-color: var(--color-lavender);
+  cursor: not-allowed;
 }
 
 .enabled {
   color: var(--color-light-sage);
   background-color: var(--color-violet);
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .enabled:hover {
-  opacity: 1;
+  opacity: 0.8;
 }

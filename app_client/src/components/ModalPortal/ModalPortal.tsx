@@ -5,10 +5,11 @@ import './ModalPortal.css';
 interface ModalProps {
   open: boolean;
   children: React.ReactNode;
+  onClick: () => void;
 }
 
 const ModalPortal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ open, children }, ref) => {
+  ({ open, children, onClick }, ref) => {
     const innerRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
@@ -22,7 +23,9 @@ const ModalPortal = forwardRef<HTMLDialogElement, ModalProps>(
     }, [open, ref]);
 
     return createPortal(
-      <dialog ref={ref || innerRef}>{children}</dialog>,
+      <dialog onClick={onClick} className="portal-dialog" ref={ref || innerRef}>
+        <div className="portal-div">{children}</div>
+      </dialog>,
       document.getElementById('modal-portal') as Element,
     );
   },

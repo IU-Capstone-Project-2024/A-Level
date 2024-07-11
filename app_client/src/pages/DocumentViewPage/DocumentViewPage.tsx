@@ -124,7 +124,7 @@ export default function DocumentViewPage() {
 
   return (
     <div className="document-view">
-      <ModalPortal open={editModal} ref={editModalRef}>
+      <ModalPortal open={editModal} ref={editModalRef} onClick={() => {}}>
         <div className="question-container-heading">
           <h2 className="question-container-heading-text">Edit question</h2>
         </div>
@@ -155,6 +155,8 @@ export default function DocumentViewPage() {
             }}
             predict={predict}
             edited={edited}
+            state="modify"
+            onLink={() => {}}
           />
         ))}
       </div>

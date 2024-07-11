@@ -7,7 +7,13 @@ import React, {
   SetStateAction,
 } from 'react';
 
-type TabType = 'browse' | 'uploaded' | 'questions' | 'create' | null;
+type TabType =
+  | 'browse'
+  | 'uploaded'
+  | 'questions'
+  | 'create'
+  | 'generate'
+  | null;
 
 interface TabContextType {
   tab: TabType;

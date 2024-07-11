@@ -37,8 +37,7 @@ class UtilsService:
                     result.append(arr[i - 1])
                     j -= arr[i - 1].marks
                     k -= 1
-            
-            return result[::-1] 
+            return sorted(result, key=lambda x:x.marks) 
         except Exception as e:
             with open('create_exam_variant.log', 'a') as logfile:
                 logfile.write(f'{arr}')
@@ -54,11 +53,13 @@ class UtilsService:
             section_C = random.choice([question for question in questions if question.marks == THIRD_COMPONENT_NUMBER_OF_POINTS])
             if not(section_A and section_B and section_C):
                 return None
-            
+            section_A_id = [f'{item.id}' for item in section_A]
+            section_B_id = [f'{item.id}' for item in section_B]
+            section_C_id = f'{section_C.id}'
             response = {
-                'section A': section_A,
-                'section B': section_B,
-                'section C': section_C,
+                'sectionA': section_A_id,
+                'sectionB': section_B_id,
+                'sectionC': section_C_id,
             }
             return response
         except Exception as e:

@@ -1,11 +1,11 @@
-dialog {
+.modal-dialog {
   background-color: var(--color-light-sage);
   border: 1px solid var(--color-sage);
   border-radius: 0.5rem;
   padding: 1rem;
 }
 
-dialog h3 {
+.modal-dialog h3 {
   font-size: 1.25rem;
   font-family: 'Inter';
   font-weight: 400;

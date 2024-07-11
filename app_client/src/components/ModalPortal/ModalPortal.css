@@ -1,7 +1,12 @@
-.modal-portal {
+.portal-dialog {
   background-color: var(--color-light-sage);
   border: 1px solid var(--color-sage);
   border-radius: 0.5rem;
   padding: 1rem;
-  z-index: 1000;
+  overflow: visible;
+}
+
+.modal-back {
+  height: 100%;
+  width: 100%;
 }
