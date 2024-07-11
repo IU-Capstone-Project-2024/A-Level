@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './GenerateExamVariantPage.css';
 import axios, { AxiosResponse } from 'axios';
 import QuestionView from '../../components/QuestionView/QuestionView';
 import { useTopics } from '../../context/TopicContext';
+import ModalPortal from '../../components/ModalPortal/ModalPortal';
+import Extract from '../../components/Extract/Extract';
 
 interface GenerateResponse {
   sectionA: string[];
   sectionB: string[];
   sectionC: string;
+}
+
+interface ExtractsResponse {
+  _id: string;
+  document_id: string;
+  literal: string;
+  content: string;
 }
 
 export default function GenerateExamVariantPage() {
@@ -16,6 +25,9 @@ export default function GenerateExamVariantPage() {
   const [questionsA, setQuestionsA] = useState<string[]>([]);
   const [questionsB, setQuestionsB] = useState<string[]>([]);
   const [questionsC, setQuestionsC] = useState<string | null>(null);
+  const [extractsModal, setExtractsModal] = useState<boolean>(false);
+  const extractsModalRef = useRef<HTMLDialogElement>(null);
+  const [extracts, setExtracts] = useState<ExtractsResponse[] | null>(null);
 
   async function Generate() {
     const generateResponse: AxiosResponse<GenerateResponse> = await axios.get(
@@ -29,6 +41,19 @@ export default function GenerateExamVariantPage() {
       console.log('error');
     }
     setGenerated(true);
+  }
+
+  async function getExtracts(document_id: string | null) {
+    if (document_id !== null) {
+      const extractsResponse: AxiosResponse<ExtractsResponse[]> =
+        await axios.get(
+          `http://localhost:8000/document/${document_id}/extracts`,
+        );
+      if (extractsResponse.status === 200) {
+        setExtracts(extractsResponse.data);
+        setExtractsModal(true);
+      }
+    }
   }
 
   return (
@@ -53,6 +78,22 @@ export default function GenerateExamVariantPage() {
       )}
       {generated && (
         <div className="variant">
+          <ModalPortal
+            open={extractsModal}
+            ref={extractsModalRef}
+            onClick={() => {
+              setExtractsModal(false);
+            }}
+          >
+            <div className="extracts-container">
+              <div className="extracts-header">
+                <h2 className="extracts-header-text">Extracts</h2>
+              </div>
+              {extracts?.map((extract) => (
+                <Extract literal={extract.literal} text={extract.content} />
+              ))}
+            </div>
+          </ModalPortal>
           <div className="variant-header">
             <h2 className="variant-title">Generated variant</h2>
           </div>
@@ -71,6 +112,7 @@ export default function GenerateExamVariantPage() {
                 predict={false}
                 edited={false}
                 state="extracts"
+                onLink={getExtracts}
               />
             ))}
             <div className="variant-section">
@@ -87,6 +129,7 @@ export default function GenerateExamVariantPage() {
                 predict={false}
                 edited={false}
                 state="extracts"
+                onLink={getExtracts}
               />
             ))}
             <div className="variant-section">
@@ -102,6 +145,7 @@ export default function GenerateExamVariantPage() {
               predict={false}
               edited={false}
               state="extracts"
+              onLink={getExtracts}
             />
           </div>
         </div>

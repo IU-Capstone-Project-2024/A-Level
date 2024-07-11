@@ -88,7 +88,7 @@ export default function QuestionViewPage() {
   return (
     <section id="question-view-page-container">
       <div className="question-view">
-        <ModalPortal open={editModal} ref={editModalRef}>
+        <ModalPortal open={editModal} ref={editModalRef} onClick={() => {}}>
           <div className="question-container-heading">
             <h2 className="question-container-heading-text">Edit question</h2>
           </div>
@@ -111,6 +111,7 @@ export default function QuestionViewPage() {
             predict={predict}
             edited={edited}
             state="modify"
+            onLink={() => {}}
           />
         </div>
       </div>

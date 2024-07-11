@@ -15,6 +15,7 @@ interface QuestionProps {
   topics: string[] | undefined;
   onDelete: (id: string, document_id: string | null | undefined) => void;
   onEdit: (task: TaskResponse | null) => void;
+  onLink: (document_id: string | null) => void;
   predict: boolean;
   edited: boolean;
   state: QuestionViewState;
@@ -141,14 +142,16 @@ export default function QuestionView(question: QuestionProps) {
                 />
               </>
             )}
-            {question.state === 'extracts' && (
-              <IconButton
-                icon={LinkIcon}
-                onClick={() => {}}
-                alt="Extracts view icon"
-                title="View Extracts"
-              />
-            )}
+            {question.state === 'extracts' &&
+              task !== null &&
+              task?.document_id !== null && (
+                <IconButton
+                  icon={LinkIcon}
+                  onClick={() => question.onLink(task.document_id)}
+                  alt="Extracts view icon"
+                  title="View Extracts"
+                />
+              )}
           </div>
         </div>
         <Modal open={deleteTaskModal} ref={deleteTaskModalRef}>
