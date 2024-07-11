@@ -10,12 +10,12 @@ import logging
 from beanie import PydanticObjectId
 
 
-from src.storages.mongo.models.document import Document_, DocumentCreate
+from src.storages.mongo.models.document import Document_, DocumentCreate, ExtractCreate
 from src.storages.mongo.models.task import TaskCreate, Task, TaskUpdate
 from src.storages.mongo.repositories.document import document_repository
 from src.storages.mongo.repositories.task import task_repository
 from src.storages.mongo.repositories.utils import utils_repository
-from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
+from src.storages.mongo.repositories.extract import extract_repository
 
 
 class DocumentService:
@@ -47,9 +47,10 @@ class DocumentService:
                 await utils_repository.update_years(task.year)
             task_ids.append(task.id)
             
-        extracts = self._parse_passages_from_document(file)
-        document = DocumentCreate(path=str(path), filename=filename, tasks=task_ids, extracts=extracts)
+        document = DocumentCreate(path=str(path), filename=filename, tasks=task_ids)
         result = await document_repository.create(document)
+        await self._parse_passages_from_document(file, result.id)
+        
         for t in task_ids:
             task = await task_repository.read(t)
             task.document_id = result.id
@@ -76,6 +77,8 @@ class DocumentService:
         
         for task_id in document.tasks:
             await task_repository.delete(task_id)
+        
+        await extract_repository.delete(document.id)
         
         return await document_repository.delete(document_id)
 
@@ -147,11 +150,11 @@ class DocumentService:
     
             logging.error(f'An error occurred: {e}')
     
-    def _parse_passages_from_document(self, file: bytes):
+    async def _parse_passages_from_document(self, file: bytes, document_id: PydanticObjectId):
         try:
             
             pdffile = pymupdf.open(stream=file, filetype="pdf")
-            result = dict()
+            # result = []
             break_flag = False
             for letter in string.ascii_uppercase:
                 pattern = re.compile(
@@ -168,9 +171,10 @@ class DocumentService:
                     break_flag = True
                 else:
                     break_flag = False
-                    result[match.group(1)] = self.__process_questions(match.group(2))
+                    extract = ExtractCreate(document_id=document_id, literal=match.group(1), content=self.__process_questions(match.group(2)))
+                    await extract_repository.create(extract=extract)
+                    
 
-            return result
         except Exception as e:
             with open('app.log', 'a') as logfile:
                 logfile.write(f'The following exception occured when parsing passages {e}')

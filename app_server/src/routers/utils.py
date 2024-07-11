@@ -26,7 +26,7 @@ async def send_marks() -> Optional[Utils]:
 async def send() -> Optional[List]:
     return await utils_repository.read_all()
 
-@router.post("/exam")
+@router.get("/exam")
 async def create_exam_variant():
     try:
         response = await utilsService.create_exam_variant()

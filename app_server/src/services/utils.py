@@ -1,9 +1,4 @@
-from src.storages.mongo.models.task import Task
 from src.storages.mongo.repositories.task import task_repository
-from src.services.document import document_service
-from pydantic import BaseModel
-from beanie import PydanticObjectId
-from typing import Dict
 import random
 
 MAX_QUESTIONS = 1000
@@ -11,9 +6,6 @@ FIRST_COMPONENTS_NUMBER_OF_POINTS = 30
 FIRST_COMPONENTS_NUMBER_OF_QUESTIONS = [5,6]
 THIRD_COMPONENT_NUMBER_OF_POINTS = 20
 
-class Extract(BaseModel):
-    idx: PydanticObjectId | None = None
-    extracts: Dict[str,str] | None = None
 
 class UtilsService:
     
@@ -60,19 +52,13 @@ class UtilsService:
             used_in_A = [idx.id for idx in section_A]
             section_B = UtilsService.find_subarray_with_sum([question for question in questions if question.id not in used_in_A], random.choice(FIRST_COMPONENTS_NUMBER_OF_QUESTIONS), FIRST_COMPONENTS_NUMBER_OF_POINTS)
             section_C = random.choice([question for question in questions if question.marks == THIRD_COMPONENT_NUMBER_OF_POINTS])
-            if not(section_A and section_C):
+            if not(section_A and section_B and section_C):
                 return None
-            unique_document_ids = list({task.document_id for task in section_A + section_B + [section_C]})
-            extracts = []
-            for idx in unique_document_ids:
-                document = await document_service.read(idx)
-                extracts.append(Extract(idx=idx, extracts=document.extracts))
             
             response = {
                 'section A': section_A,
                 'section B': section_B,
                 'section C': section_C,
-                'Extracts': extracts
             }
             return response
         except Exception as e:
