@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import './QuestionViewPage.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import QuestionView from '../../components/QuestionView/QuestionView';
 import axios, { AxiosResponse } from 'axios';
 import ModalPortal from '../../components/ModalPortal/ModalPortal';
 import SetQuestion from '../../components/SetQuestion/SetQuestion';
 import { useTopics } from '../../context/TopicContext';
+import IconButton from '../../components/IconButton/IconButton';
+import Close from '../../images/ic_round-close.svg';
 
 interface DocumentResponse {
   _id: string;
@@ -34,22 +36,22 @@ export default function QuestionViewPage() {
   const navigate = useNavigate();
 
   const [editModal, setEditModal] = useState<boolean>(false);
-  const editModalRef = useRef<HTMLDialogElement>(null);
+  // const editModalRef = useRef<HTMLDialogElement>(null);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        editModalRef.current &&
-        !editModalRef.current.contains(event.target as Node)
-      ) {
-        setEditModal(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       editModalRef.current &&
+  //       !editModalRef.current.contains(event.target as Node)
+  //     ) {
+  //       setEditModal(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-  }, [editModalRef]);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  // }, [editModalRef]);
 
   async function handleDeleteDocument(document_id: string) {
     const responseDelete: AxiosResponse<DocumentResponse> = await axios.delete(
@@ -88,9 +90,21 @@ export default function QuestionViewPage() {
   return (
     <section id="question-view-page-container">
       <div className="question-view">
-        <ModalPortal open={editModal} ref={editModalRef} onClick={() => {}}>
+        <ModalPortal
+          open={editModal}
+          onClick={() => {
+            setEditModal(false);
+          }}
+        >
           <div className="question-container-heading">
             <h2 className="question-container-heading-text">Edit question</h2>
+            <IconButton
+              icon={Close}
+              alt="Close"
+              onClick={() => {
+                setEditModal(false);
+              }}
+            />
           </div>
           <SetQuestion task={editTask} afterSave={handleEdit} />
         </ModalPortal>

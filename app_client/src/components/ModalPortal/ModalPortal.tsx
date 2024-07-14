@@ -1,6 +1,7 @@
-import { useEffect, useRef, forwardRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './ModalPortal.css';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 interface ModalProps {
   open: boolean;
@@ -8,27 +9,24 @@ interface ModalProps {
   onClick: () => void;
 }
 
-const ModalPortal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ open, children, onClick }, ref) => {
-    const innerRef = useRef<HTMLDialogElement>(null);
+export default function ModalPortal({ open, children, onClick }: ModalProps) {
+  const innerRef = useRef<HTMLDialogElement>(null);
 
-    useEffect(() => {
-      const dialog =
-        (ref as React.RefObject<HTMLDialogElement>).current || innerRef.current;
-      if (open) {
-        dialog?.showModal();
-      } else {
-        dialog?.close();
-      }
-    }, [open, ref]);
+  useEffect(() => {
+    const dialog = innerRef.current;
+    if (open) {
+      dialog?.showModal();
+    } else {
+      dialog?.close();
+    }
+  }, [open]);
 
-    return createPortal(
-      <dialog onClick={onClick} className="portal-dialog" ref={ref || innerRef}>
+  return createPortal(
+    <dialog className="portal-dialog" ref={innerRef}>
+      <OutsideClickHandler onOutsideClick={onClick}>
         <div className="portal-div">{children}</div>
-      </dialog>,
-      document.getElementById('modal-portal') as Element,
-    );
-  },
-);
-
-export default ModalPortal;
+      </OutsideClickHandler>
+    </dialog>,
+    document.getElementById('modal-portal') as Element,
+  );
+}
