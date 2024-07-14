@@ -8,6 +8,8 @@ import Modal from '../../components/Modal/Modal';
 import { useTab } from '../../context/TabContext';
 import ModalPortal from '../../components/ModalPortal/ModalPortal';
 import SetQuestion from '../../components/SetQuestion/SetQuestion';
+import IconButton from '../../components/IconButton/IconButton';
+import Close from '../../images/ic_round-close.svg';
 
 interface DocumentResponse {
   _id: string;
@@ -48,7 +50,7 @@ export default function DocumentViewPage() {
   const [predict, setPredict] = useState<boolean>(false);
 
   const [editModal, setEditModal] = useState<boolean>(false);
-  const editModalRef = useRef<HTMLDialogElement>(null);
+  // const editModalRef = useRef<HTMLDialogElement>(null);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
 
@@ -65,18 +67,18 @@ export default function DocumentViewPage() {
     document.addEventListener('mousedown', handleClickOutside);
   }, [deleteDocModalRef]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        editModalRef.current &&
-        !editModalRef.current.contains(event.target as Node)
-      ) {
-        setEditModal(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       editModalRef.current &&
+  //       !editModalRef.current.contains(event.target as Node)
+  //     ) {
+  //       setEditModal(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-  }, [editModalRef]);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  // }, [editModalRef]);
 
   async function handleDeleteTask(id: string) {
     const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
@@ -124,9 +126,21 @@ export default function DocumentViewPage() {
 
   return (
     <div className="document-view">
-      <ModalPortal open={editModal} ref={editModalRef} onClick={() => {}}>
+      <ModalPortal
+        open={editModal}
+        onClick={() => {
+          setEditModal(false);
+        }}
+      >
         <div className="question-container-heading">
           <h2 className="question-container-heading-text">Edit question</h2>
+          <IconButton
+            icon={Close}
+            alt="Close"
+            onClick={() => {
+              setEditModal(false);
+            }}
+          />
         </div>
         <SetQuestion task={editTask} afterSave={handleEdit} />
       </ModalPortal>

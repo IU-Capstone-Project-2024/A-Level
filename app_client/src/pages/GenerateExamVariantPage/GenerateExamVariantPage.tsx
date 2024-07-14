@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import './GenerateExamVariantPage.css';
 import axios, { AxiosResponse } from 'axios';
 import QuestionView from '../../components/QuestionView/QuestionView';
@@ -26,7 +26,7 @@ export default function GenerateExamVariantPage() {
   const [questionsB, setQuestionsB] = useState<string[]>([]);
   const [questionsC, setQuestionsC] = useState<string | null>(null);
   const [extractsModal, setExtractsModal] = useState<boolean>(false);
-  const extractsModalRef = useRef<HTMLDialogElement>(null);
+  // const extractsModalRef = useRef<HTMLDialogElement>(null);
   const [extracts, setExtracts] = useState<ExtractsResponse[] | null>(null);
 
   async function Generate() {
@@ -80,7 +80,6 @@ export default function GenerateExamVariantPage() {
         <div className="variant">
           <ModalPortal
             open={extractsModal}
-            ref={extractsModalRef}
             onClick={() => {
               setExtractsModal(false);
             }}
