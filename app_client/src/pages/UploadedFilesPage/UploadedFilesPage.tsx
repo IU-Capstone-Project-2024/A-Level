@@ -13,7 +13,7 @@ export default function Uploaded() {
   const [totalDocs, setTotalDocs] = useState(1);
 
   async function getDocs(page: number, length: number) {
-    const res = await axios.get('http://localhost:8000/document', {
+    const res = await axios.get('http://203.31.40.71:8000/document', {
       params: {
         offset: page - 1,
         length: length,
@@ -26,7 +26,7 @@ export default function Uploaded() {
     async function fetchDocs() {
       setLoading(true);
       const fetchedDocs = await getDocs(page, maxTilesPerPage);
-      const totalDoc = await axios.get('http://localhost:8000/document/number');
+      const totalDoc = await axios.get('http://203.31.40.71:8000/document/number');
       setTotalDocs(totalDoc.data);
       setDocs(fetchedDocs);
       setLoading(false);

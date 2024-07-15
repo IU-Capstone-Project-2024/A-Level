@@ -34,7 +34,7 @@ export default function Questions() {
     years: number[],
     topics: number[],
   ) {
-    const par1 = 'http://localhost:8000/task?';
+    const par1 = 'http://203.31.40.71:8000/task?';
     const par2 = 'offset=' + (page - 1);
     const par3 = '&length=' + length;
     const par4 = '&marks=' + marks.join(',');
@@ -52,7 +52,7 @@ export default function Questions() {
     years: number[],
     topics: number[],
   ) {
-    const par1 = 'http://localhost:8000/task/number?';
+    const par1 = 'http://203.31.40.71:8000/task/number?';
     const par2 = 'offset=' + (page - 1);
     const par3 = '&length=' + length;
     const par4 = '&marks=' + marks.join(',');
@@ -64,7 +64,7 @@ export default function Questions() {
   }
 
   async function getUtils() {
-    const res = await axios.get('http://localhost:8000/utils');
+    const res = await axios.get('http://203.31.40.71:8000/utils');
     return res.data;
   }
 
