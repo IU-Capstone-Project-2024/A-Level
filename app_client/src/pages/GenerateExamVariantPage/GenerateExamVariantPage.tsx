@@ -31,7 +31,7 @@ export default function GenerateExamVariantPage() {
 
   async function Generate() {
     const generateResponse: AxiosResponse<GenerateResponse> = await axios.get(
-      'http://203.31.40.71:8000/utils/exam',
+      'https://203.31.40.71:8000/utils/exam',
     );
     if (generateResponse.status === 200 && generateResponse.data !== null) {
       setQuestionsA(generateResponse.data['sectionA']);
@@ -47,7 +47,7 @@ export default function GenerateExamVariantPage() {
     if (document_id !== null) {
       const extractsResponse: AxiosResponse<ExtractsResponse[]> =
         await axios.get(
-          `http://203.31.40.71:8000/document/${document_id}/extracts`,
+          `https://203.31.40.71:8000/document/${document_id}/extracts`,
         );
       if (extractsResponse.status === 200) {
         setExtracts(extractsResponse.data);

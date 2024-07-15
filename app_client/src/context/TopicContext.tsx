@@ -26,7 +26,7 @@ const TopicsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const fetchTopics = async () => {
     const topicTransformResp: AxiosResponse<TopicTransformResp> =
-      await axios.get('http://203.31.40.71:8000/utils/topicEnum');
+      await axios.get('https://203.31.40.71:8000/utils/topicEnum');
     if (topicTransformResp.status === 200) {
       setTopics(topicTransformResp.data);
     }
