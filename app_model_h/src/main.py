@@ -40,11 +40,14 @@ def predict(request: Annotated[PredictionRequest, Body()]):
 
     model_ready += 1
     res = torch.softmax(model(request.request), dim=1).view(-1)
-    probabilities, topic_id = list(res.numpy()), torch.argmax(res).item()
+    probabilities, topic_id = list(map(float, res.numpy())), torch.argmax(res).item()
+    print(probabilities, res.numpy())
     model_ready -= 1
 
     return {
         "topic": encodings[str(topic_id)],
         "topic_id": topic_id,
+        "probabilities": probabilities,
+        'class_mapping': encodings,
         'model_alias': MODEL_ALIAS
     }
