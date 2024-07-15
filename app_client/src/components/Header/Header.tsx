@@ -92,7 +92,7 @@ export default function Header({ active, onClick }: ButtonProps) {
               className={active === 'browse' ? 'active' : 'non-active'}
               item="Browse file"
               onClick={(event) => {
-                onClick(event), setIsNavOpen(false);
+                setIsNavOpen(false), onClick(event);
               }}
               arg="browse"
             />
@@ -100,7 +100,7 @@ export default function Header({ active, onClick }: ButtonProps) {
               className={active === 'uploaded' ? 'active' : 'non-active'}
               item="Uploaded files"
               onClick={(event) => {
-                onClick(event), setIsNavOpen(false);
+                setIsNavOpen(false), onClick(event);
               }}
               arg="uploaded"
             />
@@ -108,7 +108,7 @@ export default function Header({ active, onClick }: ButtonProps) {
               className={active === 'questions' ? 'active' : 'non-active'}
               item="Questions"
               onClick={(event) => {
-                onClick(event), setIsNavOpen(false);
+                setIsNavOpen(false), onClick(event);
               }}
               arg="questions"
             />
@@ -116,7 +116,7 @@ export default function Header({ active, onClick }: ButtonProps) {
               className={active === 'create' ? 'active' : 'non-active'}
               item="Create question"
               onClick={(event) => {
-                onClick(event), setIsNavOpen(false);
+                setIsNavOpen(false), onClick(event);
               }}
               arg="create"
             />
@@ -124,7 +124,7 @@ export default function Header({ active, onClick }: ButtonProps) {
               className={active === 'generate' ? 'active' : 'non-active'}
               item="Generate exam variant"
               onClick={(event) => {
-                onClick(event), setIsNavOpen(false);
+                setIsNavOpen(false), onClick(event);
               }}
               arg="generate"
             />
