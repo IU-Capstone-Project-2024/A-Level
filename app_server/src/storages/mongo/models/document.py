@@ -10,7 +10,7 @@ class DocumentCreate(BaseModel):
     img: str | None = None
 
 class DocumentList(BaseModel):
-    documents: list[Dict[str,str]] | None = None
+    documents: list | None = None
 
 class DocumentUpdate(BaseModel):
     path: str
