@@ -3,6 +3,7 @@ from beanie.exceptions import CollectionWasNotInitialized
 from fastapi import APIRouter, HTTPException, UploadFile, Form
 from fastapi.responses import JSONResponse
 import logging
+import json
 
 from src.storages.mongo.models.document import Document_, Extract
 from src.services.document import document_service
@@ -36,8 +37,8 @@ async def upload(uploaded_file: UploadFile):
 
             myfile.write(e.args)     
 
-            myfile.write(e) 
-    return JSONResponse(content=result, media_type='application/json')
+            myfile.write(e)
+    return JSONResponse(content=result.model_dump(), media_type='application/json')
 
 #GET 0.0.0.0:8000/document
 
@@ -88,7 +89,7 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
         document_update = await document_service.read(document_id)
         document_update.img = img
         document = await document_service.update(document_id, document_update)
-        return JSONResponse(content=document, media_type='application/json')
+        return JSONResponse(content=document.model_dump(), media_type='application/json')
     except Exception as e:
         return None
     
