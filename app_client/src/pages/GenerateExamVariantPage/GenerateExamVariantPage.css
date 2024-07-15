@@ -13,13 +13,13 @@
     justify-content: center;
 }
 
-.main-title {
+/* .main-title {
     font-family: 'Inter';
     font-size: 3rem;
     font-weight: 600;
     margin: 0;
     color: var(--color-dark);
-}
+} */
 
 .section-title-generate{
     font-family: 'Inter';

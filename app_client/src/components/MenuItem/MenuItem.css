@@ -19,3 +19,16 @@
 .active {
   opacity: 1;
 }
+
+@media (max-width: 1200px) {
+  .menuItem{
+    font-size: 1.3rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .menuItem {
+    font-size: 1.1rem;
+  }
+}
