@@ -57,10 +57,10 @@ async def read_all(offset: int=None, length: int=None):
         if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
         else:
-            response = await document_service.read_all ()
+            response = await document_service.read_all()
             result = response if length is None else response[offset * length: (offset + 1) * length] 
-            response = [item.model_dump_json() for item in result]
-            return response
+            response = [item.model_dump() for item in result]
+            return JSONResponse(content=response, media_type='application/json')
     except Exception as e:
         logging.error(f"The following exception occured {e}\n {response}")
 
@@ -69,7 +69,7 @@ async def read_all(offset: int=None, length: int=None):
 @router.get("/{document_id}")
 async def read(document_id: PydanticObjectId):
     try:
-        return (await document_service.read(document_id)).model_dump_json()
+        return JSONResponse(content=(await document_service.read(document_id)).model_dump(), media_type='application/json')
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
 
@@ -77,7 +77,7 @@ async def read(document_id: PydanticObjectId):
 @router.delete("/{document_id}")
 async def delete(document_id: PydanticObjectId):
     try:
-        return (await document_service.delete(document_id)).model_dump_json()
+        return JSONResponse(content=(await document_service.delete(document_id)).model_dump(), media_type='application/json')
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
 
@@ -96,5 +96,5 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
 @router.get("/{document_id}/extracts")
 async def get_documents_extracts(document_id: PydanticObjectId):
     result = await extract_repository.read(document_id)
-    response = [item.model_dump_json() for item in result]
-    return response
+    response = [item.model_dump() for item in result]
+    return JSONResponse(content=response,media_type='application/json')
