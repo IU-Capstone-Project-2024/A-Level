@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 import { useTopics } from '../../context/TopicContext';
 
 interface DocumentProps {
-  _id: string;
+  id: string;
   path: string;
   filename: string;
   tasks: string[];
@@ -106,7 +106,7 @@ export default function BrowseFilePage() {
         const formData = new FormData();
         formData.append('img', imageSrc as string);
         const responseImg: AxiosResponse<DocumentProps> = await axios.post(
-          `https://chartreuse-binghamite1373.my-vm.work/document/${response.data._id}/img`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${response.data.id}/img`,
           formData,
         );
         if (responseImg.status === 200) {

@@ -9,6 +9,8 @@ class DocumentCreate(BaseModel):
     tasks: list[PydanticObjectId] | None = None
     img: str | None = None
 
+class DocumentList(BaseModel):
+    documents: list[Dict[str,str]] | None = None
 
 class DocumentUpdate(BaseModel):
     path: str
