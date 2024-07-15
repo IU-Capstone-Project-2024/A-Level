@@ -14,6 +14,7 @@ services:
     networks:
       - a_level_exam
   server:
+    # env_file: ".env"
     build:
       context: ./
       dockerfile: ./app_server/Dockerfile
@@ -27,9 +28,9 @@ services:
   model_h_1:
     build:
       context: ./
-      dockerfile: app_model_h/Dockerfile
+      dockerfile: app_model_l/Dockerfile
     volumes:
-      - ./app_model_h/weights:/app_model/weights
+      - ./app_model_l/weights:/app_model/weights
     ports:
       - 8001:8000
     networks:
@@ -38,9 +39,9 @@ services:
   model_h_2:
     build:
       context: ./
-      dockerfile: app_model_h/Dockerfile
+      dockerfile: app_model_l/Dockerfile
     volumes:
-      - ./app_model_h/weights:/app_model/weights
+      - ./app_model_l/weights:/app_model/weights
     ports:
       - 8003:8000
     networks:

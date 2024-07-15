@@ -1,5 +1,7 @@
 from src.storages.mongo.repositories.task import task_repository
 import random
+import aiohttp
+import asyncio
 
 MAX_QUESTIONS = 1000
 FIRST_COMPONENTS_NUMBER_OF_POINTS = 30
@@ -65,6 +67,17 @@ class UtilsService:
         except Exception as e:
             with open('create_exam_variant.log', 'a') as logfile:
                 logfile.write(f'{e}')
+                
+    @staticmethod
+    async def fetch(session, url):
+        async with session.get(url) as response:
+            return await response.json()
+                
+    async def fetch_ips(self, ips):
+        async with aiohttp.ClientSession() as session:
+            tasks = [UtilsService.fetch(session, f'http://{ip}/status') for ip in ips]
+            responses = await asyncio.gather(*tasks)
+            return responses
         
         
 utilsService = UtilsService()

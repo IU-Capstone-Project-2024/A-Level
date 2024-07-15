@@ -1,11 +1,19 @@
 import logging
 import aiohttp
+import asyncio
 from beanie import PydanticObjectId
 from fastapi import APIRouter, HTTPException, Form
 
 from src.storages.mongo.models.task import Task, TaskCreate, TaskUpdate, Topic
 from src.storages.mongo.repositories.task import task_repository
 from src.storages.mongo.repositories.utils import utils_repository
+from src.services.utils import utilsService
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MODEL_IPS = os.getenv('MODEL_IPS', '').split(',')
 
 file_handler = logging.FileHandler('task-router.log')
 file_handler.setLevel(logging.INFO)  
@@ -92,22 +100,29 @@ async def predict(task_id: PydanticObjectId):
     task = await task_repository.read(task_id)
     if task is None:
         return HTTPException(status_code=404, detail=f"Task {task_id} does not exists")
-
-    data = {"request": task.content}
-    url = "http://model:8000/predict"
     
-    async with aiohttp.ClientSession(trust_env=True) as session:
-        async with session.post(url, json=data) as response:
-            result = await response.json()
 
-            task.topic = Topic(result['topic_id'])
-            await task_repository.update(task.id, task)
-            return result
-            
+    availables = await utilsService.fetch_ips(MODEL_IPS)
+    for index, model in enumerate(availables):
+        if model['is_ready']:
+            data = {"request": task.content}
+            url = f"http://{MODEL_IPS[index]}/predict"
+            async with aiohttp.ClientSession(trust_env=True) as session:
+                async with session.post(url, json=data) as response:
+                    result = await response.json()
+
+                    task.topic = Topic(result['topic_id'])
+                    await task_repository.update(task.id, task)
+                    return result
+                
+                
+        
+    
+    
 @router.post("/unsavedPredict")
 async def unsaved_predict(content: str = Form(...)):
     data = {"request": content}
-    url = "http://model:8000/predict"
+    url = f'http://{MODEL_IPS[-1]}/predict'
     async with aiohttp.ClientSession(trust_env=True) as session:
         async with session.post(url, json=data) as response:
             return await response.json()
