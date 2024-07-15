@@ -36,7 +36,7 @@ async def upload(uploaded_file: UploadFile):
             myfile.write(e.args)     
 
             myfile.write(e) 
-    return result
+    return result.model_dump_json()
 
 #GET 0.0.0.0:8000/document
 
@@ -50,13 +50,15 @@ async def get_extracts():
 
 
 @router.get("/")
-async def read_all(offset: int=None, length: int=None) -> list[Document_]:
+async def read_all(offset: int=None, length: int=None):
     try:
         if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
         else:
             response = await document_service.read_all ()
-            return response if length is None else response[offset * length: (offset + 1) * length] 
+            result = response if length is None else response[offset * length: (offset + 1) * length] 
+            response = [item.model_dump_json() for item in result]
+            return response
     except Exception as e:
         logging.error(f"The following exception occured {e}\n {response}")
 
@@ -65,7 +67,7 @@ async def read_all(offset: int=None, length: int=None) -> list[Document_]:
 @router.get("/{document_id}")
 async def read(document_id: PydanticObjectId):
     try:
-        return await document_service.read(document_id)
+        return (await document_service.read(document_id)).model_dump_json()
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
 
@@ -73,22 +75,24 @@ async def read(document_id: PydanticObjectId):
 @router.delete("/{document_id}")
 async def delete(document_id: PydanticObjectId):
     try:
-        return await document_service.delete(document_id)
+        return (await document_service.delete(document_id)).model_dump_json()
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
 
 
 @router.post("/{document_id}/img")
-async def upload_img(document_id: PydanticObjectId, img: str = Form(...)) -> Document_:
+async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
 
     try:
         document_update = await document_service.read(document_id)
         document_update.img = img
         document = await document_service.update(document_id, document_update)
-        return document
+        return document.model_dump_json()
     except Exception as e:
         return None
     
 @router.get("/{document_id}/extracts")
-async def get_documents_extracts(document_id: PydanticObjectId) -> list[Extract]:
-    return await extract_repository.read(document_id)
+async def get_documents_extracts(document_id: PydanticObjectId):
+    result = await extract_repository.read(document_id)
+    response = [item.model_dump_json() for item in result]
+    return response

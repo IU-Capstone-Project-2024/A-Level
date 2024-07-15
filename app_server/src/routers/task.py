@@ -27,8 +27,8 @@ router = APIRouter(prefix="/task", tags=["Task"])
 
 
 @router.post("/")
-async def create(task: TaskCreate) -> Task:
-    return await task_repository.create(task)
+async def create(task: TaskCreate):
+    return (await task_repository.create(task)).model_dump_json()
 
 @router.get("/number")
 async def read_number(marks: str=None, topic: str=None, year: str=None ):
@@ -47,7 +47,7 @@ async def read_number(marks: str=None, topic: str=None, year: str=None ):
 
 @router.get("/{task_id}")
 async def read(task_id: PydanticObjectId) -> Task | None:
-    task = await task_repository.read(task_id)
+    task = (await task_repository.read(task_id)).model_dump_json()
     if task is None:
         raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
 
@@ -71,7 +71,9 @@ async def read_all(offset: int=None, length: int=None, marks: str=None, topic: s
         year = year.strip('[]').split(',')
         response = [x for x in response if f'{x.year}' in year]
         
-    return response if length is None else response[offset * length: (offset + 1) * length] 
+    result = response if length is None else response[offset * length: (offset + 1) * length] 
+    response = [item.model_dump_json() for item in result]
+    return response
 
 
 @router.patch("/{task_id}")
@@ -85,14 +87,14 @@ async def update(task_id: PydanticObjectId, task_update: TaskUpdate) -> Task | N
     if task is None:
         raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
         
-    return task
+    return task.model_dump_json()
 
 
 @router.delete("/{task_id}")
 async def delete(task_id: PydanticObjectId):
     result = await task_repository.read(task_id=task_id)
     await task_repository.delete(task_id)
-    return result
+    return result.model_dump_json()
 
 
 @router.get("/{task_id}/predict")
