@@ -11,6 +11,7 @@
   padding: 0.25rem 0;
   justify-content: space-between;
   width: 19rem;
+  height: 16.875rem;
 }
 
 .question-topic {
@@ -80,4 +81,34 @@
   padding: 1rem;
   border-bottom: 1px solid var(--color-sage);
   width: fit-content;
+}
+
+@media (max-width: 1000px){
+  .question-container, .question-details{
+    width: 25rem;
+  }
+
+  .question-details{
+    height: 14rem;
+  }
+
+  .question-content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px){
+  .question-container, .question-details, .question-text-container{
+    width: 75vw;
+    max-width: 25rem;
+  }
+
+  .question-details{
+    height: 50vw;
+    max-height: 14rem;
+  }
+
+  .question-container{
+    padding: 1rem 0;
+  }
 }

@@ -43,6 +43,7 @@
     display: none;
   }
 
+
   #aside-menu {
     display: block;
   }
@@ -53,10 +54,11 @@
     right: -20rem;
     height: 100%;
     background-color: var(--color-lavender);
-    opacity: 0.9;
     display: flex;
     flex-direction: column;
-    padding: 5rem 1rem;
+    align-items: flex-end;
+    gap: 2rem;
+    padding: 2rem 1rem;
     transition: right 0.3s ease;
     z-index: 2000;
   }

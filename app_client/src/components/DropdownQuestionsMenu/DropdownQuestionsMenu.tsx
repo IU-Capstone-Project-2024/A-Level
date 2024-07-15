@@ -30,7 +30,9 @@ export default function Dropdown({
   const handleOptionClick = (option: Option) => {
     if (option.type_id !== 3) {
       if (selectedOptionIds.includes(option.id)) {
-        setSelectedOptionIds(selectedOptionIds.filter((id) => id !== option.id));
+        setSelectedOptionIds(
+          selectedOptionIds.filter((id) => id !== option.id),
+        );
         onOptionUnclick(option);
       } else {
         setSelectedOptionIds([...selectedOptionIds, option.id]);

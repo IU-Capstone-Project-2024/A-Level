@@ -36,22 +36,8 @@ export default function QuestionViewPage() {
   const navigate = useNavigate();
 
   const [editModal, setEditModal] = useState<boolean>(false);
-  // const editModalRef = useRef<HTMLDialogElement>(null);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       editModalRef.current &&
-  //       !editModalRef.current.contains(event.target as Node)
-  //     ) {
-  //       setEditModal(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  // }, [editModalRef]);
 
   async function handleDeleteDocument(document_id: string) {
     const responseDelete: AxiosResponse<DocumentResponse> = await axios.delete(

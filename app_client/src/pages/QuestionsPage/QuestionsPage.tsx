@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 import { useTopics } from '../../context/TopicContext';
 import { Option } from '../../components/Option';
-import { util } from 'prettier';
 
 const maxQuestionsPerPage = 10;
 
@@ -82,42 +81,48 @@ export default function Questions() {
       const utils = await getUtils();
 
       // there are no utils returned from the backend
-      if(utils === null) {
-        const yearsOptions: Option[] = [{
-          text: 'No available option',
-          type_id: 3,
-          backend_id: 0,
-          id: 0,
-        }];
-        setYearsOptions(yearsOptions);
-
-        const marksOptions: Option[] = [{
-          text: 'No available option',
-          type_id: 3,
-          backend_id: 0,
-          id: 0 + yearsOptions.length,
-        }];
-        setMarksOptions(marksOptions);
-
-        const topicsOptions: Option[] = [{
-          text: 'No available option',
-          type_id: 3,
-          backend_id: 0,
-          id: 0 + yearsOptions.length + marksOptions.length,
-        }];
-        setTopicsOptions(topicsOptions);
-        return;
-      }
-
-      if(utils.years.length == 0) {
-        setYearsOptions(
-          [{
+      if (utils === null) {
+        const yearsOptions: Option[] = [
+          {
             text: 'No available option',
             type_id: 3,
             backend_id: 0,
             id: 0,
-          }]
-        );
+          },
+        ];
+        setYearsOptions(yearsOptions);
+
+        const marksOptions: Option[] = [
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length,
+          },
+        ];
+        setMarksOptions(marksOptions);
+
+        const topicsOptions: Option[] = [
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length + marksOptions.length,
+          },
+        ];
+        setTopicsOptions(topicsOptions);
+        return;
+      }
+
+      if (utils.years.length == 0) {
+        setYearsOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0,
+          },
+        ]);
       } else {
         const yearsKeys = Object.keys(utils.years);
         const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
@@ -128,14 +133,16 @@ export default function Questions() {
         }));
         setYearsOptions(yearsOptions);
       }
-      
-      if(utils.marks.length === 0) {
-        setMarksOptions([{
-          text: 'No available option',
-          type_id: 3,
-          backend_id: 0,
-          id: 0 + yearsOptions.length,
-        }]);
+
+      if (utils.marks.length === 0) {
+        setMarksOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length,
+          },
+        ]);
       } else {
         const marksKeys = Object.keys(utils.marks);
         const marksOptions: Option[] = marksKeys.map((val, index) => ({
@@ -146,18 +153,19 @@ export default function Questions() {
         }));
         setMarksOptions(marksOptions);
       }
-      
 
       let topicsKeys: string[] = [];
       if (topics !== undefined) topicsKeys = topics.names;
 
-      if(topicsKeys.length === 0) {
-        setTopicsOptions([{
-          text: 'No available option',
-          type_id: 3,
-          backend_id: 0,
-          id: 0 + yearsOptions.length + marksOptions.length,
-        }]);
+      if (topicsKeys.length === 0) {
+        setTopicsOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length + marksOptions.length,
+          },
+        ]);
       } else {
         const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
           text: transformString(val),
@@ -167,7 +175,6 @@ export default function Questions() {
         }));
         setTopicsOptions(topicsOptions);
       }
-      
     }
 
     // update filters
@@ -257,9 +264,8 @@ export default function Questions() {
   }));
 
   if (loading) {
-    return <div className='no-data-questions'>Loading...</div>;
+    return <div className="no-data-questions">Loading...</div>;
   }
-
 
   return (
     <div className="questions-page-content">
@@ -290,7 +296,7 @@ export default function Questions() {
             selectedOptions={selectedOptions}
           />
         </div>
-        
+
         <div className="hr"></div>
         <div className="selected-options">
           <div className="selected-options-list">
@@ -312,8 +318,12 @@ export default function Questions() {
           </button>
         </div>
       </div>
-      {data.length === 0 ? <div className='no-data-questions'>No data to display</div> : <Table data={data}/>}
-      
+      {data.length === 0 ? (
+        <div className="no-data-questions">No data to display</div>
+      ) : (
+        <Table data={data} />
+      )}
+
       <Pagination
         total={Math.ceil(totalQues / maxQuestionsPerPage)}
         onUpdatePage={test}

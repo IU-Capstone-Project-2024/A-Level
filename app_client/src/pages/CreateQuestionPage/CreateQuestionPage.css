@@ -27,3 +27,10 @@
   padding: 1rem;
   width: fit-content;
 }
+
+@media (max-width: 768px) {
+  .question-container-without-border{
+    align-items: center;
+  }
+  
+}

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '../IconButton/IconButton';
 import Menu from '../../images/lucide_menu.svg';
 import OutsideClickHandler from 'react-outside-click-handler';
+import Close from '../../images/ic_round-close.svg';
 
 type tabType =
   | 'browse'
@@ -79,6 +80,13 @@ export default function Header({ active, onClick }: ButtonProps) {
         }}
       >
         <aside className={`aside-nav ${isNavOpen ? 'open' : ''}`}>
+          <IconButton
+            icon={Close}
+            alt="Close"
+            onClick={() => {
+              setIsNavOpen(false);
+            }}
+          />
           <nav className="navigation-aside">
             <MenuItem
               className={active === 'browse' ? 'active' : 'non-active'}

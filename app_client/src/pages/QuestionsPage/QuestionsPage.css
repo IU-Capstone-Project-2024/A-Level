@@ -81,6 +81,11 @@
   text-align: center;
 }
 
-.questions-page-upper-part {
-  
+@media (max-width: 768px) {
+  .dropdown-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    width: fit-content;
+  }
 }

@@ -25,4 +25,5 @@ tr {
   background-color: var(--color-cambridge-blue);
   margin: 20px;
   color: var(--color-dark);
+  border-radius: 0.5rem;
 }
