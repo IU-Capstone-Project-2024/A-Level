@@ -26,13 +26,16 @@ export default function Dropdown({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   //if the filter was selected, then unselect it and vice versa
+  //if type_id is 3, then this is unavailable option
   const handleOptionClick = (option: Option) => {
-    if (selectedOptionIds.includes(option.id)) {
-      setSelectedOptionIds(selectedOptionIds.filter((id) => id !== option.id));
-      onOptionUnclick(option);
-    } else {
-      setSelectedOptionIds([...selectedOptionIds, option.id]);
-      onOptionClick(option);
+    if (option.type_id !== 3) {
+      if (selectedOptionIds.includes(option.id)) {
+        setSelectedOptionIds(selectedOptionIds.filter((id) => id !== option.id));
+        onOptionUnclick(option);
+      } else {
+        setSelectedOptionIds([...selectedOptionIds, option.id]);
+        onOptionClick(option);
+      }
     }
   };
 
