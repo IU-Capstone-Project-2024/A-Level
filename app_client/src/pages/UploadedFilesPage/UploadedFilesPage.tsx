@@ -26,7 +26,9 @@ export default function Uploaded() {
     async function fetchDocs() {
       setLoading(true);
       const fetchedDocs = await getDocs(page, maxTilesPerPage);
-      const totalDoc = await axios.get('http://203.31.40.71:8000/document/number');
+      const totalDoc = await axios.get(
+        'http://203.31.40.71:8000/document/number',
+      );
       setTotalDocs(totalDoc.data);
       setDocs(fetchedDocs);
       setLoading(false);
