@@ -39,3 +39,4 @@ jobs:
             cat "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
             docker-compose up -d
           EOF
+          
