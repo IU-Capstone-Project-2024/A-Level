@@ -37,8 +37,19 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Deploy to server
+        env: 
+          GIT_BRANCH: newbackend
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_LOGIN }}@${{ secrets.SERVER_IP }} << 'EOF'
+            if [ -d "/A-level" ]; then
+              cd /A-level
+              git fetch
+              git checkout $GIT_BRANCH
+              git pull origin $GIT_BRANCH
+            else
+              git clone --branch $GIT_BRANCH https://github.com/justcgh9/A-Level.git /A-level
+              cd /A-level
+            fi
             echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
             docker-compose up -d
           EOF
