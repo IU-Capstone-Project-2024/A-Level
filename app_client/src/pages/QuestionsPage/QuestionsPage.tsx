@@ -11,7 +11,7 @@ import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 import { useTopics } from '../../context/TopicContext';
 import { Option } from '../../components/Option';
 
-const maxQuestionsPerPage = 6;
+const maxQuestionsPerPage = 10;
 
 export default function Questions() {
   const [ques, setQues] = useState([]);
@@ -79,34 +79,102 @@ export default function Questions() {
   useEffect(() => {
     async function fetchUtils() {
       const utils = await getUtils();
-      const yearsKeys = Object.keys(utils.years);
-      const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
-        text: val,
-        type_id: 2,
-        backend_id: index,
-        id: index,
-      }));
-      setYearsOptions(yearsOptions);
 
-      const marksKeys = Object.keys(utils.marks);
-      const marksOptions: Option[] = marksKeys.map((val, index) => ({
-        text: val,
-        type_id: 1,
-        backend_id: index,
-        id: index + yearsOptions.length,
-      }));
-      setMarksOptions(marksOptions);
+      // there are no utils returned from the backend
+      if (utils === null) {
+        const yearsOptions: Option[] = [
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0,
+          },
+        ];
+        setYearsOptions(yearsOptions);
+
+        const marksOptions: Option[] = [
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length,
+          },
+        ];
+        setMarksOptions(marksOptions);
+
+        const topicsOptions: Option[] = [
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length + marksOptions.length,
+          },
+        ];
+        setTopicsOptions(topicsOptions);
+        return;
+      }
+
+      if (utils.years.length == 0) {
+        setYearsOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0,
+          },
+        ]);
+      } else {
+        const yearsKeys = Object.keys(utils.years);
+        const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
+          text: val,
+          type_id: 2,
+          backend_id: index,
+          id: index,
+        }));
+        setYearsOptions(yearsOptions);
+      }
+
+      if (utils.marks.length === 0) {
+        setMarksOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length,
+          },
+        ]);
+      } else {
+        const marksKeys = Object.keys(utils.marks);
+        const marksOptions: Option[] = marksKeys.map((val, index) => ({
+          text: val,
+          type_id: 1,
+          backend_id: index,
+          id: index + yearsOptions.length,
+        }));
+        setMarksOptions(marksOptions);
+      }
 
       let topicsKeys: string[] = [];
       if (topics !== undefined) topicsKeys = topics.names;
 
-      const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
-        text: val,
-        type_id: 0,
-        backend_id: index,
-        id: index + yearsOptions.length + marksOptions.length,
-      }));
-      setTopicsOptions(topicsOptions);
+      if (topicsKeys.length === 0) {
+        setTopicsOptions([
+          {
+            text: 'No available option',
+            type_id: 3,
+            backend_id: 0,
+            id: 0 + yearsOptions.length + marksOptions.length,
+          },
+        ]);
+      } else {
+        const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
+          text: transformString(val),
+          type_id: 0,
+          backend_id: index,
+          id: index + yearsOptions.length + marksOptions.length,
+        }));
+        setTopicsOptions(topicsOptions);
+      }
     }
 
     // update filters
@@ -196,58 +264,66 @@ export default function Questions() {
   }));
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="no-data-questions">Loading...</div>;
   }
 
   return (
     <div className="questions-page-content">
-      <div className="dropdown-container">
-        <Dropdown
-          title="Topic"
-          icon={topicIcon}
-          options={topicsOptions}
-          onOptionClick={handleOptionClick}
-          onOptionUnclick={handleOptionUnclick}
-          selectedOptions={selectedOptions}
-        />
-        <Dropdown
-          title="Mark"
-          icon={markIcon}
-          options={marksOptions}
-          onOptionClick={handleOptionClick}
-          onOptionUnclick={handleOptionUnclick}
-          selectedOptions={selectedOptions}
-        />
-        <Dropdown
-          title="Year"
-          icon={yearIcon}
-          options={yearsOptions}
-          onOptionClick={handleOptionClick}
-          onOptionUnclick={handleOptionUnclick}
-          selectedOptions={selectedOptions}
-        />
-      </div>
-      <div className="hr"></div>
-      <div className="selected-options">
-        <div className="selected-options-list">
-          {selectedOptions.map((option) => (
-            <div key={option.id} className="selected-option-tile">
-              <span>{option.text}</span>
-              &nbsp; &nbsp;
-              <img
-                src={cancelIcon}
-                alt="cancel"
-                className="cancel-btn"
-                onClick={() => handleOptionUnclick(option)}
-              ></img>
-            </div>
-          ))}
+      <div className="questions-page-upper-part">
+        <div className="dropdown-container">
+          <Dropdown
+            title="Topic"
+            icon={topicIcon}
+            options={topicsOptions}
+            onOptionClick={handleOptionClick}
+            onOptionUnclick={handleOptionUnclick}
+            selectedOptions={selectedOptions}
+          />
+          <Dropdown
+            title="Mark"
+            icon={markIcon}
+            options={marksOptions}
+            onOptionClick={handleOptionClick}
+            onOptionUnclick={handleOptionUnclick}
+            selectedOptions={selectedOptions}
+          />
+          <Dropdown
+            title="Year"
+            icon={yearIcon}
+            options={yearsOptions}
+            onOptionClick={handleOptionClick}
+            onOptionUnclick={handleOptionUnclick}
+            selectedOptions={selectedOptions}
+          />
         </div>
-        <button className="clear-button" onClick={clearAllOptions}>
-          Clear All
-        </button>
+
+        <div className="hr"></div>
+        <div className="selected-options">
+          <div className="selected-options-list">
+            {selectedOptions.map((option) => (
+              <div key={option.id} className="selected-option-tile">
+                <span>{option.text}</span>
+                &nbsp; &nbsp;
+                <img
+                  src={cancelIcon}
+                  alt="cancel"
+                  className="cancel-btn"
+                  onClick={() => handleOptionUnclick(option)}
+                ></img>
+              </div>
+            ))}
+          </div>
+          <button className="clear-button" onClick={clearAllOptions}>
+            Clear All
+          </button>
+        </div>
       </div>
-      <Table data={data} />
+      {data.length === 0 ? (
+        <div className="no-data-questions">No data to display</div>
+      ) : (
+        <Table data={data} />
+      )}
+
       <Pagination
         total={Math.ceil(totalQues / maxQuestionsPerPage)}
         onUpdatePage={test}

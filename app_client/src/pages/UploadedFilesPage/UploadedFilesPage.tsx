@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 
-const maxTilesPerPage = 2;
+const maxTilesPerPage = 4;
 
 export default function Uploaded() {
   const [docs, setDocs] = useState([]);
@@ -41,7 +41,11 @@ export default function Uploaded() {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="no-data-uploaded">Loading...</div>;
+  }
+
+  if (docs.length === 0) {
+    return <div className="no-data-uploaded">No data to display</div>;
   }
 
   const tiles = docs.map(({ filename, img, _id }) => ({

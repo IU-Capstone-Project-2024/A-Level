@@ -20,13 +20,17 @@ export default function StepEven({
         </h2>
         <p className="step-description">{description}</p>
       </div>
-      <div className="step-figures">
+      <div className="step-figures-even">
         <div className="rectangle-block">
           <div
             className="triangle-up"
             style={{ borderBottomColor: color }}
           ></div>
           <div className="rectangle" style={{ backgroundColor: color }}></div>
+          <div
+            className="triangle-down-even"
+            style={{ borderTopColor: color }}
+          ></div>
         </div>
         <div className="line" style={{ backgroundColor: color }}></div>
         <div className="circle" style={{ backgroundColor: color }}>

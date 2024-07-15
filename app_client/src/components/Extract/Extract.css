@@ -24,3 +24,10 @@
     padding: 0;
     color: var(--color-dark);
 }
+
+@media (max-width: 1000px){
+    .extract-text{
+        width: 80vw;
+        max-width: 45rem;
+    }
+}

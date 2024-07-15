@@ -9,6 +9,7 @@ export default function AboutPage() {
       <h1 className="main-title">About Us</h1>
       <section id="our-goal">
         <img
+          id="ill3"
           src={Illustration3}
           alt="Calendar and reminders for time managment"
         />
@@ -36,6 +37,7 @@ export default function AboutPage() {
           </p>
         </div>
         <img
+          id="ill4"
           src={Illustration4}
           alt="Colleagues working and talking in the office"
         />

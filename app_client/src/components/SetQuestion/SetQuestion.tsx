@@ -271,7 +271,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           </div>
         </div>
       </div>
-      <div className="question-buttons">
+      <div className="question-buttons-set">
         <button
           type="button"
           className="detect-topic-button"

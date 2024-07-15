@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-.step-figures {
+.step-figures-even {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,6 +55,10 @@
     border-bottom: 13px solid;
 }
 
+.triangle-down-even {
+    display: none;
+}
+
 .step-text {
     display: flex;
     flex-direction: column;
@@ -78,4 +82,98 @@
     margin: 0;
     text-align: center;
     width: 15rem;
+}
+
+
+@media (max-width: 1200px){
+    .step-even{
+        width: 14rem;
+        height: 30rem;
+        padding-top: 6.675rem;
+    }
+    
+    .circle {
+        width: 6rem;
+        height: 6rem;
+    }
+    
+    .index {
+        font-size: 1.5rem;
+    }
+    
+    .line {
+        height: 5rem;
+    }
+    
+    .rectangle {
+        width: 14rem;
+        height: 3rem;
+    }
+    
+    .step-title {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+    
+    .step-description {
+        font-size: 1.1rem;
+        width: 10rem;
+    }
+}
+
+
+@media (max-width: 768px){
+    .step-even{
+        width: 20rem;
+        height: fit-content;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .step-figures-even {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    
+    .circle {
+        width: 9rem;
+        height: 9rem;
+    }
+    
+    .index {
+        font-size: 1.75rem;
+    }
+    
+    .line {
+        height: 6rem;
+    }
+    
+    .rectangle {
+        width: 17rem;
+        height: 4rem;
+    }
+    
+    .step-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    .step-description {
+        font-size: 1.25rem;
+        width: 14rem;
+    }
+
+    .triangle-down-even {
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 13px solid;
+    }
+
+    .triangle-up{
+        display: none;
+    }
 }
