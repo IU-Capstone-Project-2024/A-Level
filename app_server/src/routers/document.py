@@ -56,12 +56,12 @@ async def read_all(offset: int=None, length: int=None):
         if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
         else:
-            JSONResponse = await document_service.read_all ()
-            result = JSONResponse if length is None else JSONResponse[offset * length: (offset + 1) * length] 
-            JSONResponse = [item.model_dump_json() for item in result]
-            return JSONResponse
+            response = await document_service.read_all ()
+            result = response if length is None else response[offset * length: (offset + 1) * length] 
+            response = [item.model_dump_json() for item in result]
+            return response
     except Exception as e:
-        logging.error(f"The following exception occured {e}\n {JSONResponse}")
+        logging.error(f"The following exception occured {e}\n {response}")
 
 
 
@@ -95,5 +95,5 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
 @router.get("/{document_id}/extracts")
 async def get_documents_extracts(document_id: PydanticObjectId):
     result = await extract_repository.read(document_id)
-    JSONResponse = [item.model_dump_json() for item in result]
-    return JSONResponse
+    response = [item.model_dump_json() for item in result]
+    return response
