@@ -18,4 +18,6 @@ app.include_router(document.router)
 app.include_router(task.router)
 app.include_router(utils.router)
 
-
+@app.get('/')
+async def get_root():
+    return 'Success'
