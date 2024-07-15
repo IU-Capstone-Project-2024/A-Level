@@ -64,14 +64,14 @@ export default function QuestionView(question: QuestionProps) {
 
   async function getQuestion(id: string) {
     const questionResponse: AxiosResponse<TaskResponse> = await axios.get(
-      `https://203.31.40.71:80/task/${id}`,
+      `https://chartreuse-binghamite1373.my-vm.work:80/task/${id}`,
     );
     if (questionResponse.status === 200) {
       const taskData: TaskResponse = questionResponse.data;
       if (taskData.topic == null) {
         if (question.predict) {
           const topicResponse: AxiosResponse<TopicResponse> = await axios.get(
-            `https://203.31.40.71:80/task/${id}/predict`,
+            `https://chartreuse-binghamite1373.my-vm.work:80/task/${id}/predict`,
           );
           if (topicResponse.status === 200) {
             taskData.topic = topicResponse.data.topic_id;

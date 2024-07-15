@@ -99,14 +99,14 @@ export default function BrowseFilePage() {
     formData.append('uploaded_file', file as File);
     try {
       const response: AxiosResponse<DocumentProps> = await axios.post(
-        'https://203.31.40.71:80/document/upload',
+        'https://chartreuse-binghamite1373.my-vm.work:80/document/upload',
         formData,
       );
       if (response.status === 200) {
         const formData = new FormData();
         formData.append('img', imageSrc as string);
         const responseImg: AxiosResponse<DocumentProps> = await axios.post(
-          `https://203.31.40.71:80/document/${response.data._id}/img`,
+          `https://chartreuse-binghamite1373.my-vm.work:80/document/${response.data._id}/img`,
           formData,
         );
         if (responseImg.status === 200) {

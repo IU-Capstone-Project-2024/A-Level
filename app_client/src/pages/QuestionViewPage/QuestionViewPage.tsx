@@ -55,7 +55,7 @@ export default function QuestionViewPage() {
 
   async function handleDeleteDocument(document_id: string) {
     const responseDelete: AxiosResponse<DocumentResponse> = await axios.delete(
-      `https://203.31.40.71:80/document/${document_id}`,
+      `https://chartreuse-binghamite1373.my-vm.work:80/document/${document_id}`,
     );
     if (responseDelete.status !== 200) {
       console.log('Document still empty');
@@ -67,12 +67,12 @@ export default function QuestionViewPage() {
     document_id: string | null | undefined,
   ) {
     const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
-      `https://203.31.40.71:80/task/${id}`,
+      `https://chartreuse-binghamite1373.my-vm.work:80/task/${id}`,
     );
     if (responseDeleteTask.status === 200) {
       if (document_id !== null && document_id !== undefined) {
         const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-          `https://203.31.40.71:80/document/${document_id}`,
+          `https://chartreuse-binghamite1373.my-vm.work:80/document/${document_id}`,
         );
         if (responseDoc.data.tasks.length === 0) {
           handleDeleteDocument(document_id);
