@@ -13,12 +13,15 @@ export default function Uploaded() {
   const [totalDocs, setTotalDocs] = useState(1);
 
   async function getDocs(page: number, length: number) {
-    const res = await axios.get('https://chartreuse-binghamite1373.my-vm.work:80/document', {
-      params: {
-        offset: page - 1,
-        length: length,
+    const res = await axios.get(
+      'https://chartreuse-binghamite1373.my-vm.work:80/document',
+      {
+        params: {
+          offset: page - 1,
+          length: length,
+        },
       },
-    });
+    );
     return res.data;
   }
 
