@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - newbackend
 
 jobs:
   build:
@@ -22,3 +22,20 @@ jobs:
         run: |
           docker exec a-level-server-1 pytest
           # TODO: frontend testing
+
+  deploy:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy to server
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_LOGIN }}@${{ secrets.SERVER_IP }} << 'EOF'
+            cat "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
+            docker-compose up -d
+          EOF

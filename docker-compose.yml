@@ -14,7 +14,7 @@ services:
     networks:
       - a_level_exam
   server:
-    # env_file: ".env"
+    env_file: ".env"
     build:
       context: ./
       dockerfile: ./app_server/Dockerfile
