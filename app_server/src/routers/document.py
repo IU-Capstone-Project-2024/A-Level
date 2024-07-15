@@ -60,8 +60,8 @@ async def read_all(offset: int=None, length: int=None):
             response = await document_service.read_all()
             result = response if length is None else response[offset * length: (offset + 1) * length] 
             response = [item.model_dump() for item in result]
-            response = DocumentList(documents=response).model_dump()
-            return JSONResponse(content=response, media_type='application/json')
+            response = DocumentList(documents=response)
+            return JSONResponse(content=response.model_dump(), media_type='application/json')
     except Exception as e:
         logging.error(f"The following exception occured {e}\n {response}")
 
