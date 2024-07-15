@@ -1,6 +1,7 @@
 from beanie import PydanticObjectId
 from beanie.exceptions import CollectionWasNotInitialized
-from fastapi import APIRouter, HTTPException, UploadFile, Form, Response
+from fastapi import APIRouter, HTTPException, UploadFile, Form
+from fastapi.responses import JSONResponse
 import logging
 
 from src.storages.mongo.models.document import Document_, Extract
@@ -36,7 +37,7 @@ async def upload(uploaded_file: UploadFile):
             myfile.write(e.args)     
 
             myfile.write(e) 
-    return Response(content=result, media_type='application/json')
+    return JSONResponse(content=result, media_type='application/json')
 
 #GET 0.0.0.0:8000/document
 
@@ -55,12 +56,12 @@ async def read_all(offset: int=None, length: int=None):
         if (offset is None) ^ (length is None):
             raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
         else:
-            response = await document_service.read_all ()
-            result = response if length is None else response[offset * length: (offset + 1) * length] 
-            response = [item.model_dump_json() for item in result]
-            return response
+            JSONResponse = await document_service.read_all ()
+            result = JSONResponse if length is None else JSONResponse[offset * length: (offset + 1) * length] 
+            JSONResponse = [item.model_dump_json() for item in result]
+            return JSONResponse
     except Exception as e:
-        logging.error(f"The following exception occured {e}\n {response}")
+        logging.error(f"The following exception occured {e}\n {JSONResponse}")
 
 
 
@@ -87,12 +88,12 @@ async def upload_img(document_id: PydanticObjectId, img: str = Form(...)):
         document_update = await document_service.read(document_id)
         document_update.img = img
         document = await document_service.update(document_id, document_update)
-        return Response(content=document, media_type='application/json')
+        return JSONResponse(content=document, media_type='application/json')
     except Exception as e:
         return None
     
 @router.get("/{document_id}/extracts")
 async def get_documents_extracts(document_id: PydanticObjectId):
     result = await extract_repository.read(document_id)
-    response = [item.model_dump_json() for item in result]
-    return response
+    JSONResponse = [item.model_dump_json() for item in result]
+    return JSONResponse
