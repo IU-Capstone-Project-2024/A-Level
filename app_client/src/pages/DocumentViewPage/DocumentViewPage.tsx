@@ -82,11 +82,11 @@ export default function DocumentViewPage() {
 
   async function handleDeleteTask(id: string) {
     const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
-      `https://chartreuse-binghamite1373.my-vm.work:80/task/${id}`,
+      `https://chartreuse-binghamite1373.my-vm.work/task/${id}`,
     );
     if (responseDeleteTask.status === 200) {
       const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-        `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc?._id}`,
+        `https://chartreuse-binghamite1373.my-vm.work/document/${doc?._id}`,
       );
       if (responseDoc.data.tasks.length === 0) {
         handleDeleteDocument();
@@ -104,7 +104,7 @@ export default function DocumentViewPage() {
     if (doc != null) {
       const responseDelete: AxiosResponse<DocumentResponse> =
         await axios.delete(
-          `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc._id}`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${doc._id}`,
         );
       if (responseDelete.status === 200) {
         navigate('/uploaded');
@@ -116,7 +116,7 @@ export default function DocumentViewPage() {
   async function handleEdit() {
     setEditModal(false);
     const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-      `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc?._id}`,
+      `https://chartreuse-binghamite1373.my-vm.work/document/${doc?._id}`,
     );
     if (responseDoc.status === 200) {
       setQuestions(responseDoc.data.tasks);

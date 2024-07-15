@@ -34,7 +34,7 @@ export default function Questions() {
     years: number[],
     topics: number[],
   ) {
-    const par1 = 'https://chartreuse-binghamite1373.my-vm.work:80/task?';
+    const par1 = 'https://chartreuse-binghamite1373.my-vm.work/task?';
     const par2 = 'offset=' + (page - 1);
     const par3 = '&length=' + length;
     const par4 = '&marks=' + marks.join(',');
@@ -52,7 +52,7 @@ export default function Questions() {
     years: number[],
     topics: number[],
   ) {
-    const par1 = 'https://chartreuse-binghamite1373.my-vm.work:80/task/number?';
+    const par1 = 'https://chartreuse-binghamite1373.my-vm.work/task/number?';
     const par2 = 'offset=' + (page - 1);
     const par3 = '&length=' + length;
     const par4 = '&marks=' + marks.join(',');
@@ -65,7 +65,7 @@ export default function Questions() {
 
   async function getUtils() {
     const res = await axios.get(
-      'https://chartreuse-binghamite1373.my-vm.work:80/utils',
+      'https://chartreuse-binghamite1373.my-vm.work/utils',
     );
     return res.data;
   }
