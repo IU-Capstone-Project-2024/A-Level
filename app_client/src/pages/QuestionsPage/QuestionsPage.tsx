@@ -64,7 +64,9 @@ export default function Questions() {
   }
 
   async function getUtils() {
-    const res = await axios.get('https://chartreuse-binghamite1373.my-vm.work/utils');
+    const res = await axios.get(
+      'https://chartreuse-binghamite1373.my-vm.work/utils',
+    );
     return res.data;
   }
 

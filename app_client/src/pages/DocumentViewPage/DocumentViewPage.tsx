@@ -103,7 +103,9 @@ export default function DocumentViewPage() {
   async function handleDeleteDocument() {
     if (doc != null) {
       const responseDelete: AxiosResponse<DocumentResponse> =
-        await axios.delete(`https://chartreuse-binghamite1373.my-vm.work/document/${doc._id}`);
+        await axios.delete(
+          `https://chartreuse-binghamite1373.my-vm.work/document/${doc._id}`,
+        );
       if (responseDelete.status === 200) {
         navigate('/uploaded');
         setTab('uploaded');
