@@ -31,8 +31,11 @@ def predict(request: Annotated[PredictionRequest, Body()]):
     logging.info(f"Received request: {request.request}")
 
     topic_id = int(model.predict([request.request])[0])
+    probabilities = list(model.predict_proba([request.request])[0])
     return {
         "topic": encodings[str(topic_id)],
         "topic_id": topic_id,
+        "probabilities": probabilities,
+        'class_mapping': encodings,
         "model_alias": MODEL_ALIAS
     }
