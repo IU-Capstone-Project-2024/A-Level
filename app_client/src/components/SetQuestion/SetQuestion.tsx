@@ -141,7 +141,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           year: selectedYear,
         };
         const createResponse: AxiosResponse<TaskResponse> = await axios.patch(
-          `https://203.31.40.71:8000/task/${task._id}`,
+          `https://203.31.40.71:80/task/${task._id}`,
           newTask,
         );
         if (createResponse.status === 200) {
@@ -159,7 +159,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           year: selectedYear,
         };
         const createResponse: AxiosResponse<TaskResponse> = await axios.post(
-          `https://203.31.40.71:8000/task/`,
+          `https://203.31.40.71:80/task/`,
           newTask,
         );
         if (createResponse.status === 200) {
@@ -182,7 +182,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
       const formData = new FormData();
       formData.append('content', inputValueText as string);
       const predictResponse: AxiosResponse<TopicResponse> = await axios.post(
-        `https://203.31.40.71:8000/task/unsavedPredict`,
+        `https://203.31.40.71:80/task/unsavedPredict`,
         formData,
       );
       if (predictResponse.status === 200) {

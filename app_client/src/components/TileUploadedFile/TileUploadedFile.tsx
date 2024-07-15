@@ -24,7 +24,7 @@ export default function TileUploadedFile({ image, title, id }: TileProps) {
   async function switchToDoc(id: number) {
     //change the function here when a tile will be clicked
     const responseDoc: AxiosResponse<DocumentProps> = await axios.get(
-      `https://203.31.40.71:8000/document/${id}`,
+      `https://203.31.40.71:80/document/${id}`,
     );
     if (responseDoc.status === 200) {
       const doc: DocumentProps = responseDoc.data;
