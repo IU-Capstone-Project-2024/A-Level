@@ -51,5 +51,6 @@ jobs:
               cd /root/A-level
             fi
             echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
+            docker-compose build
             docker-compose up -d
           EOF
