@@ -23,3 +23,11 @@
 .pagination {
   margin-top: 20px;
 }
+
+.no-data-uploaded {
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

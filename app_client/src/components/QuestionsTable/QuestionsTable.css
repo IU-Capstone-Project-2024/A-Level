@@ -4,6 +4,8 @@
   border-collapse: separate;
   margin: 0 auto;
   border-spacing: 0 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 th,
