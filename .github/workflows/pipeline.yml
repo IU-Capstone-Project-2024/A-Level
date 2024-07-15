@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: A-level-pipeline
 
 on:
   push:
@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Update the environment
+        run: echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
 
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
@@ -36,7 +39,6 @@ jobs:
       - name: Deploy to server
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_LOGIN }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cat "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
+            echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
             docker-compose up -d
           EOF
-          
