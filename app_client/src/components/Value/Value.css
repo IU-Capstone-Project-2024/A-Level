@@ -38,3 +38,45 @@
     padding: 0;
     margin: 0;
 }
+
+@media (max-width: 1200px) {
+    .value-description {
+        font-size: 1.35rem;
+        width: 35rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .value-description {
+        font-size: 1.25rem;
+        width: 30rem;
+    }
+
+    .value-title {
+        width: 10.25rem;
+    }
+
+    .value-title-text {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .value-container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .value-description {
+        font-size: 1.35rem;
+        width: 80vw;
+        text-align: center;
+    }
+
+    .value-title {
+        width: 12.375rem;
+    }
+
+    .value-title-text {
+        font-size: 1.5rem;
+    }
+}

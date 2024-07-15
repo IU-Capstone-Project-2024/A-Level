@@ -79,3 +79,75 @@
     text-align: center;
     width: 15rem;
 }
+
+
+@media (max-width: 1200px){
+    .step-odd{
+        width: 14rem;
+        height: 30rem;
+    }
+    
+    .circle {
+        width: 6rem;
+        height: 6rem;
+    }
+    
+    .index {
+        font-size: 1.5rem;
+    }
+    
+    .line {
+        height: 5rem;
+    }
+    
+    .rectangle {
+        width: 14rem;
+        height: 3rem;
+    }
+    
+    .step-title {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+    
+    .step-description {
+        font-size: 1.1rem;
+        width: 10rem;
+    }
+}
+
+@media (max-width: 768px){
+    .step-odd{
+        width: 20rem;
+        height: fit-content;
+        padding-top: 0;
+    }
+    
+    .circle {
+        width: 9rem;
+        height: 9rem;
+    }
+    
+    .index {
+        font-size: 1.75rem;
+    }
+    
+    .line {
+        height: 6rem;
+    }
+    
+    .rectangle {
+        width: 20rem;
+        height: 4rem;
+    }
+    
+    .step-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    .step-description {
+        font-size: 1.25rem;
+        width: 14rem;
+    }
+}

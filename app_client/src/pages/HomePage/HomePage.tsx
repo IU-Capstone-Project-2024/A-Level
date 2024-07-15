@@ -21,13 +21,13 @@ export default function HomePage() {
           an A
         </h2>
         <div className="welcome-content">
-          <img
-            className="illustraition"
-            src={Illustration1}
-            alt="Sage table and chairs"
-          />
+          <img id="ill1" src={Illustration1} alt="Sage table and chairs" />
           <Link to="/browse">
-            <button onClick={() => setTab('browse')} className="action-button">
+            <button
+              id="try-it-now"
+              onClick={() => setTab('browse')}
+              className="action-button"
+            >
               Try It Now
             </button>
           </Link>
@@ -51,11 +51,9 @@ export default function HomePage() {
         </div>
       </section>
       <section id="problem-we-solve">
-        <span className="section-title-span">
-          <h2 className="section-title">The Problem We Solve</h2>
-        </span>
+        <h2 className="section-title">The Problem We Solve</h2>
         <div className="problem-content">
-          <img src={Illustration2} />
+          <img id="ill2" src={Illustration2} />
           <p className="problem-paragraph">
             A-level Economics students often struggle with unstructured
             resources, monotonous study practices, and limited interactivity in

@@ -45,3 +45,63 @@
   padding: 0;
   line-height: 130%;
 }
+
+@media (max-width: 1200px){
+  .reason-card {
+    width: 19rem;
+    height: 21rem;
+  }
+
+  .reason-description {
+    width: 15rem;
+    font-size: 1.1rem;
+  }
+
+  .reason-title-container{
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 1000px){
+  .reason-card {
+    width: 14rem;
+    height: 18rem;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .reason-title{
+    font-size: 1.25rem;
+  }
+
+  .reason-title-container{
+    height: 3.25rem;
+  }
+
+  .reason-description {
+    width: 12rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reason-card {
+    padding: 2rem 1rem;
+    gap: 2rem;
+    width: 21rem;
+    height: 23.25rem;
+  }
+
+  .reason-title{
+    font-size: 1.5rem;
+  }
+
+  .reason-title-container{
+    height: 4.25rem;
+  }
+
+  .reason-description {
+    width: 16rem;
+    font-size: 1.25rem;
+  }
+}

@@ -1,4 +1,3 @@
-// src/context/TopicsContext.tsx
 import React, {
   createContext,
   useState,
@@ -26,9 +25,7 @@ const TopicsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const fetchTopics = async () => {
     const topicTransformResp: AxiosResponse<TopicTransformResp> =
-      await axios.get(
-        'https://chartreuse-binghamite1373.my-vm.work/utils/topicEnum',
-      );
+      await axios.get('https://chartreuse-binghamite1373.my-vm.work/utils/topicEnum');
     if (topicTransformResp.status === 200) {
       setTopics(topicTransformResp.data);
     }

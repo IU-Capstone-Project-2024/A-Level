@@ -29,3 +29,12 @@
   vertical-align: top;
   resize: none;
 }
+
+@media (max-width: 768px) {
+  .custom-input {
+    width: 70vw;
+    max-width: 23rem;
+    height: 50vw;
+    max-height: 14rem;
+  }
+}

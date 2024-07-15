@@ -10,7 +10,7 @@ __pycache__/
 # C extensions
 *.so
 
-
+app_client_copy
 # Distribution / packaging
 .Python
 build/
