@@ -22,7 +22,7 @@ export default function Uploaded() {
         },
       },
     );
-    return res.data;
+    return res.data.documents;
   }
 
   useEffect(() => {
