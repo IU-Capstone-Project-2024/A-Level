@@ -73,7 +73,7 @@ async def read(document_id: PydanticObjectId):
 @router.delete("/{document_id}")
 async def delete(document_id: PydanticObjectId):
     try:
-        return JSONResponse(content=(await document_service.delete(document_id)).model_dump(), media_type='application/json')
+        return JSONResponse(content=await document_service.delete(document_id), media_type='application/json')
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Document {document_id} does not exist")
 
