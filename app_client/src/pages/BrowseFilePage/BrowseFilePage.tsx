@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 import { useTopics } from '../../context/TopicContext';
 
 interface DocumentProps {
-  _id: string;
+  id: string;
   path: string;
   filename: string;
   tasks: string[];
@@ -99,14 +99,14 @@ export default function BrowseFilePage() {
     formData.append('uploaded_file', file as File);
     try {
       const response: AxiosResponse<DocumentProps> = await axios.post(
-        'http://localhost:8000/document/upload',
+        'https://chartreuse-binghamite1373.my-vm.work/document/upload',
         formData,
       );
       if (response.status === 200) {
         const formData = new FormData();
         formData.append('img', imageSrc as string);
         const responseImg: AxiosResponse<DocumentProps> = await axios.post(
-          `http://localhost:8000/document/${response.data._id}/img`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${response.data.id}/img`,
           formData,
         );
         if (responseImg.status === 200) {

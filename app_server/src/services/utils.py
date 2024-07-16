@@ -2,12 +2,17 @@ from src.storages.mongo.repositories.task import task_repository
 import random
 import aiohttp
 import asyncio
+from pydantic import BaseModel
 
 MAX_QUESTIONS = 1000
 FIRST_COMPONENTS_NUMBER_OF_POINTS = 30
 FIRST_COMPONENTS_NUMBER_OF_QUESTIONS = [5,6]
 THIRD_COMPONENT_NUMBER_OF_POINTS = 20
 
+class ExamVariant(BaseModel):
+    sectionA: list[str] | None = None
+    sectionB: list[str] | None = None
+    sectionC: str | None = None
 
 class UtilsService:
     
@@ -58,11 +63,7 @@ class UtilsService:
             section_A_id = [f'{item.id}' for item in section_A]
             section_B_id = [f'{item.id}' for item in section_B]
             section_C_id = f'{section_C.id}'
-            response = {
-                'sectionA': section_A_id,
-                'sectionB': section_B_id,
-                'sectionC': section_C_id,
-            }
+            response = ExamVariant(sectionA=section_A_id, sectionB=section_B_id, sectionC=section_C_id)
             return response
         except Exception as e:
             with open('create_exam_variant.log', 'a') as logfile:

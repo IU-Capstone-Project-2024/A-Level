@@ -11,7 +11,7 @@ from beanie import PydanticObjectId
 
 
 from src.storages.mongo.models.document import Document_, DocumentCreate, ExtractCreate
-from src.storages.mongo.models.task import TaskCreate, Task, TaskUpdate
+from src.storages.mongo.models.task import TaskCreate
 from src.storages.mongo.repositories.document import document_repository
 from src.storages.mongo.repositories.task import task_repository
 from src.storages.mongo.repositories.utils import utils_repository

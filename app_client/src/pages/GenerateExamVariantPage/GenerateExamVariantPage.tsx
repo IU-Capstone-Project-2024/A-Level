@@ -31,7 +31,7 @@ export default function GenerateExamVariantPage() {
 
   async function Generate() {
     const generateResponse: AxiosResponse<GenerateResponse> = await axios.get(
-      'http://localhost:8000/utils/exam',
+      'https://chartreuse-binghamite1373.my-vm.work/utils/exam',
     );
     if (generateResponse.status === 200 && generateResponse.data !== null) {
       setQuestionsA(generateResponse.data['sectionA']);
@@ -47,7 +47,7 @@ export default function GenerateExamVariantPage() {
     if (document_id !== null) {
       const extractsResponse: AxiosResponse<ExtractsResponse[]> =
         await axios.get(
-          `http://localhost:8000/document/${document_id}/extracts`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${document_id}/extracts`,
         );
       if (extractsResponse.status === 200) {
         setExtracts(extractsResponse.data);

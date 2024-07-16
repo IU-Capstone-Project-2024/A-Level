@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  align-items: flex-end;
   padding: 0;
   margin: 0;
 }
@@ -45,11 +44,10 @@
 
 .year-picker-dropdown-content {
   margin-top: 0.5rem;
-  position: absolute;
   background-color: var(--color-light-sage);
   border: 1px solid var(--color-sage);
   border-radius: 0.5rem;
-  z-index: 2000;
+  z-index: 1000;
   top: 100%;
   left: 0;
   width: fit-content;
@@ -126,4 +124,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .year-picker, .year-picker-dropdown, .dropdown-toggle{
+    width: 14rem;
+  }
 }

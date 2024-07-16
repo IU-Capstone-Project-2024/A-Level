@@ -2,6 +2,7 @@ import React from 'react';
 import './IconButton.css';
 
 interface IconButtonProps {
+  id?: string;
   icon: string;
   onClick: () => void;
   alt: string;
@@ -10,6 +11,7 @@ interface IconButtonProps {
 }
 
 export default function IconButton({
+  id,
   icon,
   onClick,
   alt,
@@ -18,6 +20,7 @@ export default function IconButton({
 }: IconButtonProps) {
   return (
     <button
+      id={id}
       onClick={onClick}
       className={`icon-button ${className}`}
       title={title}

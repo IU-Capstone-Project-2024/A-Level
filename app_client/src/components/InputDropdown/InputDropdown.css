@@ -37,6 +37,8 @@
   padding: 0.5rem;
   cursor: pointer;
   font-size: 1rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-dropdown-item:hover {
@@ -52,4 +54,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+@media (max-width: 1000px) {
+  .input-dropdown, .input-dropdown-list{
+    width: 14rem;
+  }
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 
-const maxTilesPerPage = 2;
+const maxTilesPerPage = 4;
 
 export default function Uploaded() {
   const [docs, setDocs] = useState([]);
@@ -13,12 +13,15 @@ export default function Uploaded() {
   const [totalDocs, setTotalDocs] = useState(1);
 
   async function getDocs(page: number, length: number) {
-    const res = await axios.get('http://localhost:8000/document', {
-      params: {
-        offset: page - 1,
-        length: length,
+    const res = await axios.get(
+      'https://chartreuse-binghamite1373.my-vm.work/document/',
+      {
+        params: {
+          offset: page - 1,
+          length: length,
+        },
       },
-    });
+    );
     return res.data;
   }
 
@@ -26,7 +29,9 @@ export default function Uploaded() {
     async function fetchDocs() {
       setLoading(true);
       const fetchedDocs = await getDocs(page, maxTilesPerPage);
-      const totalDoc = await axios.get('http://localhost:8000/document/number');
+      const totalDoc = await axios.get(
+        'https://chartreuse-binghamite1373.my-vm.work/document/number',
+      );
       setTotalDocs(totalDoc.data);
       setDocs(fetchedDocs);
       setLoading(false);
@@ -41,7 +46,11 @@ export default function Uploaded() {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="no-data-uploaded">Loading...</div>;
+  }
+
+  if (docs.length === 0) {
+    return <div className="no-data-uploaded">No data to display</div>;
   }
 
   const tiles = docs.map(({ filename, img, _id }) => ({

@@ -86,3 +86,13 @@ textarea:focus {
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 1000px) {
+  .input-number-container, .input-number-container-inner{
+    width: 14rem;
+  }
+
+  .number-display{
+    width: 10rem;
+  }
+}

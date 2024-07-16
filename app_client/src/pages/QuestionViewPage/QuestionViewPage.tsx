@@ -36,26 +36,12 @@ export default function QuestionViewPage() {
   const navigate = useNavigate();
 
   const [editModal, setEditModal] = useState<boolean>(false);
-  // const editModalRef = useRef<HTMLDialogElement>(null);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       editModalRef.current &&
-  //       !editModalRef.current.contains(event.target as Node)
-  //     ) {
-  //       setEditModal(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  // }, [editModalRef]);
-
   async function handleDeleteDocument(document_id: string) {
     const responseDelete: AxiosResponse<DocumentResponse> = await axios.delete(
-      `http://localhost:8000/document/${document_id}`,
+      `https://chartreuse-binghamite1373.my-vm.work/document/${document_id}`,
     );
     if (responseDelete.status !== 200) {
       console.log('Document still empty');
@@ -67,12 +53,12 @@ export default function QuestionViewPage() {
     document_id: string | null | undefined,
   ) {
     const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
-      `http://localhost:8000/task/${id}`,
+      `https://chartreuse-binghamite1373.my-vm.work/task/${id}`,
     );
     if (responseDeleteTask.status === 200) {
       if (document_id !== null && document_id !== undefined) {
         const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-          `http://localhost:8000/document/${document_id}`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${document_id}`,
         );
         if (responseDoc.data.tasks.length === 0) {
           handleDeleteDocument(document_id);
