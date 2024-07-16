@@ -23,16 +23,40 @@ services:
       - a_level_exam
     depends_on:
       - db
-  model:
+
+  model_h_1:
     build:
       context: ./
-      dockerfile: ./app_model/Dockerfile
+      dockerfile: app_model_h/Dockerfile
     volumes:
-      - ./app_model/weights:/app_model/weights
+      - ./app_model_h/weights:/app_model/weights
     ports:
       - 8001:8000
     networks:
       - a_level_exam
+
+  model_h_2:
+    build:
+      context: ./
+      dockerfile: app_model_h/Dockerfile
+    volumes:
+      - ./app_model_h/weights:/app_model/weights
+    ports:
+      - 8003:8000
+    networks:
+      - a_level_exam
+
+  model_l:
+    build:
+      context: ./
+      dockerfile: app_model_l/Dockerfile
+    volumes:
+      - ./app_model_l/weights:/app_model/weights
+    ports:
+      - 8002:8000
+    networks:
+      - a_level_exam
+
 
 networks:
   a_level_exam:
