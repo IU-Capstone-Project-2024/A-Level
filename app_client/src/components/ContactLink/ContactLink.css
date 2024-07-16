@@ -1,0 +1,12 @@
+.social_media_link {
+    height: 2rem;
+    width: 2rem;
+    margin-left: 1rem;
+}
+
+@media (max-width: 480px) {
+    .social_media_link{
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
