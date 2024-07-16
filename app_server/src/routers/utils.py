@@ -3,8 +3,7 @@ from fastapi.responses import JSONResponse
 from src.storages.mongo.models.task import Topic
 from typing import Dict, List, Optional
 from src.storages.mongo.repositories.utils import utils_repository
-from src.storages.mongo.repositories.task import task_repository
-from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
+from src.storages.mongo.models.utils import Utils
 from src.services.utils import utilsService
 from pydantic import BaseModel
 

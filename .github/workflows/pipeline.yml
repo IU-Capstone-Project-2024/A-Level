@@ -3,8 +3,7 @@ name: A-level-pipeline
 on:
   push:
     branches:
-      - newbackend
-
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest

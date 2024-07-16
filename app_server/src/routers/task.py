@@ -1,6 +1,5 @@
 import logging
 import aiohttp
-import asyncio
 from beanie import PydanticObjectId
 from fastapi import APIRouter, HTTPException, Form
 from fastapi.responses import JSONResponse

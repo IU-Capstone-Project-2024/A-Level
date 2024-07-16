@@ -1,14 +1,10 @@
 from beanie import PydanticObjectId
-from beanie.exceptions import CollectionWasNotInitialized
 from fastapi import APIRouter, HTTPException, UploadFile, Form
 from fastapi.responses import JSONResponse
 import logging
-import json
-
-from src.storages.mongo.models.document import Document_, Extract
 from src.services.document import document_service
 from src.storages.mongo.repositories.utils import utils_repository
-from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
+from src.storages.mongo.models.utils import UtilsCreate
 from src.storages.mongo.repositories.extract import extract_repository
 
 router = APIRouter(prefix="/document", tags=["Document"])
