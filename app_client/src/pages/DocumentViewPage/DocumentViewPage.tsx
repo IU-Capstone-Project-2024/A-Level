@@ -12,7 +12,7 @@ import IconButton from '../../components/IconButton/IconButton';
 import Close from '../../images/ic_round-close.svg';
 
 interface DocumentResponse {
-  _id: string;
+  id: string;
   path: string;
   filename: string;
   tasks: string[];
@@ -82,11 +82,11 @@ export default function DocumentViewPage() {
 
   async function handleDeleteTask(id: string) {
     const responseDeleteTask: AxiosResponse<TaskResponse> = await axios.delete(
-      `http://localhost:8000/task/${id}`,
+      `https://chartreuse-binghamite1373.my-vm.work:80/task/${id}`,
     );
     if (responseDeleteTask.status === 200) {
       const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-        `http://localhost:8000/document/${doc?._id}`,
+        `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc?.id}`,
       );
       if (responseDoc.data.tasks.length === 0) {
         handleDeleteDocument();
@@ -103,7 +103,9 @@ export default function DocumentViewPage() {
   async function handleDeleteDocument() {
     if (doc != null) {
       const responseDelete: AxiosResponse<DocumentResponse> =
-        await axios.delete(`http://localhost:8000/document/${doc._id}`);
+        await axios.delete(
+          `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc.id}`,
+        );
       if (responseDelete.status === 200) {
         navigate('/uploaded');
         setTab('uploaded');
@@ -114,7 +116,7 @@ export default function DocumentViewPage() {
   async function handleEdit() {
     setEditModal(false);
     const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
-      `http://localhost:8000/document/${doc?._id}`,
+      `https://chartreuse-binghamite1373.my-vm.work:80/document/${doc?.id}`,
     );
     if (responseDoc.status === 200) {
       setQuestions(responseDoc.data.tasks);
