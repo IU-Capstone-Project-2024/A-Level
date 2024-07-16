@@ -42,7 +42,7 @@ export default function Uploaded() {
       setLoading(true);
       const fetchedDocs = await getDocs(page, maxTilesPerPage);
       const totalDoc = await axios.get(
-        'https://chartreuse-binghamite1373.my-vm.work/document/number/',
+        'https://chartreuse-binghamite1373.my-vm.work/document/number',
       );
       setTotalDocs(totalDoc.data);
       setDocs(fetchedDocs as never[]);

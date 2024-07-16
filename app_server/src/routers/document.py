@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import logging
 import json
 
-from src.storages.mongo.models.document import Document_, Extract, DocumentList
+from src.storages.mongo.models.document import Document_, Extract
 from src.services.document import document_service
 from src.storages.mongo.repositories.utils import utils_repository
 from src.storages.mongo.models.utils import Utils, UtilsCreate, UtilsUpdate
@@ -60,7 +60,6 @@ async def read_all(offset: int=None, length: int=None):
             response = await document_service.read_all()
             result = response if length is None else response[offset * length: (offset + 1) * length] 
             response = [item.model_dump() for item in result]
-            response = DocumentList(documents=response)
             return JSONResponse(content=response.model_dump(), media_type='application/json')
     except Exception as e:
         logging.error(f"The following exception occured {e}\n {response}")
