@@ -53,10 +53,10 @@ export default function Uploaded() {
     return <div className="no-data-uploaded">No data to display</div>;
   }
 
-  const tiles = docs.map(({ filename, img, _id }) => ({
+  const tiles = docs.map(({ filename, img, id }) => ({
     image: img,
     title: filename,
-    id: _id,
+    id: id,
   }));
 
   return (

@@ -22,7 +22,7 @@ interface QuestionProps {
 }
 
 interface TaskResponse {
-  _id: string;
+  id: string;
   content: string;
   topic: number | null;
   verified: boolean | null;

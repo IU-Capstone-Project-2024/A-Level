@@ -18,7 +18,7 @@ interface TaskCreateRequest {
 }
 
 interface TaskResponse {
-  _id: string | null;
+  id: string | null;
   content: string;
   topic: number | null;
   verified: boolean | null;
@@ -129,9 +129,9 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
   async function submitQuestion(event: FormEvent) {
     event.preventDefault();
     if (submitQuestionCheck() && errorMark === '' && errorYear === '') {
-      if (task !== null && task._id !== null && valueMark !== undefined) {
+      if (task !== null && task.id !== null && valueMark !== undefined) {
         const newTask: TaskResponse = {
-          _id: task?._id,
+          id: task?.id,
           content: inputValueText,
           document_id: task.document_id,
           marks: valueMark,
@@ -141,7 +141,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           year: selectedYear,
         };
         const createResponse: AxiosResponse<TaskResponse> = await axios.patch(
-          `https://chartreuse-binghamite1373.my-vm.work/task/${task._id}`,
+          `https://chartreuse-binghamite1373.my-vm.work/task/${task.id}`,
           newTask,
         );
         if (createResponse.status === 200) {
