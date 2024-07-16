@@ -1,0 +1,129 @@
+.reason-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 2rem;
+    width: 21rem;
+    align-items: center;
+    background-color: var(--color-light-sage);
+    border-radius: 0.5rem;
+    height: 23.25rem;
+    box-sizing: border-box;
+}
+
+.reason-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--color-violet);
+  width: 100%;
+  padding: 0.5rem 0.25rem;
+  margin: 0;
+  height: 4.25rem;
+  box-sizing: border-box;
+}
+
+.reason-title {
+  font-size: 1.5rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-dark);
+  text-align: center;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+.reason-description {
+  font-size: 1.25rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-dark);
+  width: 16rem;
+  margin: 0;
+  padding: 0;
+  line-height: 130%;
+}
+
+@media (max-width: 1200px){
+  .reason-card {
+    width: 19rem;
+    height: 21rem;
+  }
+
+  .reason-description {
+    width: 15rem;
+    font-size: 1.1rem;
+  }
+
+  .reason-title-container{
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 1000px){
+  .reason-card {
+    width: 14rem;
+    height: 18rem;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .reason-title{
+    font-size: 1.25rem;
+  }
+
+  .reason-title-container{
+    height: 3.25rem;
+  }
+
+  .reason-description {
+    width: 12rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reason-card {
+    padding: 2rem 1rem;
+    gap: 2rem;
+    width: 21rem;
+    height: 23.25rem;
+  }
+
+  .reason-title{
+    font-size: 1.5rem;
+  }
+
+  .reason-title-container{
+    height: 4.25rem;
+  }
+
+  .reason-description {
+    width: 16rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reason-card {
+    padding: 2rem 1rem;
+    gap: 2rem;
+    width: 20rem;
+    height: 20.25rem;
+  }
+
+  .reason-title{
+    font-size: 1.25rem;
+  }
+
+  .reason-title-container{
+    height: 2.75rem;
+  }
+
+  .reason-description {
+    width: 16rem;
+    font-size: 1.1rem;
+  }
+}
