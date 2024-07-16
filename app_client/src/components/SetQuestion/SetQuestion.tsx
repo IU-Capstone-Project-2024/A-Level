@@ -141,7 +141,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           year: selectedYear,
         };
         const createResponse: AxiosResponse<TaskResponse> = await axios.patch(
-          `http://localhost:8000/task/${task._id}`,
+          `https://chartreuse-binghamite1373.my-vm.work/task/${task._id}`,
           newTask,
         );
         if (createResponse.status === 200) {
@@ -159,7 +159,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           year: selectedYear,
         };
         const createResponse: AxiosResponse<TaskResponse> = await axios.post(
-          `http://localhost:8000/task/`,
+          `https://chartreuse-binghamite1373.my-vm.work/task/`,
           newTask,
         );
         if (createResponse.status === 200) {
@@ -182,7 +182,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
       const formData = new FormData();
       formData.append('content', inputValueText as string);
       const predictResponse: AxiosResponse<TopicResponse> = await axios.post(
-        `http://localhost:8000/task/unsavedPredict`,
+        `https://chartreuse-binghamite1373.my-vm.work/task/unsavedPredict`,
         formData,
       );
       if (predictResponse.status === 200) {

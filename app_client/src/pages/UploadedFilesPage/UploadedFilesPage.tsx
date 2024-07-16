@@ -13,12 +13,15 @@ export default function Uploaded() {
   const [totalDocs, setTotalDocs] = useState(1);
 
   async function getDocs(page: number, length: number) {
-    const res = await axios.get('http://localhost:8000/document', {
-      params: {
-        offset: page - 1,
-        length: length,
+    const res = await axios.get(
+      'https://chartreuse-binghamite1373.my-vm.work/document/',
+      {
+        params: {
+          offset: page - 1,
+          length: length,
+        },
       },
-    });
+    );
     return res.data;
   }
 
@@ -26,7 +29,9 @@ export default function Uploaded() {
     async function fetchDocs() {
       setLoading(true);
       const fetchedDocs = await getDocs(page, maxTilesPerPage);
-      const totalDoc = await axios.get('http://localhost:8000/document/number');
+      const totalDoc = await axios.get(
+        'https://chartreuse-binghamite1373.my-vm.work/document/number',
+      );
       setTotalDocs(totalDoc.data);
       setDocs(fetchedDocs);
       setLoading(false);

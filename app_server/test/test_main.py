@@ -104,7 +104,7 @@ def test_get_one_document():
     assert status == '200'
     response = extract_list_from_text(result.stdout)
 
-    chosen_id = response[0]['_id']
+    chosen_id = response[0]['id']
     command = f'curl -X GET http://localhost:8000/document/{chosen_id} -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -131,7 +131,7 @@ def test_remove_document():
     assert status == '200'
 
     if len(response) > 0:
-        command = f'curl -X DELETE http://localhost:8000/document/{response[0]["_id"]} -i'
+        command = f'curl -X DELETE http://localhost:8000/document/{response[0]["id"]} -i'
 
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
@@ -186,7 +186,7 @@ def test_get_tasks():
     status = result_text[0].split(' ')[1]
     response = extract_list_from_text(result.stdout)
     assert status == '200'
-    props_list = ['_id', 'content', 'topic', 'verified', 'marks', 'year', 'document_id', 'page']
+    props_list = ['id', 'content', 'topic', 'verified', 'marks', 'year', 'document_id', 'page']
     if len(response) > 0:
         for dct in response:
             for index, key in enumerate(dct.keys()):
@@ -240,7 +240,7 @@ def test_get_task_by_id():
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     post_response = extract_dict_from_text(result.stdout)
 
-    command = f'curl -X GET http://localhost:8000/task/{post_response["_id"]}  -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}  -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
@@ -258,7 +258,7 @@ def test_patch_question():
     post_response = extract_dict_from_text(result.stdout)
 
     data = '-H "Content-Type: application/json" -d \'{"content": "Updated Question", "topic": 2, "verified": false, "marks": 12, "year": 2021, "document_id": "6681d136ea5be21a7f199c08", "page": 3}\''
-    command = f'curl -X PATCH http://localhost:8000/task/{post_response["_id"]} {data} -i'
+    command = f'curl -X PATCH http://localhost:8000/task/{post_response['id']} {data} -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
@@ -278,7 +278,7 @@ def test_delete_task():
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     post_response = extract_dict_from_text(result.stdout)
 
-    command = f'curl -X DELETE http://localhost:8000/task/{post_response["_id"]}  -i'
+    command = f'curl -X DELETE http://localhost:8000/task/{post_response['id']}  -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     
     result_text = result.stdout.split('\n')
@@ -289,14 +289,14 @@ def test_delete_task():
         assert value == delete_response[key]
     
     
-    command = f'curl -X GET http://localhost:8000/task/{post_response["_id"]}  -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}  -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     
     result_text = result.stdout.split('\n')
     status = result_text[0].split(' ')[1]
     get_response = extract_dict_from_text(result.stdout)
     assert status == '404'
-    assert get_response['detail'] == f"Task {post_response['_id']} does not exist"
+    assert get_response['detail'] == f"Task {post_response['id']} does not exist"
     
 def test_predict_topic():
     command = 'curl -X POST http://localhost:8000/task/ -H "Content-Type: application/json" -d \'{"content": "Define the term brand", "topic": null, "verified": false, "marks": 2, "year": 2020, "document_id": null, "page": 3}\' -i'
@@ -305,7 +305,7 @@ def test_predict_topic():
     post_response = extract_dict_from_text(result.stdout)
     print(f'{post_response}\n------\n')
     
-    command = f'curl -X GET http://localhost:8000/task/{post_response["_id"]}/predict -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}/predict -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
     print(result_text)

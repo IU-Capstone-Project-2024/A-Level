@@ -10,7 +10,7 @@ __pycache__/
 # C extensions
 *.so
 
-
+app_client_copy
 # Distribution / packaging
 .Python
 build/
@@ -100,3 +100,4 @@ app_server/src/helper.py
 get-pip.py
 app_server/test/parser.py
 app_server/upload_script.py
+app_server/src/test.py

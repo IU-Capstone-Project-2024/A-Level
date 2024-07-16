@@ -1,11 +1,9 @@
-name: Deploy to GitHub Pages
+name: A-level-pipeline
 
 on:
   push:
     branches:
-      - master
-      - newbackend
-
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,6 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Update the environment
+        run: echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
 
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
@@ -23,3 +24,32 @@ jobs:
         run: |
           docker exec a-level-server-1 pytest
           # TODO: frontend testing
+
+  deploy:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy to server
+        env: 
+          GIT_BRANCH: main
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_LOGIN }}@${{ secrets.SERVER_IP }} << 'EOF'
+            if [ -d "/root/A-level" ]; then
+              cd /root/A-level
+              git fetch
+              git checkout $GIT_BRANCH
+              git pull origin $GIT_BRANCH
+            else
+              git clone --branch $GIT_BRANCH https://github.com/IU-Capstone-Project-2024/A-Level.git /root/A-level
+              cd /root/A-level
+            fi
+            echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
+            docker-compose build
+            docker-compose up -d
+          EOF
