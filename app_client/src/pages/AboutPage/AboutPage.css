@@ -167,19 +167,25 @@
 }
 
 @media (max-width: 768px){
+
+
     
     .main-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .section-title-about {
-        font-size: 2rem;
+        font-size: 1.75rem;
         max-width: 80vw;
     }
 
     .align-right {
         text-align: justify;
         max-width: 80vw;
+    }
+
+    .align-left{
+        text-align: justify;
     }
 
     .align-center {
@@ -213,8 +219,14 @@
 }
 
 @media (max-width: 480px){
+
+    .section-title-about {
+        font-size: 1.5rem;
+        max-width: 80vw;
+    }
+
     .section-paragraph {
-        font-size: 1.35rem;
+        font-size: 1rem;
     }
 }
 

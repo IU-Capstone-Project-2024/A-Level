@@ -31,7 +31,13 @@ export default function Header({ active, onClick }: ButtonProps) {
   return (
     <>
       <header className="header" id="top">
-        <Link to="/">
+        <Link
+          to="/"
+          onClick={() => {
+            onClick(null);
+            active = null;
+          }}
+        >
           <img id="logo" src={logo} alt="logo - A for A" />
         </Link>
         <nav className="navigation">

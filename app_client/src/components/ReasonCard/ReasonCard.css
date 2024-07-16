@@ -105,3 +105,25 @@
     font-size: 1.25rem;
   }
 }
+
+@media (max-width: 480px) {
+  .reason-card {
+    padding: 2rem 1rem;
+    gap: 2rem;
+    width: 20rem;
+    height: 20.25rem;
+  }
+
+  .reason-title{
+    font-size: 1.25rem;
+  }
+
+  .reason-title-container{
+    height: 2.75rem;
+  }
+
+  .reason-description {
+    width: 16rem;
+    font-size: 1.1rem;
+  }
+}
