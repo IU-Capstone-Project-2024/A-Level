@@ -10,7 +10,7 @@ import IconButton from '../../components/IconButton/IconButton';
 import Close from '../../images/ic_round-close.svg';
 
 interface DocumentResponse {
-  _id: string;
+  id: string;
   path: string;
   filename: string;
   tasks: string[];
@@ -18,7 +18,7 @@ interface DocumentResponse {
 }
 
 interface TaskResponse {
-  _id: string | null;
+  id: string | null;
   content: string;
   topic: number | null;
   verified: boolean | null;

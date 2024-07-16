@@ -65,7 +65,7 @@ export default function Questions() {
 
   async function getUtils() {
     const res = await axios.get(
-      'https://chartreuse-binghamite1373.my-vm.work/utils',
+      'https://chartreuse-binghamite1373.my-vm.work/utils/',
     );
     return res.data;
   }
@@ -259,10 +259,10 @@ export default function Questions() {
     setSelectedOptions([]);
   };
 
-  const data = ques.map(({ content, topic, _id }) => ({
+  const data = ques.map(({ content, topic, id }) => ({
     question: content,
     topic: transformString(topics?.names[topic]),
-    id: _id,
+    id: id,
   }));
 
   if (loading) {
