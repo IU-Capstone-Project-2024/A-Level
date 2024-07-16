@@ -67,7 +67,7 @@
         align-items: center;
     }
     .value-description {
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         width: 80vw;
         text-align: center;
     }
@@ -78,5 +78,21 @@
 
     .value-title-text {
         font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px){
+    .value-description {
+        font-size: 1.1rem;
+        width: 80vw;
+        text-align: center;
+    }
+
+    .value-title-text {
+        font-size: 1.25rem;
+    }
+    
+    .value-container{
+        gap: 1rem;
     }
 }

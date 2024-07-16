@@ -240,7 +240,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           <span className="input-text-error">{errorText}</span>
         </div>
 
-        <div className="question-details">
+        <div className="question-details-set">
           <div className="choose">
             <label htmlFor="topic">Topic</label>
             <InputDropdown

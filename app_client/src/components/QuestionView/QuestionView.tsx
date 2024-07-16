@@ -124,7 +124,9 @@ export default function QuestionView(question: QuestionProps) {
             </h2>
           </div>
           <span className="question-mark">Mark: {task?.marks}</span>
-          <span className="question-year">Year: {task?.year}</span>
+          {task?.year !== null && (
+            <span className="question-year">Year: {task?.year}</span>
+          )}
           <div className="question-buttons">
             {question.state === 'modify' && (
               <>
