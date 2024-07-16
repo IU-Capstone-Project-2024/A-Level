@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy to server
         env: 
-          GIT_BRANCH: newbackend
+          GIT_BRANCH: main
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_LOGIN }}@${{ secrets.SERVER_IP }} << 'EOF'
             if [ -d "/root/A-level" ]; then
@@ -46,7 +46,7 @@ jobs:
               git checkout $GIT_BRANCH
               git pull origin $GIT_BRANCH
             else
-              git clone --branch $GIT_BRANCH https://github.com/justcgh9/A-Level.git /root/A-level
+              git clone --branch $GIT_BRANCH https://github.com/IU-Capstone-Project-2024/A-Level.git /root/A-level
               cd /root/A-level
             fi
             echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
