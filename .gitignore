@@ -1,6 +1,8 @@
 .idea
 .vscode
 
+/app_client_next
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
