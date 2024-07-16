@@ -1,8 +1,20 @@
 import './UploadedFilesPage.css';
 import Grid from '../../components/GridUploadedFile/GridUploadedFile';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
+
+interface DocumentResponse {
+  id: string;
+  path: string;
+  filename: string;
+  tasks: string[];
+  img: string | null;
+}
+
+interface DocumentsResponse {
+  documents: DocumentResponse[];
+}
 
 const maxTilesPerPage = 4;
 
@@ -13,7 +25,7 @@ export default function Uploaded() {
   const [totalDocs, setTotalDocs] = useState(1);
 
   async function getDocs(page: number, length: number) {
-    const res = await axios.get(
+    const res: AxiosResponse<DocumentsResponse> = await axios.get(
       'https://chartreuse-binghamite1373.my-vm.work/document',
       {
         params: {
@@ -33,7 +45,7 @@ export default function Uploaded() {
         'https://chartreuse-binghamite1373.my-vm.work/document/number',
       );
       setTotalDocs(totalDoc.data);
-      setDocs(fetchedDocs);
+      setDocs(fetchedDocs as never[]);
       setLoading(false);
       console.log(page);
     }
