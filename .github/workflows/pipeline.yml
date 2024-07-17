@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+
+permissions:
+      actions: write
+      contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,8 +63,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v1.8
+      - uses: tgymnich/fork-sync@v2.0
         with:
+          token: ${{ secrets.PAT_TOKEN}}
           owner: justcgh9
           base: main
           head: main
