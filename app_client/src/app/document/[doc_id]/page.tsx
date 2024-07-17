@@ -181,3 +181,5 @@ export default function DocumentViewPage() {
     </div>
   );
 }
+
+export const runtime = 'edge';
