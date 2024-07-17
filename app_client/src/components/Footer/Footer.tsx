@@ -10,8 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
-  const { tab, setTab } = useTab();
-  console.log(tab);
+  const { setTab } = useTab();
   return (
     <footer className="footer-container">
       <div className="footer-links">

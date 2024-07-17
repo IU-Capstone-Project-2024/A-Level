@@ -199,7 +199,7 @@ export default function Questions() {
     setYearsFilter(yearsFil);
 
     fetchUtils();
-  }, [page, selectedOptions]);
+  }, [page, selectedOptions, topics]);
 
   useEffect(() => {
     async function fetchQues() {
