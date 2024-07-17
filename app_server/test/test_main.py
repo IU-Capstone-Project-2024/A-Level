@@ -4,7 +4,6 @@ import regex
 import ast
 from src.storages.mongo.models.task import Topic
 
-
 def extract_dict_from_text(text):
     dict_pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}', regex.DOTALL)
 
@@ -240,7 +239,7 @@ def test_get_task_by_id():
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     post_response = extract_dict_from_text(result.stdout)
 
-    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}  -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response["id"]}  -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
@@ -258,7 +257,7 @@ def test_patch_question():
     post_response = extract_dict_from_text(result.stdout)
 
     data = '-H "Content-Type: application/json" -d \'{"content": "Updated Question", "topic": 2, "verified": false, "marks": 12, "year": 2021, "document_id": "6681d136ea5be21a7f199c08", "page": 3}\''
-    command = f'curl -X PATCH http://localhost:8000/task/{post_response['id']} {data} -i'
+    command = f'curl -X PATCH http://localhost:8000/task/{post_response["id"]} {data} -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
@@ -278,7 +277,7 @@ def test_delete_task():
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     post_response = extract_dict_from_text(result.stdout)
 
-    command = f'curl -X DELETE http://localhost:8000/task/{post_response['id']}  -i'
+    command = f'curl -X DELETE http://localhost:8000/task/{post_response["id"]}  -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     
     result_text = result.stdout.split('\n')
@@ -289,7 +288,7 @@ def test_delete_task():
         assert value == delete_response[key]
     
     
-    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}  -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response["id"]}  -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     
     result_text = result.stdout.split('\n')
@@ -305,7 +304,7 @@ def test_predict_topic():
     post_response = extract_dict_from_text(result.stdout)
     print(f'{post_response}\n------\n')
     
-    command = f'curl -X GET http://localhost:8000/task/{post_response['id']}/predict -i'
+    command = f'curl -X GET http://localhost:8000/task/{post_response["id"]}/predict -i'
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     result_text = result.stdout.split('\n')
     print(result_text)
