@@ -53,3 +53,25 @@ jobs:
             docker-compose build
             docker-compose up -d
           EOF
+          
+  update-fork:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the original repository
+        uses: actions/checkout@v4
+        with:
+          repository: IU-Capstone-Project-2024/A-Level
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote add fork https://github.com/justcgh9/A-Level.git
+          git fetch fork
+
+      - name: Push changes to fork
+        run: |
+          git push fork main
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
