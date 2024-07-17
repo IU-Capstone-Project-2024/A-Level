@@ -1,4 +1,3 @@
-import { SetStateAction } from 'react';
 import './MenuItem.css';
 import Link from 'next/link';
 
@@ -13,7 +12,7 @@ type tabType =
 interface MenuItemProps {
   className: string;
   item: string;
-  onClick: (event: SetStateAction<tabType>) => void;
+  onClick?: () => void;
   arg: tabType;
 }
 
@@ -25,7 +24,7 @@ export default function MenuItem({
 }: MenuItemProps) {
   return (
     <Link href={'/' + arg}>
-      <button className={'menuItem ' + className} onClick={() => onClick(arg)}>
+      <button className={'menuItem ' + className} onClick={onClick}>
         {item}
       </button>
     </Link>

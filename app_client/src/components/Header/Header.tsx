@@ -2,7 +2,7 @@
 import './Header.css';
 import logo from '../../images/logo.svg';
 import MenuItem from '../MenuItem/MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IconButton from '../IconButton/IconButton';
 import Menu from '../../images/lucide_menu.svg';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -10,14 +10,34 @@ import Close from '../../images/ic_round-close.svg';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTab } from '../../context/TabContext';
+import { usePathname } from 'next/navigation';
+
+type TabType =
+  | 'browse'
+  | 'uploaded'
+  | 'questions'
+  | 'create'
+  | 'generate'
+  | 'saved'
+  | 'about'
+  | ''
+  | 'document'
+  | 'question'
+  | null;
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { tab, setTab } = useTab();
+  const pathname = usePathname();
 
   const handleNavToggle = () => {
     setIsNavOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    const path: TabType = pathname.split('/')[1] as TabType;
+    setTab(path);
+  }, [pathname, tab]);
 
   return (
     <>
@@ -34,31 +54,26 @@ export default function Header() {
           <MenuItem
             className={tab === 'browse' ? 'active' : 'non-active'}
             item="Browse file"
-            onClick={setTab}
             arg="browse"
           />
           <MenuItem
             className={tab === 'uploaded' ? 'active' : 'non-active'}
             item="Uploaded files"
-            onClick={setTab}
             arg="uploaded"
           />
           <MenuItem
             className={tab === 'questions' ? 'active' : 'non-active'}
             item="Questions"
-            onClick={setTab}
             arg="questions"
           />
           <MenuItem
             className={tab === 'create' ? 'active' : 'non-active'}
             item="Create question"
-            onClick={setTab}
             arg="create"
           />
           <MenuItem
             className={tab === 'generate' ? 'active' : 'non-active'}
             item="Generate exam variant"
-            onClick={setTab}
             arg="generate"
           />
         </nav>
@@ -87,40 +102,40 @@ export default function Header() {
             <MenuItem
               className={tab === 'browse' ? 'active' : 'non-active'}
               item="Browse file"
-              onClick={(event) => {
-                setIsNavOpen(false), setTab(event);
+              onClick={() => {
+                setIsNavOpen(false);
               }}
               arg="browse"
             />
             <MenuItem
               className={tab === 'uploaded' ? 'active' : 'non-active'}
               item="Uploaded files"
-              onClick={(event) => {
-                setIsNavOpen(false), setTab(event);
+              onClick={() => {
+                setIsNavOpen(false);
               }}
               arg="uploaded"
             />
             <MenuItem
               className={tab === 'questions' ? 'active' : 'non-active'}
               item="Questions"
-              onClick={(event) => {
-                setIsNavOpen(false), setTab(event);
+              onClick={() => {
+                setIsNavOpen(false);
               }}
               arg="questions"
             />
             <MenuItem
               className={tab === 'create' ? 'active' : 'non-active'}
               item="Create question"
-              onClick={(event) => {
-                setIsNavOpen(false), setTab(event);
+              onClick={() => {
+                setIsNavOpen(false);
               }}
               arg="create"
             />
             <MenuItem
               className={tab === 'generate' ? 'active' : 'non-active'}
               item="Generate exam variant"
-              onClick={(event) => {
-                setIsNavOpen(false), setTab(event);
+              onClick={() => {
+                setIsNavOpen(false);
               }}
               arg="generate"
             />

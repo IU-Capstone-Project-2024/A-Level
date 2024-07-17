@@ -10,8 +10,7 @@ import { useTab } from '../context/TabContext';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const { tab, setTab } = useTab();
-  console.log(tab);
+  const { setTab } = useTab();
   return (
     <div className={styles.main}>
       <section id={styles.welcome_container}>
