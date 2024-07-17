@@ -85,100 +85,77 @@ export default function Questions() {
       const utils = await getUtils();
 
       // there are no utils returned from the backend
-      if (utils === null) {
-        const yearsOptions: Option[] = [
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0,
-          },
-        ];
+      if(utils === null) {
+        const yearsOptions: Option[] = [{
+          text: 'No available option',
+          type_id: 3,
+          backend_id: 0,
+          id: 100,
+        }];
         setYearsOptions(yearsOptions);
 
-        const marksOptions: Option[] = [
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0 + yearsOptions.length,
-          },
-        ];
+        const marksOptions: Option[] = [{
+          text: 'No available option',
+          type_id: 3,
+          backend_id: 0,
+          id: 100,
+        }];
         setMarksOptions(marksOptions);
 
-        const topicsOptions: Option[] = [
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0 + yearsOptions.length + marksOptions.length,
-          },
-        ];
+        const topicsOptions: Option[] = [{
+          text: 'No available option',
+          type_id: 3,
+          backend_id: 0,
+          id: 100,
+        }];
         setTopicsOptions(topicsOptions);
         return;
       }
 
-      if (utils.years.length == 0) {
-        setYearsOptions([
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0,
-          },
-        ]);
-      } else {
-        const yearsKeys = Object.keys(utils.years);
-        const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
+      const yearsKeys = Object.keys(utils.years);
+      const yearsOptions: Option[] = yearsKeys.map((val, index) => ({
           text: val,
           type_id: 2,
           backend_id: index,
           id: index,
-        }));
-        setYearsOptions(yearsOptions);
-      }
+      }));
+      
+      setYearsOptions(yearsOptions.length === 0 ? [{
+        text: 'No available option',
+        type_id: 3,
+        backend_id: 0,
+        id: 100,
+      }] : yearsOptions);
 
-      if (utils.marks.length === 0) {
-        setMarksOptions([
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0 + yearsOptions.length,
-          },
-        ]);
-      } else {
-        const marksKeys = Object.keys(utils.marks);
-        const marksOptions: Option[] = marksKeys.map((val, index) => ({
+      const marksKeys = Object.keys(utils.marks);
+      const marksOptions: Option[] = marksKeys.map((val, index) => ({
           text: val,
           type_id: 1,
           backend_id: index,
           id: index + yearsOptions.length,
-        }));
-        setMarksOptions(marksOptions);
-      }
+      }));
+      setMarksOptions(marksOptions.length === 0 ? [{
+        text: 'No available option',
+        type_id: 3,
+        backend_id: 0,
+        id: 100,
+      }] : marksOptions);
 
       let topicsKeys: string[] = [];
       if (topics !== undefined) topicsKeys = topics.names;
 
-      if (topicsKeys.length === 0) {
-        setTopicsOptions([
-          {
-            text: 'No available option',
-            type_id: 3,
-            backend_id: 0,
-            id: 0 + yearsOptions.length + marksOptions.length,
-          },
-        ]);
-      } else {
-        const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
+      const topicsOptions: Option[] = topicsKeys.map((val, index) => ({
           text: transformString(val),
           type_id: 0,
           backend_id: index,
           id: index + yearsOptions.length + marksOptions.length,
-        }));
-        setTopicsOptions(topicsOptions);
-      }
+      }));
+      setTopicsOptions(topicsOptions.length === 0 ? [{
+        text: 'No available option',
+        type_id: 3,
+        backend_id: 0,
+        id: 100,
+      }] : topicsOptions);
     }
 
     // update filters
@@ -224,19 +201,6 @@ export default function Questions() {
     fetchQues();
   }, [marksFilter, yearsFilter, topicFilter]);
 
-  useEffect(() => {
-    for (let i = 0; i < selectedOptions.length; i++) {
-      console.log(selectedOptions[i].text);
-    }
-    console.log(
-      'topics:',
-      topicFilter,
-      'marks:',
-      marksFilter,
-      'years:',
-      yearsFilter,
-    );
-  }, [topicFilter, marksFilter, yearsFilter]);
 
   function test(updatedPage: number) {
     setPage(updatedPage);
