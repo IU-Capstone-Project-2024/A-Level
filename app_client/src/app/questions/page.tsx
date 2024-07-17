@@ -237,6 +237,7 @@ export default function Questions() {
 
   return (
     <div className={styles.questions_page_content}>
+      <div className={styles.content_questions_table_without_pagination}>
       <div className={styles.questions_page_upper_part}>
         <div className={styles.dropdown_container}>
           <Dropdown
@@ -291,6 +292,7 @@ export default function Questions() {
       ) : (
         <Table data={data} />
       )}
+      </div>
 
       <Pagination
         total={Math.ceil(totalQues / maxQuestionsPerPage)}

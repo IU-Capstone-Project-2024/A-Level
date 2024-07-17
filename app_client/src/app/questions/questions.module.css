@@ -1,4 +1,3 @@
-
 .questions_page_content {
     font-family: Inter;
     width: 80%;
@@ -9,6 +8,13 @@
     margin: 0 auto;
   }
   
+  .content_questions_table_without_pagination{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
+    height: auto;
+  }
   .dropdown_container {
     display: flex;
     justify-content: flex-start;
