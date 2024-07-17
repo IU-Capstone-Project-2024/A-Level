@@ -15,6 +15,7 @@
     margin: 0;
     height: auto;
   }
+
   .dropdown_container {
     display: flex;
     justify-content: flex-start;

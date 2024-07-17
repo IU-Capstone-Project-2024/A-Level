@@ -293,7 +293,6 @@ export default function Questions() {
         <Table data={data} />
       )}
       </div>
-
       <Pagination
         total={Math.ceil(totalQues / maxQuestionsPerPage)}
         onUpdatePage={test}

@@ -4,7 +4,6 @@ import regex
 import ast
 from src.storages.mongo.models.task import Topic
 
-
 def extract_dict_from_text(text):
     dict_pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}', regex.DOTALL)
 
@@ -66,7 +65,7 @@ def test_get_all():
     result_text = result.stdout.split('\n')
     status = result_text[0].split(' ')[1]
     response = extract_list_from_text(result.stdout)
-    # print(response[0]['_id'])
+    # print(response[0]['id'])
     assert status == '200'
 
 
@@ -104,7 +103,7 @@ def test_get_one_document():
     assert status == '200'
     response = extract_list_from_text(result.stdout)
 
-    chosen_id = response[0]['_id']
+    chosen_id = response[0]['id']
     command = f'curl -X GET http://localhost:8000/document/{chosen_id} -i'
 
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -186,7 +185,7 @@ def test_get_tasks():
     status = result_text[0].split(' ')[1]
     response = extract_list_from_text(result.stdout)
     assert status == '200'
-    props_list = ['_id', 'content', 'topic', 'verified', 'marks', 'year', 'document_id', 'page']
+    props_list = ['id', 'content', 'topic', 'verified', 'marks', 'year', 'document_id', 'page']
     if len(response) > 0:
         for dct in response:
             for index, key in enumerate(dct.keys()):
@@ -296,7 +295,7 @@ def test_delete_task():
     status = result_text[0].split(' ')[1]
     get_response = extract_dict_from_text(result.stdout)
     assert status == '404'
-    assert get_response['detail'] == f"Task {post_response['_id']} does not exist"
+    assert get_response['detail'] == f"Task {post_response['id']} does not exist"
     
 def test_predict_topic():
     command = 'curl -X POST http://localhost:8000/task/ -H "Content-Type: application/json" -d \'{"content": "Define the term brand", "topic": null, "verified": false, "marks": 2, "year": 2020, "document_id": null, "page": 3}\' -i'
