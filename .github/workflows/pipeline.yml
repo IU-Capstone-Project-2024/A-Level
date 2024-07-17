@@ -58,16 +58,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the original repository
-        uses: actions/checkout@v4
+      - uses: tgymnich/fork-sync@v1.8
         with:
-          repository: IU-Capstone-Project-2024/A-Level
-
-      - name: Set up Git
-        run: |
-          git config --global user.name ${{ secrets.GH_NAME }}
-          git config --global user.email ${{ secrets.GH_EMAIL }}
-          git remote set-url fork https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/justcgh9/A-Level.git
-          git fetch fork
-          git push fork main
+          owner: justcgh9
+          base: main
+          head: main
 
