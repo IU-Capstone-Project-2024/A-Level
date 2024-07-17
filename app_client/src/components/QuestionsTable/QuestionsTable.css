@@ -3,14 +3,13 @@
   background-color: var(--color-light-sage);
   border-collapse: separate;
   margin: 0 auto;
-  border-spacing: 0 5px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  border-spacing: 0 0.34rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
-th,
-td {
-  padding: 10px;
+th, td {
+  padding: 0.75rem;
   text-align: left;
 }
 
@@ -23,7 +22,11 @@ th {
 tr {
   cursor: pointer;
   background-color: var(--color-cambridge-blue);
-  margin: 20px;
+  margin: 1.5rem;
   color: var(--color-dark);
   border-radius: 0.5rem;
+}
+
+.table th:first-child, .table td:first-child {
+  width: 13rem;
 }

@@ -12,20 +12,20 @@
   .dropdown_container {
     display: flex;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 1.25rem;
   }
   
   .selected_options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
   
   .selected_options_list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.625rem;
   }
   
   .selected_option_tile {
@@ -34,10 +34,10 @@
     color: var(--color-violet-dark);
     background-color: var(--color-light-sage);
     align-items: center;
-    padding: 7px 15px;
-    font-size: 16px;
-    border: 2px solid var(--color-sage);
-    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 0.125rem solid var(--color-sage);
+    border-radius: 0.31rem;
   }
   
   .cancel_btn {
@@ -48,22 +48,22 @@
     background-color: var(--color-violet);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 0.31rem 0.625rem;
     cursor: pointer;
-    border-radius: 5px;
-    width: 100px;
-    height: 30px;
+    border-radius: 0.31rem;
+    width: 6.25rem;
+    height: 1.875rem;
     flex-shrink: 0;
     margin-left: auto;
     margin-bottom: auto;
   }
   
   .hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.625rem;
+    margin-bottom: 0.625rem;
     border: 0;
     border-top: 0.15rem solid var(--color-sage);
-    border-radius: 5px;
+    border-radius: 0.31rem;
     width: 100%;
   }
   
