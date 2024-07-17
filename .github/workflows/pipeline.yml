@@ -75,3 +75,4 @@ jobs:
           git push fork main
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
