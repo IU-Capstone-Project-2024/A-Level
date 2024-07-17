@@ -37,7 +37,7 @@ export default function TileUploadedFile({ image, title, id }: TileProps) {
   return (
     <div className="tile-outer" onClick={() => switchToDoc(id)}>
       <div className="tile-inner">
-        {image !== 'null' && (
+        {image !== 'null' && image !== null && (
           <Image
             src={image}
             width={160}
