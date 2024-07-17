@@ -47,11 +47,11 @@ async def read_number(marks: str=None, topic: str=None, year: str=None ):
 
 @router.get("/{task_id}")
 async def read(task_id: PydanticObjectId) -> Task | None:
-    task = (await task_repository.read(task_id)).model_dump()
+    task = await task_repository.read(task_id)
     if task is None:
         raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
 
-    return JSONResponse(content=task, media_type='application/json')
+    return JSONResponse(content=task.model_dump(), media_type='application/json')
 
 
 @router.get("/")

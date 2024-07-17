@@ -4,7 +4,6 @@ import regex
 import ast
 from src.storages.mongo.models.task import Topic
 
-
 def extract_dict_from_text(text):
     dict_pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}', regex.DOTALL)
 
