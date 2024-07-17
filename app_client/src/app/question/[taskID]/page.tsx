@@ -122,3 +122,5 @@ export default function QuestionViewPage() {
     </section>
   );
 }
+
+export const runtime = 'edge';
