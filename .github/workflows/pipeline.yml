@@ -67,12 +67,7 @@ jobs:
         run: |
           git config --global user.name ${{ secrets.GH_NAME }}
           git config --global user.email ${{ secrets.GH_EMAIL }}
-          git remote add fork https://github.com/justcgh9/A-Level.git
+          git remote set-url fork https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/justcgh9/A-Level.git
           git fetch fork
-
-      - name: Push changes to fork
-        run: |
           git push fork main
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
