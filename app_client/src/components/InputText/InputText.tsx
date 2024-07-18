@@ -11,7 +11,12 @@ const InputText: React.FC<InputProps> = ({ label, value, onChange }) => {
   return (
     <div className="input-container">
       <label className="input-label">{label}</label>
-      <textarea className="custom-input" onChange={onChange} value={value} />
+      <textarea
+        className="custom-input"
+        onChange={onChange}
+        placeholder="Enter the task..."
+        value={value}
+      />
     </div>
   );
 };

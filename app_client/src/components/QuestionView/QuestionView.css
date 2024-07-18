@@ -83,12 +83,13 @@
   width: fit-content;
 }
 
-@media (max-width: 1000px){
-  .question-container, .question-details{
+@media (max-width: 1000px) {
+  .question-container,
+  .question-details {
     width: 25rem;
   }
 
-  .question-details{
+  .question-details {
     height: 14rem;
   }
 
@@ -97,18 +98,20 @@
   }
 }
 
-@media (max-width: 768px){
-  .question-container, .question-details, .question-text-container{
+@media (max-width: 768px) {
+  .question-container,
+  .question-details,
+  .question-text-container {
     width: 75vw;
     max-width: 25rem;
   }
 
-  .question-details{
+  .question-details {
     height: 50vw;
     max-height: 14rem;
   }
 
-  .question-container{
+  .question-container {
     padding: 1rem 0;
   }
 }

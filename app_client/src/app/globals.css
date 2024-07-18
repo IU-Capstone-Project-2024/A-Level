@@ -11,7 +11,11 @@ body {
 body,
 #root {
   height: 100vh;
-  overflow-y: scroll;
+  overflow: visible;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 code {

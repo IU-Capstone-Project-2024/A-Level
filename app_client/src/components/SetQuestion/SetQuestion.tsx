@@ -1,5 +1,11 @@
 'use client';
-import { FormEvent, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import InputText from '../InputText/InputText';
 import './SetQuestion.css';
 import InputDropdown from '../InputDropdown/InputDropdown';
@@ -7,6 +13,7 @@ import InputNumber from '../InputNumber/InputNumber';
 import YearPicker from '../YearPicker/YearPicker';
 import axios, { AxiosResponse } from 'axios';
 import { useTopics } from '../../context/TopicContext';
+import ColumnChart from '../ColumnChart/ColumnChart';
 
 interface TaskCreateRequest {
   content: string;
@@ -34,6 +41,10 @@ interface Option {
   label: string;
 }
 
+interface ChartProps {
+  data: { label: string; value: number; color: string }[];
+}
+
 function transformString(input: string) {
   let result = input.replace(/_/g, ' ');
   result = result.toLowerCase();
@@ -41,20 +52,30 @@ function transformString(input: string) {
   return result;
 }
 
-interface TopicResponse {
+interface PredictResponse {
   topic: string;
   topic_id: number;
+  probabilities: number[];
+  class_mapping: { [key: string]: string };
+  model_alias: string;
 }
 
 interface SetQuestionProps {
   task: TaskResponse | null;
   afterSave: () => void;
+  showChart: boolean;
+  setShowChart: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
+export default function SetQuestion({
+  task,
+  afterSave,
+  showChart,
+  setShowChart,
+}: SetQuestionProps) {
   const { topics } = useTopics();
   const [inputValueText, setInputValueText] = useState(
-    task !== null ? task.content : 'Enter the task...',
+    task !== null ? task.content : '',
   );
   const [valueMark, setValueMark] = useState<number | undefined>(
     task !== null && task.marks !== null ? task.marks : 1,
@@ -81,8 +102,10 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
       : 'Select an option',
   );
 
+  const [data, setData] = useState<ChartProps>();
+
   useEffect(() => {
-    setInputValueText(task !== null ? task.content : 'Enter the task...');
+    setInputValueText(task !== null ? task.content : '');
     setValueMark(task !== null && task.marks !== null ? task.marks : 1);
     setTopic(
       task !== null && topics !== undefined && task.topic !== null
@@ -107,6 +130,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
         ? transformString(topics.names[task.topic])
         : 'Select an option',
     );
+    setShowChart(false);
   }, [task, topics]);
 
   const options: Option[] = topics
@@ -147,6 +171,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
         );
         if (createResponse.status === 200) {
           console.log('submited');
+          setShowChart(false);
           afterSave();
         }
       } else {
@@ -174,15 +199,12 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
   }
 
   async function predictTopic() {
-    if (
-      inputValueText.trim().length === 0 ||
-      inputValueText === 'Enter the task...'
-    ) {
+    if (inputValueText.trim().length === 0) {
       setErrorText('Task cannot be empty.');
     } else {
       const formData = new FormData();
       formData.append('content', inputValueText as string);
-      const predictResponse: AxiosResponse<TopicResponse> = await axios.post(
+      const predictResponse: AxiosResponse<PredictResponse> = await axios.post(
         `https://chartreuse-binghamite1373.my-vm.work/task/unsavedPredict`,
         formData,
       );
@@ -191,6 +213,31 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           predictResponse.data.topic_id,
           transformString(predictResponse.data.topic),
         );
+
+        const colors: string[] = [
+          'var(--color-violet)',
+          'var(--color-sage)',
+          'var(--color-cambridge-blue)',
+          'var(--color-lavender)',
+          'var(--color-sage-dark)',
+        ];
+
+        if (topics !== null && topics !== undefined) {
+          const predictData: ChartProps = {
+            data: predictResponse.data.probabilities.map(
+              (probability, index) => {
+                return {
+                  label: transformString(topics.names[index]),
+                  value: probability,
+                  color: colors[index],
+                };
+              },
+            ),
+          };
+          console.log(predictData);
+          setData(predictData);
+          setShowChart(true);
+        }
       } else {
         setErrorTopic('Choose topic manually');
         setTopic('');
@@ -231,6 +278,7 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
               label={null}
               value={inputValueText}
               onChange={(e) => {
+                setShowChart(false);
                 setInputValueText(e.target.value);
                 e.target.value !== ''
                   ? setErrorText('')
@@ -272,17 +320,22 @@ export default function SetQuestion({ task, afterSave }: SetQuestionProps) {
           </div>
         </div>
       </div>
-      <div className="question-buttons-set">
-        <button
-          type="button"
-          className="detect-topic-button"
-          onClick={predictTopic}
-        >
-          Detect topic
-        </button>
-        <button type="submit" className={'save-button save-enabled'}>
-          Save
-        </button>
+      <div className="question-bottom-container">
+        <div className="chart-container">
+          {data !== undefined && showChart && <ColumnChart data={data.data} />}
+        </div>
+        <div className="question-buttons-set">
+          <button
+            type="button"
+            className="detect-topic-button"
+            onClick={predictTopic}
+          >
+            Detect topic
+          </button>
+          <button type="submit" className={'save-button save-enabled'}>
+            Save
+          </button>
+        </div>
       </div>
     </form>
   );

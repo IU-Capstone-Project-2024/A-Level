@@ -1,14 +1,14 @@
 .reason-card {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1rem;
-    gap: 2rem;
-    width: 21rem;
-    align-items: center;
-    background-color: var(--color-light-sage);
-    border-radius: 0.5rem;
-    height: 23.25rem;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  gap: 2rem;
+  width: 21rem;
+  align-items: center;
+  background-color: var(--color-light-sage);
+  border-radius: 0.5rem;
+  height: 23.25rem;
+  box-sizing: border-box;
 }
 
 .reason-title-container {
@@ -46,7 +46,7 @@
   line-height: 130%;
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
   .reason-card {
     width: 19rem;
     height: 21rem;
@@ -57,12 +57,12 @@
     font-size: 1.1rem;
   }
 
-  .reason-title-container{
+  .reason-title-container {
     height: 3.5rem;
   }
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
   .reason-card {
     width: 14rem;
     height: 18rem;
@@ -70,11 +70,11 @@
     gap: 1rem;
   }
 
-  .reason-title{
+  .reason-title {
     font-size: 1.25rem;
   }
 
-  .reason-title-container{
+  .reason-title-container {
     height: 3.25rem;
   }
 
@@ -92,11 +92,11 @@
     height: 23.25rem;
   }
 
-  .reason-title{
+  .reason-title {
     font-size: 1.5rem;
   }
 
-  .reason-title-container{
+  .reason-title-container {
     height: 4.25rem;
   }
 
@@ -114,11 +114,11 @@
     height: 20.25rem;
   }
 
-  .reason-title{
+  .reason-title {
     font-size: 1.25rem;
   }
 
-  .reason-title-container{
+  .reason-title-container {
     height: 2.75rem;
   }
 

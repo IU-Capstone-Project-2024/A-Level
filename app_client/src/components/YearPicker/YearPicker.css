@@ -128,7 +128,9 @@
 }
 
 @media (max-width: 1000px) {
-  .year-picker, .year-picker-dropdown, .dropdown-toggle{
+  .year-picker,
+  .year-picker-dropdown,
+  .dropdown-toggle {
     width: 14rem;
   }
 }

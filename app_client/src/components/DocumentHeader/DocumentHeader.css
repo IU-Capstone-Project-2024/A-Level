@@ -41,7 +41,7 @@
   background-color: var(--color-light-sage);
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
   .document-header {
     flex-direction: column;
     align-items: flex-end;
@@ -50,7 +50,7 @@
     width: 25rem;
   }
 
-  .document-title{
+  .document-title {
     font-size: 1.75rem;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -61,30 +61,29 @@
     margin: 0;
   }
 
-  .document-buttons{
+  .document-buttons {
     justify-content: space-between;
     width: 100%;
   }
 }
 
-@media (max-width: 768px){
-  .document-header{
+@media (max-width: 768px) {
+  .document-header {
     padding: 0;
     padding-bottom: 1rem;
     width: 75vw;
     max-width: 25rem;
   }
 
-  .document-title{
+  .document-title {
     font-size: 1.5rem;
     overflow-x: hidden;
     text-overflow: ellipsis;
   }
-
 }
 
 @media (max-width: 480px) {
-  .document-header{
+  .document-header {
     width: 75vw;
   }
 }

@@ -57,7 +57,8 @@
 }
 
 @media (max-width: 1000px) {
-  .input-dropdown, .input-dropdown-list{
+  .input-dropdown,
+  .input-dropdown-list {
     width: 14rem;
   }
 }
