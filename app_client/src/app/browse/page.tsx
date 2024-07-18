@@ -18,7 +18,7 @@ interface DocumentProps {
 }
 
 interface Exception {
-  detail: "string";
+  detail: 'string';
 }
 
 export default function BrowseFilePage() {
@@ -107,10 +107,11 @@ export default function BrowseFilePage() {
     const formData = new FormData();
     formData.append('uploaded_file', file as File);
     try {
-      const response: AxiosResponse<DocumentProps | Exception> = await axios.post(
-        'https://chartreuse-binghamite1373.my-vm.work/document/upload',
-        formData,
-      );
+      const response: AxiosResponse<DocumentProps | Exception> =
+        await axios.post(
+          'https://chartreuse-binghamite1373.my-vm.work/document/upload',
+          formData,
+        );
       if (response.status === 200) {
         const formData = new FormData();
         formData.append('img', imageSrc as string);
@@ -122,21 +123,20 @@ export default function BrowseFilePage() {
           const doc: DocumentProps = responseImg.data;
           router.push(`/document/${doc?.id}`);
         } else {
-
-        console.log("here1");
+          console.log('here1');
           setSubmitError('An error occurred while uploading the file');
         }
       } else if (response.status === 400) {
         setSubmitError((response.data as Exception).detail);
       } else {
-        console.log("here2");
+        console.log('here2');
         setSubmitError('An error occurred while uploading the file');
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.status === 400){
+        if (error.response?.status === 400) {
           setSubmitError((error.response?.data as Exception).detail);
-        } else{
+        } else {
           setSubmitError('An error occurred while uploading the file');
         }
       } else {

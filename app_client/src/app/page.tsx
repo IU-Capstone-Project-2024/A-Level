@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import styles from './page.module.css';
 import Illustration1 from '../images/illustration-green chairs-table.svg';
@@ -6,11 +5,9 @@ import Illustration2 from '../images/illustration-isometric-view-of-office-desk.
 import ReasonCard from '../components/ReasonCard/ReasonCard';
 import StepOdd from '../components/StepOdd/StepOdd';
 import StepEven from '../components/StepEven/StepEven';
-import { useTab } from '../context/TabContext';
-import Link from 'next/link';
+import ActionButton from '@/components/ActionButton/ActionButton';
 
 export default function HomePage() {
-  const { setTab } = useTab();
   return (
     <div className={styles.main}>
       <section id={styles.welcome_container}>
@@ -27,15 +24,7 @@ export default function HomePage() {
             src={Illustration1}
             alt="Sage table and chairs"
           />
-          <Link href="/browse">
-            <button
-              id={styles.try_it_now}
-              onClick={() => setTab('browse')}
-              className={styles.action_button}
-            >
-              Try It Now
-            </button>
-          </Link>
+          <ActionButton title="Try It Now" />
         </div>
       </section>
       <section id={styles.why_A4A}>
@@ -105,14 +94,7 @@ export default function HomePage() {
         <h1 className={styles.main_title}>
           Ready to Achieve an A in A-Level Economics?
         </h1>
-        <Link href="/browse">
-          <button
-            onClick={() => setTab('browse')}
-            className={styles.action_button}
-          >
-            Get Started
-          </button>
-        </Link>
+        <ActionButton title="Get Started" />
       </section>
     </div>
   );

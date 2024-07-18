@@ -1,0 +1,40 @@
+.action_button {
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  border-color: transparent;
+  font-size: 1.5rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-light-sage);
+  background-color: var(--color-violet);
+  cursor: pointer;
+}
+
+.action_button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 1200px) {
+  .action_button {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .action_button {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .action_button {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .action_button {
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+  }
+}

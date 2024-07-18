@@ -52,7 +52,6 @@ export default function DocumentViewPage() {
   const [edited, setEdited] = useState<boolean>(false);
 
   const [showChart, setShowChart] = useState<boolean>(false);
-  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     async function docFetch() {
