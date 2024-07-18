@@ -52,6 +52,7 @@ export default function DocumentViewPage() {
   const [edited, setEdited] = useState<boolean>(false);
 
   const [showChart, setShowChart] = useState<boolean>(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     async function docFetch() {
@@ -135,6 +136,7 @@ export default function DocumentViewPage() {
         onClick={() => {
           setShowChart(false);
           setEditModal(false);
+          setEditTask(null);
         }}
       >
         <div className={styles.question_container_heading}>
@@ -147,6 +149,7 @@ export default function DocumentViewPage() {
             onClick={() => {
               setShowChart(false);
               setEditModal(false);
+              setEditTask(null);
             }}
           />
         </div>

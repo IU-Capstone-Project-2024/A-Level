@@ -2,6 +2,7 @@
 import {
   Dispatch,
   FormEvent,
+  ForwardedRef,
   SetStateAction,
   useEffect,
   useState,
@@ -131,6 +132,10 @@ export default function SetQuestion({
         : 'Select an option',
     );
     setShowChart(false);
+    setErrorMark('');
+    setErrorText('');
+    setErrorTopic('');
+    setErrorYear('');
   }, [task, topics]);
 
   const options: Option[] = topics
