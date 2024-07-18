@@ -26,15 +26,12 @@ async def upload(uploaded_file: UploadFile):
         if inst is None:
             await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
         result = await document_service.create(uploaded_file.filename, uploaded_file.file.read())
+        return JSONResponse(content=result.model_dump(), media_type='application/json')
     except Exception as e:
         print(f"Exception: {e}")
         with open('utils-log.log', 'w') as myfile:
-            myfile.write(type(e))    
-
-            myfile.write(e.args)     
-
-            myfile.write(e)
-    return JSONResponse(content=result.model_dump(), media_type='application/json')
+            myfile.write(f'{e}')
+        raise HTTPException(status_code=400, detail="Bad request: Document parsing failed, ensure that uploaded document is an exam variant")   
 
 #GET 0.0.0.0:8000/document
 
@@ -51,7 +48,7 @@ async def get_extracts():
 async def read_all(offset: int=None, length: int=None):
     try:
         if (offset is None) ^ (length is None):
-            raise HTTPException(statuse_code=400, detail="Bad request: must specify either both offset and length or None of them")
+            raise HTTPException(status_code=400, detail="Bad request: must specify either both offset and length or None of them")
         else:
             response = await document_service.read_all()
             result = response if length is None else response[offset * length: (offset + 1) * length] 

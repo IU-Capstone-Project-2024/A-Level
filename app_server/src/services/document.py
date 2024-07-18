@@ -38,7 +38,14 @@ class DocumentService:
             file_.write(file)
 
         task_ids = []
-        parsed_tasks = self._parse_tasks_from_document(file)
+        try:
+            parsed_tasks = self._parse_tasks_from_document(file)
+        except Exception as e:
+            return None 
+        
+        if len(parsed_tasks) < 6:
+            return None
+            
         for parsed_task in parsed_tasks:
             task = await task_repository.create(parsed_task)
             if task.marks is not None:
