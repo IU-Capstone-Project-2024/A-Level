@@ -11,15 +11,15 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: {
     template: '%s | A4A',
-    default: 'A for A'
+    default: 'A for A',
   },
   description: 'Transform A-level Economics Revision',
   authors: [
-    {name: 'Alisher Kabardiyadi', url: 'https://github.com/justcgh9'},
-    {name: 'Kira Strelnikova'},
-    {name: 'Nursultan Abdullaev'},
-    {name: 'Ruslan Izmailov'},
-    {name: 'Ammar Meslmani'}
+    { name: 'Alisher Kabardiyadi', url: 'https://github.com/justcgh9' },
+    { name: 'Kira Strelnikova' },
+    { name: 'Nursultan Abdullaev' },
+    { name: 'Ruslan Izmailov' },
+    { name: 'Ammar Meslmani' },
   ],
   applicationName: 'A for A',
   referrer: 'origin-when-cross-origin',
@@ -37,23 +37,23 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "A for A",
-    description: "Transform A-level Economics Revision",
-    url: "https://a-level-pages.dev",
-    siteName: "A for A",
-    type: "website",
+    title: 'A for A',
+    description: 'Transform A-level Economics Revision',
+    url: 'https://a-level-pages.dev',
+    siteName: 'A for A',
+    type: 'website',
     images: [
       {
-        url: 'https://a-level-pages.dev/preview.png'
+        url: 'https://a-level-pages.dev/preview.png',
       },
-    ]
+    ],
   },
   appLinks: {
     web: {
       url: 'https://a-level.pages.dev',
-      should_fallback: true
-    }
-  }
+      should_fallback: true,
+    },
+  },
 };
 
 export default function RootLayout({
