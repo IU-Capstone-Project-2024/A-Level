@@ -26,6 +26,8 @@ async def upload(uploaded_file: UploadFile):
         if inst is None:
             await utils_repository.create_instance(UtilsCreate(years={}, marks={}))
         result = await document_service.create(uploaded_file.filename, uploaded_file.file.read())
+        if result is None or result.tasks is None or result.tasks == []:
+            raise HTTPException(status_code=400, detail="Bad request: Document parsing failed, ensure that uploaded document is an exam variant")   
         return JSONResponse(content=result.model_dump(), media_type='application/json')
     except Exception as e:
         print(f"Exception: {e}")
