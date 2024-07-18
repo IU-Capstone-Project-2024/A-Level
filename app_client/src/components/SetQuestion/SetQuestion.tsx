@@ -238,7 +238,6 @@ export default function SetQuestion({
               },
             ),
           };
-          console.log(predictData);
           setData(predictData);
           setShowChart(true);
         }
