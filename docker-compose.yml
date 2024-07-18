@@ -1,12 +1,12 @@
 services:
-  client:
-    build:
-      context: ./
-      dockerfile: ./app_client/Dockerfile
-    ports:
-      - 3000:3000
-    networks:
-      - a_level_exam
+#   client:
+#     build:
+#       context: ./
+#       dockerfile: ./app_client/Dockerfile
+#     ports:
+#       - 3000:3000
+#     networks:
+#       - a_level_exam
   db:
     image: mongo:7.0
     ports:
@@ -25,27 +25,7 @@ services:
     depends_on:
       - db
 
-  model_h_1:
-    build:
-      context: ./
-      dockerfile: app_model_l/Dockerfile
-    volumes:
-      - ./app_model_l/weights:/app_model/weights
-    ports:
-      - 8001:8000
-    networks:
-      - a_level_exam
-
-  model_h_2:
-    build:
-      context: ./
-      dockerfile: app_model_l/Dockerfile
-    volumes:
-      - ./app_model_l/weights:/app_model/weights
-    ports:
-      - 8003:8000
-    networks:
-      - a_level_exam
+  # model_h_1
 
   model_l:
     build:
