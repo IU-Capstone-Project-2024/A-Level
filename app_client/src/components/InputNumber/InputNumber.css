@@ -88,13 +88,12 @@ textarea:focus {
 }
 
 @media (max-width: 1000px) {
-  .input-number-container, .input-number-container-inner{
+  .input-number-container,
+  .input-number-container-inner {
     width: 14rem;
   }
 
-  .number-display{
+  .number-display {
     width: 10rem;
   }
 }
-
-

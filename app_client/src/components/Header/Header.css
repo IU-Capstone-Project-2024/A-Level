@@ -6,22 +6,19 @@
   justify-content: space-between;
 }
 
-
-
 .navigation {
   display: flex;
   gap: 2rem;
   padding: 0 2rem;
 }
 
-.aside-nav{
+.aside-nav {
   display: none;
 }
 
 #aside-menu {
   display: none;
 }
-
 
 @media (max-width: 1200px) {
   .header {
@@ -42,7 +39,6 @@
   .navigation {
     display: none;
   }
-
 
   #aside-menu {
     display: block;
@@ -68,7 +64,7 @@
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .aside-nav.open {
     right: 0;
   }
@@ -78,15 +74,14 @@
   .header {
     padding: 0 3rem;
   }
-  
+
   #logo {
     width: 18vw;
   }
 }
 
-
 @media (max-width: 480px) {
-  .header{
+  .header {
     padding: 0 2rem;
     height: 10%;
   }

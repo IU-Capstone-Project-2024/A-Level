@@ -51,6 +51,8 @@ export default function DocumentViewPage() {
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
 
+  const [showChart, setShowChart] = useState<boolean>(false);
+
   useEffect(() => {
     async function docFetch() {
       const responseDoc: AxiosResponse<DocumentResponse> = await axios.get(
@@ -131,6 +133,7 @@ export default function DocumentViewPage() {
       <ModalPortal
         open={editModal}
         onClick={() => {
+          setShowChart(false);
           setEditModal(false);
         }}
       >
@@ -142,11 +145,17 @@ export default function DocumentViewPage() {
             icon={Close}
             alt="Close"
             onClick={() => {
+              setShowChart(false);
               setEditModal(false);
             }}
           />
         </div>
-        <SetQuestion task={editTask} afterSave={handleEdit} />
+        <SetQuestion
+          task={editTask}
+          afterSave={handleEdit}
+          showChart={showChart}
+          setShowChart={setShowChart}
+        />
       </ModalPortal>
       <div className={styles.document}>
         <DocumentHeader

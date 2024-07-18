@@ -1,229 +1,226 @@
 .main_title {
-    font-family: 'Inter';
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--color-dark);
+  font-family: 'Inter';
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-dark);
 }
 
-.section_title_about{
-    font-family: 'Inter';
-    font-size: 2rem;
-    font-weight: 500;
-    max-width: 55rem;
-    text-align: center;
-    margin: 0;
-    color: var(--color-dark);
+.section_title_about {
+  font-family: 'Inter';
+  font-size: 2rem;
+  font-weight: 500;
+  max-width: 55rem;
+  text-align: center;
+  margin: 0;
+  color: var(--color-dark);
 }
 
 .about_us {
-    display: flex;
-    min-height: 80vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    gap: 4rem;
+  display: flex;
+  min-height: 80vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  gap: 4rem;
 }
 
-#our_goal{
-    display: flex;
-    flex-direction: row;
-    padding: 1rem 0;
-    gap: 3rem;
+#our_goal {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 0;
+  gap: 3rem;
 }
 
 .goal_container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0;
-    gap: 1rem;
-    width: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 1rem;
+  width: fit-content;
 }
 
 .section_paragraph {
-    font-family: 'Inter';
-    font-size: 1.5rem;
-    font-weight: 500;
-    max-width: 43.125rem;
-    line-height: 140%;
-    color: var(--color-dark);
-    margin: 0;
-    padding: 0;
+  font-family: 'Inter';
+  font-size: 1.5rem;
+  font-weight: 500;
+  max-width: 43.125rem;
+  line-height: 140%;
+  color: var(--color-dark);
+  margin: 0;
+  padding: 0;
 }
 
 .align_right {
-    text-align: end;
+  text-align: end;
 }
 
 .align_left {
-    text-align: start;
-    max-width: 33.125rem;
+  text-align: start;
+  max-width: 33.125rem;
 }
 
 #who_we_are {
-    width: 100vw;
-    background-color: var(--color-cambridge-blue);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
-    padding: 3rem 0;
+  width: 100vw;
+  background-color: var(--color-cambridge-blue);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 3rem 0;
 }
 .who_we_are_container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 1rem;
 }
 
 .violet {
-    color: var(--color-violet);
+  color: var(--color-violet);
 }
 
 #our_values {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem 0;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+  align-items: center;
+  justify-content: center;
 }
 
 #join_us {
-    background-color: var(--color-lavender);
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 0;
-    gap: 1rem;
+  background-color: var(--color-lavender);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  gap: 1rem;
 }
 
 .align_center {
-    text-align: center;
-    max-width: 60.4375rem;
+  text-align: center;
+  max-width: 60.4375rem;
 }
 
 .sage_dark {
-    color: var(--color-sage-dark);
+  color: var(--color-sage-dark);
 }
 
+@media (max-width: 1200px) {
+  .main_title {
+    font-size: 2.5rem;
+    text-align: center;
+    width: 80vw;
+  }
 
-@media (max-width: 1200px){
-    .main_title {
-        font-size: 2.5rem;
-        text-align: center;
-        width: 80vw;
-    }
-    
-    .section_title_about {
-        max-width: 70vw;
-        font-size: 1.75rem;
-    }
+  .section_title_about {
+    max-width: 70vw;
+    font-size: 1.75rem;
+  }
 
-    .section_paragraph {
-        max-width: 40vw;
-        font-size: 1.35rem;
-    }
+  .section_paragraph {
+    max-width: 40vw;
+    font-size: 1.35rem;
+  }
 
-    .align_center {
-        max-width: 70vw;
-    }
+  .align_center {
+    max-width: 70vw;
+  }
 
-    #ill3 {
-        width: 25vw;
-    }
+  #ill3 {
+    width: 25vw;
+  }
 
-    #ill4 {
-        width: 40vw;
-    }
+  #ill4 {
+    width: 40vw;
+  }
 }
 
-@media (max-width: 1000px){
-    .main_title {
-        font-size: 2.25rem;
-        font-weight: 600;
-    }
+@media (max-width: 1000px) {
+  .main_title {
+    font-size: 2.25rem;
+    font-weight: 600;
+  }
 
-    .about_us{
-        gap: 3rem;
-    }
+  .about_us {
+    gap: 3rem;
+  }
 
-    .section_title_about {
-        font-size: 1.75rem;
-    }
+  .section_title_about {
+    font-size: 1.75rem;
+  }
 
-    .section_paragraph{
-        font-size: 1.25rem;
-    }
+  .section_paragraph {
+    font-size: 1.25rem;
+  }
 
-    #ill3 {
-        width: 30vw;
-    }
+  #ill3 {
+    width: 30vw;
+  }
 }
 
-@media (max-width: 768px){
-    .main_title {
-        font-size: 2rem;
-    }
+@media (max-width: 768px) {
+  .main_title {
+    font-size: 2rem;
+  }
 
-    .section_title_about {
-        font-size: 1.75rem;
-        max-width: 80vw;
-    }
+  .section_title_about {
+    font-size: 1.75rem;
+    max-width: 80vw;
+  }
 
-    .align_right {
-        text-align: justify;
-        max-width: 80vw;
-    }
+  .align_right {
+    text-align: justify;
+    max-width: 80vw;
+  }
 
-    .align_left{
-        text-align: justify;
-    }
+  .align_left {
+    text-align: justify;
+  }
 
-    .align_center {
-        max-width: 80vw;
-    }
+  .align_center {
+    max-width: 80vw;
+  }
 
-    .about_us {
-        gap: 2rem;
-    }
+  .about_us {
+    gap: 2rem;
+  }
 
-    #ill3{
-        display: none;
-    }
+  #ill3 {
+    display: none;
+  }
 
-    .goal_container{
-        align-items: flex-start;
-    }
+  .goal_container {
+    align-items: flex-start;
+  }
 
-    #who_we_are {
-        flex-direction: column;
-        gap: 1rem;
-    }
+  #who_we_are {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-    .align_left {
-        max-width: 80vw;
-    }
+  .align_left {
+    max-width: 80vw;
+  }
 
-    #ill4{
-        width: 70vw;
-    }
+  #ill4 {
+    width: 70vw;
+  }
 }
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
+  .section_title_about {
+    font-size: 1.5rem;
+    max-width: 80vw;
+  }
 
-    .section_title_about {
-        font-size: 1.5rem;
-        max-width: 80vw;
-    }
-
-    .section_paragraph {
-        font-size: 1rem;
-    }
+  .section_paragraph {
+    font-size: 1rem;
+  }
 }
-

@@ -39,6 +39,7 @@ export default function QuestionViewPage() {
   const [editModal, setEditModal] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<TaskResponse | null>(null);
   const [edited, setEdited] = useState<boolean>(false);
+  const [showChart, setShowChart] = useState<boolean>(false);
 
   async function handleDeleteDocument(document_id: string) {
     const responseDelete: AxiosResponse<DocumentResponse> = await axios.delete(
@@ -80,6 +81,7 @@ export default function QuestionViewPage() {
         <ModalPortal
           open={editModal}
           onClick={() => {
+            setShowChart(false);
             setEditModal(false);
           }}
         >
@@ -91,11 +93,17 @@ export default function QuestionViewPage() {
               icon={Close}
               alt="Close"
               onClick={() => {
+                setShowChart(false);
                 setEditModal(false);
               }}
             />
           </div>
-          <SetQuestion task={editTask} afterSave={handleEdit} />
+          <SetQuestion
+            task={editTask}
+            afterSave={handleEdit}
+            showChart={showChart}
+            setShowChart={setShowChart}
+          />
         </ModalPortal>
         <div className={styles.question}>
           <div className={styles.question_container_heading}>

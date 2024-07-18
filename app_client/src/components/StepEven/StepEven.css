@@ -1,179 +1,177 @@
-.step-even{
-    width: 16.6875rem;
-    height: 40.25em;
-    padding-top: 11.115rem;
-    box-sizing: border-box;
+.step-even {
+  width: 16.6875rem;
+  height: 40.25em;
+  padding-top: 11.115rem;
+  box-sizing: border-box;
 }
 
 .step-figures-even {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .circle {
-    width: 8.75rem;
-    height: 8.75rem;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 8.75rem;
+  height: 8.75rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .index {
-    font-size: 2rem;
-    font-family: 'Inter';
-    font-weight: 500;
-    color: var(--color-dark);
+  font-size: 2rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-dark);
 }
 
 .line {
-    height: 6rem;
-    width: 0.1875rem;
-    border-radius: 1rem;
+  height: 6rem;
+  width: 0.1875rem;
+  border-radius: 1rem;
 }
 
 .rectangle-block {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .rectangle {
-    width: 16.5625rem;
-    height: 3.625rem;
+  width: 16.5625rem;
+  height: 3.625rem;
 }
 
 .triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 13px solid;
+}
+
+.triangle-down-even {
+  display: none;
+}
+
+.step-text {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 2rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-family: 'Inter';
+  font-weight: 600;
+  margin: 0;
+}
+
+.step-description {
+  font-size: 1.25rem;
+  font-family: 'Inter';
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0;
+  text-align: center;
+  width: 15rem;
+}
+
+@media (max-width: 1200px) {
+  .step-even {
+    width: 14rem;
+    height: 30rem;
+    padding-top: 6.675rem;
+  }
+
+  .circle {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .index {
+    font-size: 1.5rem;
+  }
+
+  .line {
+    height: 5rem;
+  }
+
+  .rectangle {
+    width: 14rem;
+    height: 3rem;
+  }
+
+  .step-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  .step-description {
+    font-size: 1.1rem;
+    width: 10rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .step-even {
+    width: 20rem;
+    height: fit-content;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .step-figures-even {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .circle {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .index {
+    font-size: 1.75rem;
+  }
+
+  .line {
+    height: 6rem;
+  }
+
+  .rectangle {
+    width: 17rem;
+    height: 4rem;
+  }
+
+  .step-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .step-description {
+    font-size: 1.25rem;
+    width: 14rem;
+  }
+
+  .triangle-down-even {
+    display: block;
     width: 0;
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-bottom: 13px solid;
-}
+    border-top: 13px solid;
+  }
 
-.triangle-down-even {
+  .triangle-up {
     display: none;
-}
-
-.step-text {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 1rem 2rem;
-    gap: 1rem;
-    align-items: center;
-}
-
-.step-title {
-    font-size: 1.5rem;
-    font-family: 'Inter';
-    font-weight: 600;
-    margin: 0;
-}
-
-.step-description {
-    font-size: 1.25rem;
-    font-family: 'Inter';
-    font-weight: 500;
-    color: var(--color-dark);
-    margin: 0;
-    text-align: center;
-    width: 15rem;
-}
-
-
-@media (max-width: 1200px){
-    .step-even{
-        width: 14rem;
-        height: 30rem;
-        padding-top: 6.675rem;
-    }
-    
-    .circle {
-        width: 6rem;
-        height: 6rem;
-    }
-    
-    .index {
-        font-size: 1.5rem;
-    }
-    
-    .line {
-        height: 5rem;
-    }
-    
-    .rectangle {
-        width: 14rem;
-        height: 3rem;
-    }
-    
-    .step-title {
-        font-size: 1.3rem;
-        font-weight: 500;
-    }
-    
-    .step-description {
-        font-size: 1.1rem;
-        width: 10rem;
-    }
-}
-
-
-@media (max-width: 768px){
-    .step-even{
-        width: 20rem;
-        height: fit-content;
-        padding-top: 0;
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .step-figures-even {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-    
-    .circle {
-        width: 9rem;
-        height: 9rem;
-    }
-    
-    .index {
-        font-size: 1.75rem;
-    }
-    
-    .line {
-        height: 6rem;
-    }
-    
-    .rectangle {
-        width: 17rem;
-        height: 4rem;
-    }
-    
-    .step-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-    
-    .step-description {
-        font-size: 1.25rem;
-        width: 14rem;
-    }
-
-    .triangle-down-even {
-        display: block;
-        width: 0;
-        height: 0;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-        border-top: 13px solid;
-    }
-
-    .triangle-up{
-        display: none;
-    }
+  }
 }

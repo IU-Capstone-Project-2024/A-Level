@@ -31,11 +31,17 @@ const TopicsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       );
     if (topicTransformResp.status === 200) {
       setTopics(topicTransformResp.data);
+      localStorage.setItem('topics', JSON.stringify(topicTransformResp.data));
     }
   };
 
   useEffect(() => {
-    fetchTopics();
+    const storedTopics = localStorage.getItem('topics');
+    if (storedTopics) {
+      setTopics(JSON.parse(storedTopics));
+    } else {
+      fetchTopics();
+    }
   }, []);
 
   return (
