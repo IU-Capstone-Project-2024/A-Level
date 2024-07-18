@@ -6,6 +6,15 @@ import ReasonCard from '../components/ReasonCard/ReasonCard';
 import StepOdd from '../components/StepOdd/StepOdd';
 import StepEven from '../components/StepEven/StepEven';
 import ActionButton from '@/components/ActionButton/ActionButton';
+import { Metadata } from 'next';
+
+export function generateMetadata(): Metadata {
+  return {
+    title: 'A for A',
+    description:
+      'A for A enables interactive learning, efficient preparation, and enhanced exam performance for students who struggle upon A-level exam',
+  };
+}
 
 export default function HomePage() {
   return (
