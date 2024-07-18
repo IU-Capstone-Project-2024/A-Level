@@ -135,6 +135,7 @@ export default function DocumentViewPage() {
         onClick={() => {
           setShowChart(false);
           setEditModal(false);
+          setEditTask(null);
         }}
       >
         <div className={styles.question_container_heading}>
@@ -147,6 +148,7 @@ export default function DocumentViewPage() {
             onClick={() => {
               setShowChart(false);
               setEditModal(false);
+              setEditTask(null);
             }}
           />
         </div>

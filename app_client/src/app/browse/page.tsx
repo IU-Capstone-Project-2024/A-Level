@@ -17,6 +17,10 @@ interface DocumentProps {
   img: string | null;
 }
 
+interface Exception {
+  detail: 'string';
+}
+
 export default function BrowseFilePage() {
   const [browsed, setBrowsed] = useState(false);
   const [file, setFile] = useState<File>();
@@ -103,29 +107,38 @@ export default function BrowseFilePage() {
     const formData = new FormData();
     formData.append('uploaded_file', file as File);
     try {
-      const response: AxiosResponse<DocumentProps> = await axios.post(
-        'https://chartreuse-binghamite1373.my-vm.work/document/upload',
-        formData,
-      );
+      const response: AxiosResponse<DocumentProps | Exception> =
+        await axios.post(
+          'https://chartreuse-binghamite1373.my-vm.work/document/upload',
+          formData,
+        );
       if (response.status === 200) {
         const formData = new FormData();
         formData.append('img', imageSrc as string);
         const responseImg: AxiosResponse<DocumentProps> = await axios.post(
-          `https://chartreuse-binghamite1373.my-vm.work/document/${response.data.id}/img`,
+          `https://chartreuse-binghamite1373.my-vm.work/document/${(response.data as DocumentProps).id}/img`,
           formData,
         );
         if (responseImg.status === 200) {
           const doc: DocumentProps = responseImg.data;
           router.push(`/document/${doc?.id}`);
         } else {
+          console.log('here1');
           setSubmitError('An error occurred while uploading the file');
         }
+      } else if (response.status === 400) {
+        setSubmitError((response.data as Exception).detail);
       } else {
+        console.log('here2');
         setSubmitError('An error occurred while uploading the file');
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setSubmitError('An error occurred while uploading the file');
+        if (error.response?.status === 400) {
+          setSubmitError((error.response?.data as Exception).detail);
+        } else {
+          setSubmitError('An error occurred while uploading the file');
+        }
       } else {
         setSubmitError('An unexpected error occurred');
       }

@@ -39,22 +39,6 @@
   padding: 0;
 }
 
-.action_button {
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  border-color: transparent;
-  font-size: 1.5rem;
-  font-family: 'Inter';
-  font-weight: 500;
-  color: var(--color-light-sage);
-  background-color: var(--color-violet);
-  cursor: pointer;
-}
-
-.action_button:hover {
-  opacity: 0.8;
-}
-
 #why_A4A {
   background-color: var(--color-lavender);
   display: flex;
