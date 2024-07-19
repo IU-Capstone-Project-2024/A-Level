@@ -1,12 +1,14 @@
 'use client';
 import './Header.css';
-import logo from '../../images/logo.svg';
 import MenuItem from '../MenuItem/MenuItem';
 import { useEffect, useState } from 'react';
 import IconButton from '../IconButton/IconButton';
+// prettier-ignore-start
 import Menu from '../../images/lucide_menu.svg';
-import OutsideClickHandler from 'react-outside-click-handler';
+import logo from '../../images/logo.svg';
 import Close from '../../images/ic_round-close.svg';
+// prettier-ignore-end
+import OutsideClickHandler from 'react-outside-click-handler';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTab } from '../../context/TabContext';

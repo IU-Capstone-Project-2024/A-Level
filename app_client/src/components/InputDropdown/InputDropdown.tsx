@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import './InputDropdown.css';
+// prettier-ignore-start
 import DropdownArrow from '../../images/down-violet.svg';
 import DropdownArrowOpen from '../../images/up-violet.svg';
+// prettier-ignore-end
 import Image from 'next/image';
 
 interface Option {

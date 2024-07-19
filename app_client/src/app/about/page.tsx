@@ -1,7 +1,9 @@
 'use client';
 import styles from './about.module.css';
+// prettier-ignore-start
 import Illustration3 from '../../images/illustration-calendar-reminders-for-time-management.svg';
 import Illustration4 from '../../images/illustration-colleagues-working.svg';
+// prettier-ignore-end
 import Value from '../../components/Value/Value';
 import Image from 'next/image';
 

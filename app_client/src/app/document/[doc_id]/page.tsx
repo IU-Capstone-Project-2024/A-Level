@@ -9,6 +9,7 @@ import { useTab } from '../../../context/TabContext';
 import ModalPortal from '../../../components/ModalPortal/ModalPortal';
 import SetQuestion from '../../../components/SetQuestion/SetQuestion';
 import IconButton from '../../../components/IconButton/IconButton';
+// prettier-ignore
 import Close from '../../../images/ic_round-close.svg';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTopics } from '@/context/TopicContext';

@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import styles from './browse.module.css';
 import axios, { AxiosResponse } from 'axios';
+// prettier-ignore-start
 import PDF from '../../images/PDF.svg';
 import CloudArrowUp from '../../images/CloudArrowUp.svg';
 import done from '../../images/done.svg';
+// prettier-ignore-end
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { usePDFJS } from '@/context/usePDFJS';

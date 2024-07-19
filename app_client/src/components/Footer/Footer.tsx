@@ -1,10 +1,12 @@
 'use client';
 import ContactLink from '../ContactLink/ContactLink';
 import './Footer.css';
+// prettier-ignore-start
 import Github from '../../images/mdi_github.svg';
 import Telegram from '../../images/ic_baseline-telegram.svg';
 import Email from '../../images/ic_twotone-alternate-email.svg';
 import logo from '../../images/logoLight.svg';
+// prettier-ignore-end
 import { useTab } from '../../context/TabContext';
 import Link from 'next/link';
 import Image from 'next/image';

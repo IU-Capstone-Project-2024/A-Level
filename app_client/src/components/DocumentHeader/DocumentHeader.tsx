@@ -1,4 +1,5 @@
 import IconButton from '../IconButton/IconButton';
+// prettier-ignore
 import DeleteIcon from '../../images/delete.svg';
 import './DocumentHeader.css';
 import { Dispatch, SetStateAction } from 'react';

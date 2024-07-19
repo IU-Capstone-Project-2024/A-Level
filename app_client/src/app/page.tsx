@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+// prettier-ignore-start
 import Illustration1 from '../images/illustration-green chairs-table.svg';
 import Illustration2 from '../images/illustration-isometric-view-of-office-desk.svg';
+// prettier-ignore-end
 import ReasonCard from '../components/ReasonCard/ReasonCard';
 import StepOdd from '../components/StepOdd/StepOdd';
 import StepEven from '../components/StepEven/StepEven';
