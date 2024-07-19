@@ -20,6 +20,13 @@ jobs:
       - name: Update the environment
         run: echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
 
+      - name: Run Linting and Formatting
+        run: |
+          cd app_client
+          npm run lint -- --fix
+          npm run format
+          npm run check
+
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
