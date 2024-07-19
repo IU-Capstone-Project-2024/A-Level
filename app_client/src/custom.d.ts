@@ -1,4 +1,6 @@
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+
 declare module '*.svg' {
-  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  const content: string | StaticImport;
   export default content;
 }
