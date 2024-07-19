@@ -1,5 +1,4 @@
 .idea
-.vscode
 
 /app_client_next
 
@@ -91,8 +90,7 @@ checkpoints/
 
 # util files for test organization
 notebooks/utils/bytes.txt
-
-.vscode
+node_modules
 .vscode/react-stateless-component.code-snippets
 
 app_server/test/files/example.py
