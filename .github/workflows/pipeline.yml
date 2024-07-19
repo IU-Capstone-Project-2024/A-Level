@@ -23,8 +23,11 @@ jobs:
       - name: Run Linting and Formatting
         run: |
           cd app_client
+          echo 'works until lint'
           npm run lint -- --fix
+          echo 'works until format'
           npm run format
+          echo 'works until check'
           npm run check
 
       - name: Run docker-compose
