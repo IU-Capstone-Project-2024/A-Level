@@ -23,6 +23,7 @@ jobs:
       - name: Run Linting and Formatting
         run: |
           cd app_client
+          npm install
           echo 'works until lint'
           npm run lint -- --fix
           echo 'works until format'
@@ -69,14 +70,4 @@ jobs:
             docker-compose up -d
           EOF
           
-  update-fork:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: tgymnich/fork-sync@v2.0
-        with:
-          token: ${{ secrets.PAT_TOKEN}}
-          owner: justcgh9
-          base: main
-          head: main
 
