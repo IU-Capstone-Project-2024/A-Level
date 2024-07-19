@@ -23,6 +23,7 @@ jobs:
       - name: Run Linting and Formatting
         run: |
           cd app_client
+          npm install
           npm run lint -- --fix
           npm run format
           npm run check
@@ -66,14 +67,4 @@ jobs:
             docker-compose up -d
           EOF
           
-  update-fork:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: tgymnich/fork-sync@v2.0
-        with:
-          token: ${{ secrets.PAT_TOKEN}}
-          owner: justcgh9
-          base: main
-          head: main
 
