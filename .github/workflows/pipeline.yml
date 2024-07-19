@@ -24,12 +24,8 @@ jobs:
         run: |
           cd app_client
           npm install
-          echo 'works until lint'
           npm run lint -- --fix
-          echo 'works until format'
           npm run format
-          echo 'works until check'
-          npm run check
 
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
