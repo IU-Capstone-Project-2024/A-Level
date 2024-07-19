@@ -7,6 +7,7 @@ import ModalPortal from '../../../components/ModalPortal/ModalPortal';
 import SetQuestion from '../../../components/SetQuestion/SetQuestion';
 import { useTopics } from '../../../context/TopicContext';
 import IconButton from '../../../components/IconButton/IconButton';
+// prettier-ignore
 import Close from '../../../images/ic_round-close.svg';
 import { usePathname, useRouter } from 'next/navigation';
 

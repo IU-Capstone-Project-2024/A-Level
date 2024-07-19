@@ -1,10 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import './YearPicker.css';
+// prettier-ignore-start
 import LeftArrowIcon from '../../images/left-arrow.svg';
 import RightArrowIcon from '../../images/right-arrow.svg';
 import DropdownArrow from '../../images/down-violet.svg';
 import DropdownArrowOpen from '../../images/up-violet.svg';
+// prettier-ignore-end
 import Image from 'next/image';
 
 interface YearPickerProps {

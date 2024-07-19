@@ -1,9 +1,11 @@
 'use client';
 import IconButton from '../IconButton/IconButton';
 import './QuestionView.css';
+// prettier-ignore-start
 import EditIcon from '../../images/edit.svg';
 import DeleteIcon from '../../images/delete.svg';
 import LinkIcon from '../../images/iconamoon_link.svg';
+// prettier-ignore-end
 import { useEffect, useState, useRef } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Modal from '../Modal/Modal';

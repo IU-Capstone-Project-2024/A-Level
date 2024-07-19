@@ -1,6 +1,8 @@
 'use client';
+// prettier-ignore-start
 import selectedOptionIcon from '../../images/selectedOption.svg';
 import dropArrowIcon from '../../images/dropArrowIcon.svg';
+// prettier-ignore-end
 import './DropdownQuestionsMenu.css';
 import { useEffect, useRef, useState } from 'react';
 import { Option } from '../Option';

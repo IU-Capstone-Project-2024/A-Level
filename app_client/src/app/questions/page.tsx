@@ -3,10 +3,12 @@ import styles from './questions.module.css';
 import axios from 'axios';
 import Dropdown from '../../components/DropdownQuestionsMenu/DropdownQuestionsMenu';
 import Table from '../../components/QuestionsTable/QuestionsTable';
+// prettier-ignore-start
 import markIcon from '../../images/markIcon.svg';
 import yearIcon from '../../images/yearIcon.svg';
 import topicIcon from '../../images/topicIcon.svg';
 import cancelIcon from '../../images/cancelOptionIcon.svg';
+// prettier-ignore-end
 import { useState, useEffect } from 'react';
 import Pagination from '../../components/PaginationUploaded/PaginationUploaded';
 import { useTopics } from '../../context/TopicContext';

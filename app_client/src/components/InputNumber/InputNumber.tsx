@@ -1,7 +1,9 @@
 import React from 'react';
 import './InputNumber.css';
+// prettier-ignore-start
 import Plus from '../../images/plus.svg';
 import Minus from '../../images/minus.svg';
+// prettier-ignore-end
 import Image from 'next/image';
 
 interface InputNumberProps {
