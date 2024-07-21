@@ -3,6 +3,7 @@ import aiohttp
 from beanie import PydanticObjectId
 from fastapi import APIRouter, HTTPException, Form
 from fastapi.responses import JSONResponse
+from aiohttp.client_exceptions import ClientConnectionError
 
 from src.storages.mongo.models.task import Task, TaskCreate, TaskUpdate, Topic
 from src.storages.mongo.repositories.task import task_repository
@@ -103,19 +104,29 @@ async def predict(task_id: PydanticObjectId):
     if task is None:
         return HTTPException(status_code=404, detail=f"Task {task_id} does not exists")
     
+    try:
+        availables = await utilsService.fetch_ips(MODEL_IPS)
+        for index, model in enumerate(availables):
+            if model['is_ready']:
+                data = {"request": task.content}
+                url = f"http://{MODEL_IPS[index]}/predict"
+                async with aiohttp.ClientSession(trust_env=True) as session:
+                    async with session.post(url, json=data) as response:
+                        result = await response.json()
 
-    availables = await utilsService.fetch_ips(MODEL_IPS)
-    for index, model in enumerate(availables):
-        if model['is_ready']:
-            data = {"request": task.content}
-            url = f"http://{MODEL_IPS[index]}/predict"
-            async with aiohttp.ClientSession(trust_env=True) as session:
-                async with session.post(url, json=data) as response:
-                    result = await response.json()
+                        task.topic = Topic(result['topic_id'])
+                        await task_repository.update(task.id, task)
+                        return JSONResponse(content=result, media_type='application/json')
+    except ClientConnectionError as e:
+        data = {"request": task.content}
+        url = f"http://{MODEL_IPS[-1]}/predict"
+        async with aiohttp.ClientSession(trust_env=True) as session:
+            async with session.post(url, json=data) as response:
+                result = await response.json()
+                task.topic = Topic(result['topic_id'])
+                await task_repository.update(task.id, task)
+                return JSONResponse(content=result, media_type='application/json')
 
-                    task.topic = Topic(result['topic_id'])
-                    await task_repository.update(task.id, task)
-                    return JSONResponse(content=result, media_type='application/json')
                 
                 
         
