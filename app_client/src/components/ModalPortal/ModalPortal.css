@@ -3,7 +3,12 @@
   border: 1px solid var(--color-sage);
   border-radius: 0.5rem;
   padding: 1rem;
-  overflow: visible;
+  overflow: scroll;
+  overflow-x: visible;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
 }
 
 .modal-back {
