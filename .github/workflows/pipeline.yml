@@ -24,8 +24,7 @@ jobs:
         run: |
           cd app_client
           npm install
-          npm run lint -- --fix
-          npm run format
+          npm run lint
 
       - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
@@ -35,7 +34,6 @@ jobs:
       - name: Execute tests in the running services
         run: |
           docker exec a-level-server-1 pytest
-          # TODO: frontend testing
 
   deploy:
     runs-on: ubuntu-latest 
@@ -62,6 +60,7 @@ jobs:
               cd /root/A-level
             fi
             echo "MODEL_IPS=${{ secrets.MODEL_IPS }}" > .env
+            docker-compose down
             docker-compose build
             docker-compose up -d
           EOF
